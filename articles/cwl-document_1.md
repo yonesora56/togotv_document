@@ -51,7 +51,7 @@ https://www.nature.com/articles/d41586-019-02619-z
 
 &nbsp;
 
-:::success
+:::message
 ### なぜCWLを使うのか?
 
 では次に､数多くあるワークフロー言語の中でも､なぜCWLなのか?ということについてここで説明します｡
@@ -62,16 +62,21 @@ CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張
 
 #### 参考：[CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 
+https://www.commonwl.org/tools/
+
 #### 2\.自分の実行したい環境に合わせて最適なものが選択できる
 
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
 #### 参考：[CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
+
+https://www.commonwl.org/implementations/
+
 :::
 
 実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ddbj/human-reseq｣が挙げられます｡
 
-#### 参考：[ddbj/human-reseq](https://github.com/ddbj/human-reseq)
+https://github.com/ddbj/human-reseq
 
 [<img src="https://hackmd.io/_uploads/B1kuG7zla.png" width="500" height="200">](https://github.com/ddbj/human-reseq) 
 
