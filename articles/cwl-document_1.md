@@ -150,7 +150,7 @@ https://code.visualstudio.com/download
 
 &nbsp;
 
-:::success
+:::message
 この｢Dev Containers｣だけでなく､他の拡張機能を含んだ拡張機能パック｢[Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)｣をインストールする方法もあるようです｡
 
 ![](https://t907947.p.clickup-attachments.com/t907947/c73afc83-d397-4826-b62c-de24f1d30ea1/image.png)
@@ -172,11 +172,10 @@ Dev containersに関する情報は以下の記事が参考になります｡
 
 &nbsp;
  
-:::success
+:::message
 なお､自分は日本語で表示されるように拡張機能である｢[Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)｣もインストールしています｡ 
 
-![](https://t907947.p.clickup-attachments.com/t907947/02f51be2-60bf-4e65-8518-2e9217d776d5/image.png)
-:::
+https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja
 
 この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など) ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
 
@@ -200,7 +199,7 @@ Dev containersに関する情報は以下の記事が参考になります｡
 
 &nbsp;
 
-:::success
+:::message
 ### Docker Desktop 以外の手段
 
 Docker desktopを使用する以外にも代替手段があります｡ こちらは国内版バイオハッカソン23.9にて丹生さんより情報提供いただきました｡
@@ -239,7 +238,7 @@ __なお､GitHubのアカウントを持っていない場合はこのステッ
 
 次に `git clone` を行います(GitHubのアカウントがない場合は､tom-tan/cwl-for-remote-container-templateを､アカウントがある場合は､your_account/cwl-for-remote-container-template ということになります)｡
 
-```bash=
+```bash
 # アカウントが無い場合
 git clone https://github.com/tom-tan/cwl-for-remote-container-template 
 
@@ -314,14 +313,14 @@ Create New Codespaceをクリックすると
 そうすると､自動的に環境が構築されていきます｡
 今回はすでに環境を構築しているものを使用します｡なお､Codespaceで作成した環境は､自分のGitHubのページ(Your Codespaces)から確認できます｡最初の環境の立ち上げには同様に5分程度時間がかかります｡
 
-:::warning
+:::message alert
 1ヶ月で使用できる時間には限りがあるようです｡
 使用時間が全体の90%を超えると､警告のメールが届きました｡
 :::
 
 &nbsp;
 
-:::danger
+:::message alert
 __修正1：Use this templateしなくてもcodespacesを開く例をサラッと説明__
 __修正2：山本さんが送ってくれたスクショとかも貼る(ユーザー名隠す)__
 :::
@@ -341,7 +340,7 @@ __修正2：山本さんが送ってくれたスクショとかも貼る(ユー�
 
 実行するのは､`grep one mock.txt > grep_out.txt`です｡ 
 
-```bash=
+```bash
 grep one mock.txt > grep_out.txt
 ```
 
@@ -352,14 +351,11 @@ grep one mock.txt > grep_out.txt
 CWLファイルは記述する内容を YAMLかJSON の形式で記述し、｢.cwl ｣という拡張子でファイルに保存します。
 実行時にこの CWL ファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡まずはじめにスクリプトの最初の処理である `grep one mock.txt > grepout.txt` の処理をCWLファイルとして記述していきます｡
 
-:::danger
-
+:::message alert
 __追記：https://view.commonwl.org/workflows?search=__
 :::
 
 &nbsp;
-
-## zatsu-cwl-generatorを使おう
 
 今回は､コマンドラインツールであるzatsu-cwl-genratorを使ってファイルを __出力__ してみます｡
 
@@ -370,7 +366,7 @@ __追記：https://view.commonwl.org/workflows?search=__
 まず､ターミナルを開いて､zatsu-cwl-generatorと入力します｡
 次に､cwlファイルとして書きたい処理を '' で囲んで記入します｡ 今回は`grep`コマンドの処理を例に実行してみます｡
 
-```bash=
+```bash
 zatsu-cwl-generator 'grep one ./data/mock.txt > grepout.txt'
 ```
 
@@ -378,7 +374,7 @@ zatsu-cwl-generator 'grep one ./data/mock.txt > grepout.txt'
 
 実行すると､標準出力に以下のようにcwlファイルが出力されます｡
 
-```yaml=
+```yaml
 #!/usr/bin/env cwl-runner
 # Generated from: grep one mock.txt > grepout.txt
 class: CommandLineTool
@@ -406,7 +402,6 @@ outputs:
   - id: out
     type: stdout
 stdout: grepout.txt
-
 ```
 
 この出力される形式はYAML形式です｡
@@ -420,7 +415,7 @@ shebang以下には､今回CWLを実行するためのフィールドとして�
 zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > ./zatsu_generator/grep_zatsu.cwl
 ```
 
-:::success
+:::message
 ### cwlversionはどれを使う?
 
 出力されるフィールドで`cwlVersion` があります｡
@@ -440,13 +435,13 @@ zatsu-cwl-genratorで出力されたファイルに対し､実際の実行前�
 `cwltool –-validate` コマンドを実行すると､記述したCWLファイルを評価することができます｡ 実際にやってみましょう｡
 以下のようにコマンドを書きます｡
 
-```bash=
+```bash
 cwltool --validate grep_zatsu.cwl
 ```
 
 すると以下のように出力されました｡
 
-```bash=
+```bash
 INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
 ./zatsu_generator/grep_zatsu.cwl is valid CWL.
@@ -461,13 +456,13 @@ INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_s
 
 ファイルの記載が正しいことを確認できたので､次に実際に`cwltool`というコマンドで試してみます(以降の操作はzatsu_generatorディレクトリでの作業です)｡ 
 
-```bash=
+```bash
 cwltool grep_zatsu.cwl 
 ```
 
 実行してみたのが以下になります｡
 
-```bash=
+```bash
 INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
 INFO [job grep_zatsu.cwl] /tmp/zlsch9g1$ grep \
@@ -494,7 +489,6 @@ INFO [job grep_zatsu.cwl] completed success
         "path": "/workspaces/togotv_shooting/zatsu_generator/grepout.txt"
     }
 }INFO Final process status is success
-
 ```
 
 無事ワークフローが成功し､ `grep_out.txt` が出力されました｡
@@ -502,12 +496,12 @@ INFO [job grep_zatsu.cwl] completed success
  
 &nbsp;
 
-:::success
+:::message
 ### エラーが発生した時
 
 もしこの実行でエラーが発生した場合､ `--debug` オプションを追加してより詳しいエラーの結果を見ることができます｡
 
-```bash=
+```bash
 cwltool --debug grep.cwl 
 ```
 :::
@@ -521,7 +515,7 @@ cwltool --debug grep.cwl
 `cwltool grep_zatsu.cwl --help`のように､cwlファイルの次に`--help`オプションをつけると､その __cwlファイル自体のヘルプを見ることができます__｡
 どういうことか実際にやってみましょう｡
 
-```bash=
+```bash
 cwltool grep_zatsu.cwl --help
 INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
@@ -568,11 +562,11 @@ outputs:
   - id: out
     type: stdout
 stdout: grepout.txt
-
 ```
 
 再度実行すると以下のようになります｡
-```bash=
+
+```bash
 cwltool grep_zatsu.cwl --help
 INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
@@ -590,11 +584,7 @@ options:
 
 参考：[user_guide 2.16 best-practices](https://www.commonwl.org/user_guide/topics/best-practices.html)
 
-:::
-
 &nbsp;
-
-:::warning
 
 ## (発展編) 自分で修正する
 
@@ -602,7 +592,7 @@ options:
 しかし､このファイルを修正することでよりよい記述をすることができます｡
 作成したgrep処理のファイルには､以下の部分に赤線が示されます｡
 
-```yaml=
+```yaml
 inputs:
   - id: one
     type: Any #赤線で示された部分
@@ -612,7 +602,7 @@ inputs:
 エラーメッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ています｡
 ここでは文字列を入力するので､以下のように修正できます｡
 
-```yaml=
+```yaml
 inputs:
   - id: one
     type: string #stringに変更
@@ -621,7 +611,7 @@ inputs:
 
 そうするとエラーメッセージが消え､`ー-help`オプションを使うと表示されるようになります｡
 
-```bash=
+```bash
 cwltool grep_zatsu.cwl --help
 INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
@@ -641,9 +631,4 @@ options:
 
 :::
 
-:::info
-
 ## 参考リンク集
-
-- 
-:::
