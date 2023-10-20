@@ -178,6 +178,7 @@ Dev containersに関する情報は以下の記事が参考になります｡
 https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja
 
 この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など) ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
+:::
 
 &nbsp;
 
@@ -189,7 +190,7 @@ https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pa
 
 #### [Docker公式サイト](https://www.docker.com/products/docker-desktop/)
 
-<img src="https://hackmd.io/_uploads/Bkw-cXMla.png" width="500" height="">
+https://www.docker.com/products/docker-desktop
 
 &nbsp;
 
@@ -199,17 +200,13 @@ https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pa
 
 &nbsp;
 
-:::message
 ### Docker Desktop 以外の手段
-
 Docker desktopを使用する以外にも代替手段があります｡ こちらは国内版バイオハッカソン23.9にて丹生さんより情報提供いただきました｡
 
 1. lima + docker (macOS)
 2. Rancher desktop ([https://rancherdesktop.io/](https://rancherdesktop.io/)) (macOS, moby): ただしRemote containerだと安定しないとのことです
 3. orbstack ([https://orbstack.dev/](https://orbstack.dev/)) (macOS)
 4. Docker on WSL (Windows)
-
-:::
 
 &nbsp;
 
@@ -223,9 +220,9 @@ Docker desktopを使用する以外にも代替手段があります｡ こち�
 
 &nbsp;
 
-#### [tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)
+[tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)
 
-<img src="https://hackmd.io/_uploads/Hy8-sXGgT.png" width="550" height="">
+https://github.com/tom-tan/cwl-for-remote-container-template
 
 &nbsp;
 
@@ -239,7 +236,7 @@ __なお､GitHubのアカウントを持っていない場合はこのステッ
 次に `git clone` を行います(GitHubのアカウントがない場合は､tom-tan/cwl-for-remote-container-templateを､アカウントがある場合は､your_account/cwl-for-remote-container-template ということになります)｡
 
 ```bash
-# アカウントが無い場合
+#アカウントが無い場合
 git clone https://github.com/tom-tan/cwl-for-remote-container-template 
 
 #アカウントがある場合
