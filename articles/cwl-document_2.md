@@ -1,19 +1,19 @@
 ---
 title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)"
 emoji: "📑"
-type: "idea" # tech: 技術記事 / idea: アイデア
-topics: ["workflow language"]
+type: "tech" # tech: 技術記事 / idea: アイデア
+topics: ["common workflow language", "bioinformatics", "CWL"]
 published: false
 ---
 
 &nbsp;
 
-:::success
+:::message
 今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
-__[togotv_cwl_for_remote_container](https://github.com/yonezawa-sora/togotv_cwl_for_remote_container)__
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 :::
 
-:::danger
+:::message alert
 この赤いフィールドは後ほど修正する点をメモしています
 :::
 
