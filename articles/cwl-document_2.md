@@ -8,7 +8,7 @@ published: false
 
 :::message
 今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/master/
 :::
 
 :::message alert
@@ -19,7 +19,7 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 
 # はじめに
 
-:::info
+:::message
 __本記事の対象となる方__
 
 ■ 環境構築ができたので､もっとCWLをガシガシ書いていきたい人
