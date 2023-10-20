@@ -88,11 +88,11 @@ https://github.com/ddbj/human-reseq
 このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
 CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
 
-#### 参考：[CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
+@[CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
 
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
-#### 参考：[Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
+@[Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
 
 https://oumpy.github.io/blog/2018/12/cwl.html
 
