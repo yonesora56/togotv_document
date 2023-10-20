@@ -45,13 +45,9 @@ https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-H
 
 https://www.nature.com/articles/d41586-019-02619-z
 
-
-&nbsp;
-
 現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントと統合TVの動画では**Common Workflow Language (CWL)** について環境構築と実例をご紹介します。
 
 &nbsp;
-
 
 ## なぜCWLを使うのか?
 
@@ -65,11 +61,9 @@ CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張
 
 https://www.commonwl.org/tools/
 
-
 ### 2\.自分の実行したい環境に合わせて最適なものが選択できる
 
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
-
 
 [CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 
@@ -99,7 +93,7 @@ CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやc
 
 &nbsp;
 
-:::success
+:::message
 なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの以下の記事がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
 
 [指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
@@ -109,7 +103,7 @@ CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやc
 
 &nbsp;
 
-# 準備しよう
+# 環境構築編
 
 ## 【STEP1-1】VScodeのインストール
 
@@ -121,13 +115,14 @@ CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやc
 
 #### 参考： [Download Visual Studio Code](https://code.visualstudio.com/download)
 
-<img src="https://hackmd.io/_uploads/H1FCNmGeT.png" width="500" height="">
+https://code.visualstudio.com/download
 
 この記事では､macOSの｢Apple silicon｣をクリックしてインストールして執筆しています｡
 
 &nbsp;
 
 ## 【STEP1-2】拡張機能を導入する
+
 環境構築の準備については､動画で見てもらったほうがわかりやすいかと思いますので､ここでは補足的な情報を主に記述しています｡
 
 先程述べたように､VSCodeには豊富な拡張機能が存在します｡ サイドバー(ここでは左)の拡張機能のボタン(四角が4つあつまっている部分)を押すと､様々な拡張機能がMarketplaceで検索できます｡
