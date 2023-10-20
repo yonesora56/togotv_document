@@ -8,14 +8,12 @@ published: false
 
 :::message
 今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/main/
+[togotv_cwl_for_remote_container](https://github.com/yonezawa-sora/togotv_cwl_for_remote_container)
 :::
 
 :::message alert
 この赤いフィールドは後ほど修正する点をメモしています
 :::
-
-&nbsp;
 
 # はじめに
 
@@ -29,15 +27,11 @@ __本記事の対象となる方__
 :::
 
 以前の記事では､環境構築やzatsu-cwl-generatorの使い方をご紹介しました｡
-この記事では､以下の2点をご紹介します｡
-__(1) zatsu-cwl-generatorで生成されたcwlファイルを修正ししながらワークフローを実際に記述する__
-__(2) バイオインフォマティクスの解析に関わるコマンドでワークフローを記述する__
-
-CWLの文法も少しずつ紹介しながら､様々なエラーを解消しつつ､__ワークフロー__ を作っていきます｡
+この記事では､zatsu-cwl-generatorで生成されたcwlファイルを修正しながらワークフローを実際に記述する方法についてご紹介します｡ 
 
 &nbsp;
 
-# 【Case1】grepコマンドとwcコマンドをCWL化する
+# grepコマンドとwcコマンドをCWL化する
 
 
 初めに(1)の記事で作ったgrepコマンドのcwlファイルに加え､wcコマンドを使ったワークフローをCWLによって記述する例を紹介します｡

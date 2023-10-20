@@ -5,19 +5,14 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
 published: false
 ---
-
-&nbsp;
-
-:::success
+:::message
 今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
 #### [togotv_cwl_for_remote_container](https://github.com/yonezawa-sora/togotv_cwl_for_remote_container)
 :::
 
-:::danger
+:::message alert
 この赤いフィールドは後ほど修正する点をメモしています
 :::
-
-&nbsp;
 
 # はじめに
 
@@ -26,9 +21,8 @@ published: false
 
 &nbsp;
 
-:::info
+:::message
 __本記事の対象となる方__
-
 ■ ｢ワークフロー言語｣を知っているけど触ったことがない方
 ■ 動かしたいけど環境構築が難しそう...と考えている方
 :::
@@ -43,9 +37,7 @@ __本記事の対象となる方__
 
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
-#### 参考：[43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://togotv.dbcls.jp/20230830.html)
-
-[<img src="https://hackmd.io/_uploads/HJCmf1Xg6.png" width="500" height="">](https://togotv.dbcls.jp/20230830.html)
+https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
 &nbsp;
 
