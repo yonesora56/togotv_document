@@ -1,6 +1,9 @@
 ---
-Title: CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)
-Author: Sora Yonezawa
+title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)"
+emoji: "📑"
+type: "idea" # tech: 技術記事 / idea: アイデア
+topics: ["workflow language"]
+published: false
 ---
 
 &nbsp;
