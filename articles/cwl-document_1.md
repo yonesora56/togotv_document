@@ -37,7 +37,6 @@ __本記事の対象となる方__
 
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
-
 https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
 &nbsp;
@@ -80,23 +79,22 @@ https://www.commonwl.org/implementations/
 
 :::
 
-実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ddbj/human-reseq｣が挙げられます｡
+&nbsp;
+
+実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
 
 https://github.com/ddbj/human-reseq
 
-[<img src="https://hackmd.io/_uploads/B1kuG7zla.png" width="500" height="200">](https://github.com/ddbj/human-reseq) 
-
 このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
-
 CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
 
 #### 参考：[CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
 
-[<img src="https://hackmd.io/_uploads/BJtNmQzx6.png" width="500" height="">](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP) 
+https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
 #### 参考：[Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
 
-[<img src="https://hackmd.io/_uploads/HkUjQQzla.png" width="500" height="">](https://oumpy.github.io/blog/2018/12/cwl.html)
+https://oumpy.github.io/blog/2018/12/cwl.html
 
 &nbsp; 
 
