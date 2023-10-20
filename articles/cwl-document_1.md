@@ -94,7 +94,7 @@ CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやc
 &nbsp;
 
 :::message
-なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの以下の記事がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
+なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
 
 [指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
 :::
@@ -514,7 +514,7 @@ cwltool --debug grep.cwl
 
 &nbsp;
 
-:::success
+:::message
 ### `--help`オプションを活用しよう
 
 
@@ -539,7 +539,7 @@ options:
 大文字の`MOCK_TXT`のあとの部分に具体的に説明を付け加える際には､__`doc`フィールドを追加することで可能になります｡__
 例として､grep_zatsu.cwlに`doc`フィールドを以下のように書き加えました｡
 
-```yaml=
+```yaml:grep_zatsu.cwl
 #!/usr/bin/env cwl-runner
 # Generated from: grep one mock.txt > grepout.txt
 class: CommandLineTool
