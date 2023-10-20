@@ -41,10 +41,9 @@ https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-H
 
 &nbsp;
 
-Workflow systems turn raw data into scientific knowledge
-https://doi.org/10.1038/d41586-019-02619-z
+[Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
 
-[<img src="https://hackmd.io/_uploads/rJSw1mzg6.png" width="500" height="">](https://doi.org/10.1038/d41586-019-02619-z)
+https://www.nature.com/articles/d41586-019-02619-z
 
 &nbsp;
 
