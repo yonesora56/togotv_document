@@ -2,7 +2,7 @@
 title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)"
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["common workflow language", "bioinformatics", "CWL"]
+topics: ["CWL", "bioinformatics"]
 published: false
 ---
 
