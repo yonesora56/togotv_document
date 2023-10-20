@@ -61,8 +61,7 @@ https://www.nature.com/articles/d41586-019-02619-z
 
 CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
 
-#### 参考：[CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
-
+[CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 
 https://www.commonwl.org/tools/
 
@@ -72,8 +71,7 @@ https://www.commonwl.org/tools/
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
 
-#### 参考：[CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
-
+[CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 
 https://www.commonwl.org/implementations/
 
@@ -88,11 +86,11 @@ https://github.com/ddbj/human-reseq
 このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
 CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
 
-@[CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
+[CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
 
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
-@[Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
+[Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
 
 https://oumpy.github.io/blog/2018/12/cwl.html
 
