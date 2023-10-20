@@ -37,6 +37,7 @@ __本記事の対象となる方__
 
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
+
 https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
 &nbsp;
@@ -44,6 +45,7 @@ https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-H
 [Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
 
 https://www.nature.com/articles/d41586-019-02619-z
+
 
 &nbsp;
 
@@ -62,13 +64,17 @@ CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張
 
 #### 参考：[CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 
+
 https://www.commonwl.org/tools/
+
 
 #### 2\.自分の実行したい環境に合わせて最適なものが選択できる
 
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
+
 #### 参考：[CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
+
 
 https://www.commonwl.org/implementations/
 
