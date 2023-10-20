@@ -52,12 +52,12 @@ https://www.nature.com/articles/d41586-019-02619-z
 
 &nbsp;
 
-:::message
-### なぜCWLを使うのか?
+
+## なぜCWLを使うのか?
 
 では次に､数多くあるワークフロー言語の中でも､なぜCWLなのか?ということについてここで説明します｡
 
-#### 1\. bentenなどの開発ツールが充実している
+### 1\. bentenなどの開発ツールが充実している
 
 CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
 
@@ -66,7 +66,7 @@ CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張
 https://www.commonwl.org/tools/
 
 
-#### 2\.自分の実行したい環境に合わせて最適なものが選択できる
+### 2\.自分の実行したい環境に合わせて最適なものが選択できる
 
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
@@ -74,8 +74,6 @@ CWLでは､複数のツールで実行することができます｡例えば�
 [CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 
 https://www.commonwl.org/implementations/
-
-:::
 
 &nbsp;
 
