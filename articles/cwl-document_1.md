@@ -5,10 +5,9 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
 published: false
 ---
-:::message
-今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
+
+※ 今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
 https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
-:::
 
 :::message alert
 この赤いフィールドは後ほど修正する点をメモしています
@@ -35,11 +34,12 @@ __本記事の対象となる方__
 
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
+#### [43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
 https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
 &nbsp;
 
-[Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
+#### [Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
 
 https://www.nature.com/articles/d41586-019-02619-z
 
@@ -56,7 +56,6 @@ https://www.nature.com/articles/d41586-019-02619-z
 CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
 
 [CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
-
 https://www.commonwl.org/tools/
 
 ### 2\.自分の実行したい環境に合わせて最適なものが選択できる
@@ -64,7 +63,6 @@ https://www.commonwl.org/tools/
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
 [CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
-
 https://www.commonwl.org/implementations/
 
 &nbsp;
@@ -77,25 +75,19 @@ https://github.com/ddbj/human-reseq
 CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
 
 [CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
-
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
 [Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
-
 https://oumpy.github.io/blog/2018/12/cwl.html
-
-&nbsp; 
 
 CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやcondaを使ってインストールすることが可能です。
 しかしながら､環境構築は大変な場合が多々あるかと思います。そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
 
-&nbsp;
-
-:::message
 なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
 
 [指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
-:::
+
+https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597
 
 &nbsp;
 
