@@ -495,7 +495,7 @@ inputs:
 エラーメッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ています｡
 ここでは`one`という文字列(string)を入力するので､以下のように修正できます｡
 
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl#L9-L11
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl#L9-L12
 
 そうするとエラーメッセージが消え､`--help`オプションを使うとargumentsとして表示されるようになります｡
 
@@ -517,4 +517,4 @@ options:
 このように､zatsu-cwl-generatorで生成されたファイルを修正しながら､CWLの文法を勉強していくということが可能です｡
 自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
 
-## 参考リンク集
+# 参考リンク集
