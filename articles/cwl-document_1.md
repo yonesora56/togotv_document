@@ -24,12 +24,9 @@ __本記事の対象となる方__
 ■ 動かしたいけど環境構築が難しそう...と考えている方
 :::
 
-&nbsp;
-
 # なぜワークフロー言語を使用するのか
 
 バイオインフォマティクスにおけるデータ解析では、一つのツールのみで解析が終了することは極めて稀です｡ 通常､複数のツールを組み合わせて、大量のデータに対して一連のプロセスを繰り返し実行する必要があります。これらの作業手順は、__ワークフロー(またはパイプライン)__ と呼ばれます。
-
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
 #### [参考：43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
@@ -63,7 +60,6 @@ https://www.commonwl.org/implementations/
 &nbsp;
 
 実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
-
 https://github.com/ddbj/human-reseq
 
 このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
@@ -105,7 +101,7 @@ https://code.visualstudio.com/download
 先程述べたように､VSCodeには豊富な拡張機能が存在します｡ サイドバー(ここでは左)の拡張機能のボタン(四角が4つあつまっている部分)を押すと､様々な拡張機能がMarketplaceで検索できます｡
 
 ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ こちらが必要なのでインストールします(以前は｢Remote -Container extension｣という名前だったようですが､どうやら変わったようです)｡
-https://t907947.p.clickup-attachments.com/t907947/8dede111-052d-4ea4-ba7c-007ed30335ed/image.png
+![Dev-containers](https://t907947.p.clickup-attachments.com/t907947/8dede111-052d-4ea4-ba7c-007ed30335ed/image.png)
 
 #### [参考：Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
 https://hackmd.io/_uploads/B13kL7Gea.png
@@ -132,11 +128,6 @@ https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56
 #### [参考：開発コンテナ(Development Containers)を使おう](https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)
 https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B
 
-:::message
-なお､自分は日本語で表示されるように拡張機能である｢[Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)｣もインストールしています｡ 
-https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja
-:::
-
 この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など) ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
 
 &nbsp;
@@ -152,7 +143,7 @@ https://www.docker.com/products/docker-desktop
 
 インストール後､ダッシュボードを開くと以下のようになっています｡
 
-https://t907947.p.clickup-attachments.com/t907947/3d83459a-08c3-47b3-bb92-0e89060865a6/image.png
+![docker-dashboard](https://t907947.p.clickup-attachments.com/t907947/3d83459a-08c3-47b3-bb92-0e89060865a6/image.png)
 
 ### Docker Desktop 以外の手段
 Docker desktopを使用する以外にも以下のような代替手段があります｡ 
@@ -172,15 +163,15 @@ Docker desktopを使用する以外にも以下のような代替手段があり
 
 ここまででVScodeとdockerのインストールが完了しました｡ 次にCWLを実行する環境のテンプレートをGitHubから取得します｡
 
-以下のリポジトリ[tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスしてください｡今回はこのリポジトリをテンプレートにして環境を作っていきます｡ このテンプレートでは既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されています｡
+以下のリポジトリにアクセスしてください｡今回はこのリポジトリをテンプレートにして環境を作っていきます｡ このテンプレートでは既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されています｡
 
-[tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)
+#### [tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)
 https://github.com/tom-tan/cwl-for-remote-container-template
 
 ページ内の ｢Use this template｣(緑のボタン)をクリックし､｢Create a new repository｣を選択すると､自分のアカウントで新規リポジトリを作成することができます｡ 
 __なお､GitHubのアカウントを持っていない場合はこのステップを飛ばしてください｡__
 
-https://t907947.p.clickup-attachments.com/t907947/b7265827-aa40-451d-b251-472e6abec596/image.png
+![template](https://t907947.p.clickup-attachments.com/t907947/b7265827-aa40-451d-b251-472e6abec596/image.png)
 
 次に `git clone` を行います(GitHubのアカウントがない場合は､tom-tan/cwl-for-remote-container-templateを､アカウントがある場合は､your_account/cwl-for-remote-container-template ということになります)｡
 
@@ -188,30 +179,30 @@ https://t907947.p.clickup-attachments.com/t907947/b7265827-aa40-451d-b251-472e6a
 #アカウントが無い場合
 git clone https://github.com/tom-tan/cwl-for-remote-container-template 
 
-#アカウントがある場合
+#アカウントがある場合(Use this template後)
 git clone https://github.com/your_account/cwl-for-remote-container-template
 ```
 この作業が終了したら､つづいてVSCodeを開きます｡ VSCode画面左下の緑の｢ >< ｣マークを押すと､ 検索窓に以下のようなオプションが出てくるので､｢コンテナーでフォルダーを開く｣を選択し､先程`git clone`したローカルリポジトリを開きます｡
 
-https://t907947.p.clickup-attachments.com/t907947/3e86b0e8-d5b9-42aa-8934-caefbd58b73c/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/3e86b0e8-d5b9-42aa-8934-caefbd58b73c/image.png)
 
 最初の立ち上げ時には､5分程度かかりました｡
 ログを見ていると環境構築のために色々されていることがわかります｡
-https://t907947.p.clickup-attachments.com/t907947/f4bac0c6-adaa-4ea4-a794-734ab630d40d/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/f4bac0c6-adaa-4ea4-a794-734ab630d40d/image.png)
 
 ターミナルを開いてみると､以下のように`/workspaces/togotv_shooting(repository_name)`となっています｡
 
-https://t907947.p.clickup-attachments.com/t907947/ea721043-8c13-4415-be0f-9fa971a1342c/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/ea721043-8c13-4415-be0f-9fa971a1342c/image.png)
 
 実際にCWL関連のツールは使えるようになっているのか見てみましょう｡
 `cwl` と入力してtabを2回押すと...
 
-https://hackmd.io/_uploads/SyI63Qze6.png
+![](https://hackmd.io/_uploads/SyI63Qze6.png)
 
 このように､cwltoolなど実行に必要なツールが導入されています｡
 では､Dockerのコンテナが起動しているかどうかdocker desktopで確認してみると...
 
-https://t907947.p.clickup-attachments.com/t907947/40fb1465-c5af-4bdf-abea-fc9cfb44a81d/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/40fb1465-c5af-4bdf-abea-fc9cfb44a81d/image.png)
 
 上記のように､立ち上がっているのがわかります｡
 これで環境構築が完了です｡
@@ -223,32 +214,31 @@ https://t907947.p.clickup-attachments.com/t907947/40fb1465-c5af-4bdf-abea-fc9cfb
 ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ しかしながら､__｢もっと楽に環境構築して動かしてみたい!!｣__ という方もいらっしゃるかと思います｡ そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください｡
 
 
-#### 参考： [GitHub Codespaces の概要](https://docs.github.com/ja/codespaces/overview)
-
+#### [参考：GitHub Codespaces の概要](https://docs.github.com/ja/codespaces/overview)
 https://docs.github.com/ja/codespaces/overview
 
 先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ このとき｢Open in a codespace｣を選べばなんとブラウザでこの開発環境が立ち上がります! 
 
-また､VScode経由でも開くことが可能です｡ ｢GitHub codespaces｣という拡張機能をインストールしてください｡その後｡左下の｢><｣ボタンを押してください｡
+また､VScode経由でも開くことが可能です｡ 
+そのためには｢GitHub codespaces｣という拡張機能をインストールしてください｡
+その後｡左下の｢><｣ボタンを押してください｡
 
-https://t907947.p.clickup-attachments.com/t907947/760c595c-7e08-47dd-b5c7-a862c2f71194/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/760c595c-7e08-47dd-b5c7-a862c2f71194/image.png)
 
 次に､｢Create New Codespace｣をクリックして､立ち上げたいリポジトリを選択します｡
 Create New Codespaceをクリックすると以下のような表示が出てきます｡
 
-https://t907947.p.clickup-attachments.com/t907947/b0aa9b0e-6370-4c91-b666-937df1847ee5/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/b0aa9b0e-6370-4c91-b666-937df1847ee5/image.png)
 
 リポジトリを選択して...
-https://t907947.p.clickup-attachments.com/t907947/633cc294-92f3-477b-a9d6-bdfd6f142bf9/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/633cc294-92f3-477b-a9d6-bdfd6f142bf9/image.png)
 
 そうすると､自動的に環境が構築されていきます｡
 今回はすでに環境を構築しているものを使用します｡なお､Codespaceで作成した環境は､自分のGitHubのページ(Your Codespaces)から確認できます｡最初の環境の立ち上げには同様に5分程度時間がかかります｡
 
 :::message alert
 1ヶ月で使用できる時間には限りがあるようです｡
-使用時間が全体の90%を超えると､警告のメールが届きました｡
-
-
+自分の場合では､Codespacesの使用時間が(1ヶ月で割り当てられている)全体の90%を超えると､警告のメールが届きました｡
 :::
 
 :::message alert
