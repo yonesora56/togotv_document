@@ -15,8 +15,7 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 
 # はじめに
 
-皆さんは｢ワークフロー言語｣をご存知でしょうか? これらの言語は、一連の手順や操作を明示的に定義し、それらを連携させることで、より複雑な作業を効率的に行うことができます。
-バイオインフォマティクスにおいて､ワークフロー言語は重要な役割を担っています｡ 
+皆さんは｢ワークフロー言語｣をご存知でしょうか? これらの言語は、一連の手順や操作を明示的に定義し、それらを連携させることで、より複雑な作業を効率的に行うことができます。バイオインフォマティクスにおいて､ワークフロー言語は重要な役割を担っています｡ 
 
 :::message
 __本記事の対象となる方__
@@ -80,7 +79,8 @@ https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597
 
 ## 【STEP1-1】VScodeのインストール
 
-はじめに、Visual Studio Code (VScode)のインストール方法を説明します。VScodeoといえばもはや業界で標準的なコードエディタになりつつあります｡ 特徴としては拡張機能が豊富に存在している部分であり､この記事でもこの部分を活用します｡
+はじめに、コードエディターであるVisual Studio Code (VScode)のインストール方法を説明します。
+特徴としては拡張機能が豊富に存在している部分であり､この記事でもこの部分を活用します｡
 
 ダウンロードは以下のページにアクセスしておこないます｡ 皆さんも自分のコンピュータの環境に合わせて選んでください｡
 
@@ -259,24 +259,21 @@ __修正2：山本さんが送ってくれたスクショとかも貼る(ユー�
 grep one mock.txt > grep_out.txt
 ```
 
-#### 参考：[CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
+#### [参考：CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB
 
 CWLファイルは記述する内容を YAMLかJSON の形式で記述し、｢.cwl ｣という拡張子でファイルに保存します。
-実行時にこの CWL ファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
+実行時にこのCWLファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
 まずはじめにスクリプトの最初の処理である `grep one mock.txt > grepout.txt` の処理をCWLファイルとして記述していきます｡
-
-:::message alert
-__追記：https://view.commonwl.org/workflows?search=__
-:::
 
 今回は､コマンドラインツールであるzatsu-cwl-genratorを使ってファイルを __出力__ してみます｡
 
-参考：[雑に始めるCWL！をもっと雑に始めたい](https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a)
+#### [参考：雑に始めるCWL！をもっと雑に始めたい](https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a)
 https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a
 
-まず､ターミナルを開いて､zatsu-cwl-generatorと入力します｡
-次に､cwlファイルとして書きたい処理を '' で囲んで記入します｡ 今回は`grep`コマンドの処理を例に実行してみます｡
+まず､ターミナルを開いて`zatsu-cwl-generator`と入力します｡
+次に､cwlファイルとして書きたい処理を '' で囲んで記入します｡ 
+今回は`grep`コマンドの処理を例に実行してみます｡
 
 ```bash
 zatsu-cwl-generator 'grep one ./data/mock.txt > grepout.txt'
@@ -339,8 +336,8 @@ https://t907947.p.clickup-attachments.com/t907947/cf8cf2c7-57b7-4173-bdee-21c202
 ### 記述が正しいか確認する
 
 zatsu-cwl-genratorで出力されたファイルに対し､実際の実行前に記述が本当に正しいか確認することができます｡
-`cwltool –-validate` コマンドを実行すると､記述したCWLファイルを評価することができます｡ 実際にやってみましょう｡
-以下のようにコマンドを書きます｡
+`cwltool –-validate` コマンドを実行すると､記述したCWLファイルを評価することができます｡ 
+以下のようにoptionを追加します｡
 
 ```bash
 cwltool --validate grep_zatsu.cwl
@@ -353,13 +350,10 @@ INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
 ./zatsu_generator/grep_zatsu.cwl is valid CWL.
 ```
-
 今回の場合はエラーは確認されず､記述としては正しいようです｡ 
 このように､記述がおかしい場合はコマンドで確認できる他､スクリプトを編集している際に､補助的に赤線で明示されますので参考にしてください｡
 
-&nbsp;
-
-### 実際に試してみる
+### 実際に実行してみる
 
 ファイルの記載が正しいことを確認できたので､次に実際に`cwltool`というコマンドで試してみます(以降の操作はzatsu_generatorディレクトリでの作業です)｡ 
 
@@ -367,7 +361,7 @@ INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_s
 cwltool grep_zatsu.cwl 
 ```
 
-実行してみたのが以下になります｡
+実行してみると､以下のように解析が行われます｡
 
 ```bash
 INFO /usr/local/bin/cwltool 3.1.20231016170136
@@ -397,16 +391,14 @@ INFO [job grep_zatsu.cwl] completed success
     }
 }INFO Final process status is success
 ```
-
 無事ワークフローが成功し､ `grep_out.txt` が出力されました｡
-このようにzatsu-cwl-generatorを使うことで､簡単にcwlファイルを作成することができます
- 
-&nbsp;
+このようにzatsu-cwl-generatorを使うことで､簡単にcwlファイルを作成することができます｡
 
 :::message
 ### エラーが発生した時
 
-もしこの実行でエラーが発生した場合､ `--debug` オプションを追加してより詳しいエラーの結果を見ることができます｡
+もしこの実行でエラーが発生した場合､ `--debug` オプションを追加してより詳しいエラーの結果を取得することができます｡
+はじめての処理を実行する際には､このオプションをつけて実行することをおすすめします｡
 
 ```bash
 cwltool --debug grep.cwl 
@@ -417,7 +409,6 @@ cwltool --debug grep.cwl
 
 :::message
 ### `--help`オプションを活用しよう
-
 
 `cwltool grep_zatsu.cwl --help`のように､cwlファイルの次に`--help`オプションをつけると､その __cwlファイル自体のヘルプを見ることができます__｡
 どういうことか実際にやってみましょう｡
@@ -470,7 +461,6 @@ outputs:
     type: stdout
 stdout: grepout.txt
 ```
-
 再度実行すると以下のようになります｡
 
 ```bash
@@ -486,19 +476,15 @@ options:
   -h, --help           show this help message and exit
   --mock_txt MOCK_TXT  please input text file
 ```
-
-&nbsp;
-
-参考：[user_guide 2.16 best-practices](https://www.commonwl.org/user_guide/topics/best-practices.html)
+#### [参考：user_guide 2.16 best-practices](https://www.commonwl.org/user_guide/topics/best-practices.html)
 https://www.commonwl.org/user_guide/topics/best-practices.html
+:::
 
-&nbsp;
+### (発展編) 自分で修正する
 
-## (発展編) 自分で修正する
-
-上記のようにこのままでのファイルでも実際に実行することができます｡
-しかし､このファイルを修正することでよりよい記述をすることができます｡
-作成したgrep処理のファイルには､以下の部分に赤線が示されます｡
+上記のように実際に実行することができることを確認しました｡
+しかし､このファイルを修正することでより良い解析を実行することができます｡
+実は､作成したgrep処理のファイルには､以下の部分に赤線が示されていました｡
 
 ```yaml
 inputs:
@@ -506,9 +492,8 @@ inputs:
     type: Any #赤線で示された部分
     default: one
 ```
-
 エラーメッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ています｡
-ここでは文字列を入力するので､以下のように修正できます｡
+ここでは`one`という文字列(string)を入力するので､以下のように修正できます｡
 
 ```yaml
 inputs:
@@ -517,7 +502,7 @@ inputs:
     default: one
 ```
 
-そうするとエラーメッセージが消え､`ー-help`オプションを使うと表示されるようになります｡
+そうするとエラーメッセージが消え､`ー-help`オプションを使うとargumentsとして表示されるようになります｡
 
 ```bash
 cwltool grep_zatsu.cwl --help
@@ -535,7 +520,7 @@ options:
 ```
 
 このように､zatsu-cwl-generatorで生成されたファイルを修正しながら､CWLの文法を勉強していくということが可能です｡
-このように､自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
+自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
 :::
 
 ## 参考リンク集
