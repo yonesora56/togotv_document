@@ -40,24 +40,19 @@ https://www.nature.com/articles/d41586-019-02619-z
 &nbsp;
 
 ## なぜCWLを使うのか?
-
 では次に､数多くあるワークフロー言語の中でも､なぜCWLなのか?ということについてここで説明します｡
 
 ### 1\. bentenなどの開発ツールが充実している
-
 CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
 
 [参考：CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 https://www.commonwl.org/tools/
 
 ### 2\.自分の実行したい環境に合わせて最適なものが選択できる
-
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
 [参考：CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 https://www.commonwl.org/implementations/
-
-&nbsp;
 
 実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
 https://github.com/ddbj/human-reseq
@@ -104,13 +99,14 @@ https://code.visualstudio.com/download
 ![Dev-containers](https://t907947.p.clickup-attachments.com/t907947/8dede111-052d-4ea4-ba7c-007ed30335ed/image.png)
 
 #### [参考：Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
-https://hackmd.io/_uploads/B13kL7Gea.png
+https://code.visualstudio.com/docs/devcontainers/containers
 
 インストール後､VScodeの画面をよくみると....
 
 ![VScode-1](https://t907947.p.clickup-attachments.com/t907947/a0ec0686-3952-4149-b1a7-6c0245a2f93b/image.png)
 
 ![VScode-2](https://hackmd.io/_uploads/BJZmvmfg6.png)
+*左下に現れる｢><｣マーク*
 
 左下に｢ >< ｣というマークが出てきます｡ このボタンを押すことで次の作業に移ることができます｡これでVScodeは一旦､準備完了です｡
 
@@ -163,7 +159,9 @@ Docker desktopを使用する以外にも以下のような代替手段があり
 
 ここまででVScodeとdockerのインストールが完了しました｡ 次にCWLを実行する環境のテンプレートをGitHubから取得します｡
 
-以下のリポジトリにアクセスしてください｡今回はこのリポジトリをテンプレートにして環境を作っていきます｡ このテンプレートでは既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されています｡
+まず､以下に示しているリポジトリにアクセスしてください｡
+今回はこのリポジトリをテンプレートにして環境を作っていきます｡ 
+このテンプレートでは既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されています｡
 
 #### [tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)
 https://github.com/tom-tan/cwl-for-remote-container-template
