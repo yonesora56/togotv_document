@@ -6,7 +6,7 @@ topics: ["CWL", "bioinformatics"]
 published: false
 ---
 
-※ 今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
+__※今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
 https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 
 :::message alert
@@ -17,8 +17,6 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 
 皆さんは｢ワークフロー言語｣をご存知でしょうか? これらの言語は、一連の手順や操作を明示的に定義し、それらを連携させることで、より複雑な作業を効率的に行うことができます。
 バイオインフォマティクスにおいて､ワークフロー言語は重要な役割を担っています｡ 
-
-&nbsp;
 
 :::message
 __本記事の対象となる方__
@@ -34,13 +32,10 @@ __本記事の対象となる方__
 
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
-#### [43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
+#### [参考：43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
 https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
-&nbsp;
-
-#### [Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
-
+#### [参考：Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
 https://www.nature.com/articles/d41586-019-02619-z
 
 現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントと統合TVの動画では**Common Workflow Language (CWL)** について環境構築と実例をご紹介します。
@@ -55,14 +50,14 @@ https://www.nature.com/articles/d41586-019-02619-z
 
 CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
 
-[CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
+[参考：CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 https://www.commonwl.org/tools/
 
 ### 2\.自分の実行したい環境に合わせて最適なものが選択できる
 
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
-[CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
+[参考：CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 https://www.commonwl.org/implementations/
 
 &nbsp;
@@ -74,22 +69,19 @@ https://github.com/ddbj/human-reseq
 このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
 CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
 
-[CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
+[参考：CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
-[Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
+[参考：Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
 https://oumpy.github.io/blog/2018/12/cwl.html
 
 CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやcondaを使ってインストールすることが可能です。
 しかしながら､環境構築は大変な場合が多々あるかと思います。そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
 
-なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
+※なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
 
 [指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
-
 https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597
-
-&nbsp;
 
 &nbsp;
 
@@ -99,17 +91,12 @@ https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597
 
 はじめに、Visual Studio Code (VScode)のインストール方法を説明します。VScodeoといえばもはや業界で標準的なコードエディタになりつつあります｡ 特徴としては拡張機能が豊富に存在している部分であり､この記事でもこの部分を活用します｡
 
-  
-
 ダウンロードは以下のページにアクセスしておこないます｡ 皆さんも自分のコンピュータの環境に合わせて選んでください｡
 
-#### 参考： [Download Visual Studio Code](https://code.visualstudio.com/download)
-
+#### [参考：Download Visual Studio Code](https://code.visualstudio.com/download)
 https://code.visualstudio.com/download
 
 この記事では､macOSの｢Apple silicon｣をクリックしてインストールして執筆しています｡
-
-&nbsp;
 
 ## 【STEP1-2】拡張機能を導入する
 
@@ -118,21 +105,14 @@ https://code.visualstudio.com/download
 先程述べたように､VSCodeには豊富な拡張機能が存在します｡ サイドバー(ここでは左)の拡張機能のボタン(四角が4つあつまっている部分)を押すと､様々な拡張機能がMarketplaceで検索できます｡
 
 ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ こちらが必要なのでインストールします(以前は｢Remote -Container extension｣という名前だったようですが､どうやら変わったようです)｡
+https://t907947.p.clickup-attachments.com/t907947/8dede111-052d-4ea4-ba7c-007ed30335ed/image.png
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/8dede111-052d-4ea4-ba7c-007ed30335ed/image.png" width="600" height="">
-
-&nbsp;
-
-#### 参考：[Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
-<img src="https://hackmd.io/_uploads/B13kL7Gea.png" width="500" height="">
-
-&nbsp;
+#### [参考：Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
+https://hackmd.io/_uploads/B13kL7Gea.png
 
 インストール後､VScodeの画面をよくみると....
 
 ![VScode-1](https://t907947.p.clickup-attachments.com/t907947/a0ec0686-3952-4149-b1a7-6c0245a2f93b/image.png)
-
-&nbsp;
 
 ![VScode-2](https://hackmd.io/_uploads/BJZmvmfg6.png)
 
@@ -144,29 +124,20 @@ https://code.visualstudio.com/download
 ![remote development](https://t907947.p.clickup-attachments.com/t907947/c73afc83-d397-4826-b62c-de24f1d30ea1/image.png)
 :::
 
-Dev containersに関する情報は以下の記事が参考になります｡ 
-開発環境を揃える､という点でこの機能は非常に重要なことがわかります｡
+Dev containersに関する情報は以下の記事が参考になります｡ こちらも合わせてご覧ください｡
 
-#### 参考：[Devcontainer(Remote Container) いいぞという話 開発環境を整える](https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56)
+#### [参考：Devcontainer(Remote Container) いいぞという話 開発環境を整える](https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56)
+https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56
 
-https://hackmd.io/_uploads/r1sDumfla.png
-  
+#### [参考：開発コンテナ(Development Containers)を使おう](https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)
+https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B
 
-#### 参考：[開発コンテナ(Development Containers)を使おう](https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)
-
-<img src="https://hackmd.io/_uploads/HkpVFXzga.png" width="400" height="">
-
-&nbsp;
- 
 :::message
 なお､自分は日本語で表示されるように拡張機能である｢[Japanese Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja)｣もインストールしています｡ 
-
 https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-ja
-
-この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など) ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
 :::
 
-&nbsp;
+この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など) ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
 
 &nbsp;
 
@@ -174,27 +145,26 @@ https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pa
 
 次にDocker Desktopをインストールします｡ 下のリンクから可能です｡ 今回はMac(Apple chip)版をインストールします｡
 
-#### [Docker公式サイト](https://www.docker.com/products/docker-desktop/)
-
+#### [参考：Docker公式サイト](https://www.docker.com/products/docker-desktop/)
 https://www.docker.com/products/docker-desktop
 
 &nbsp;
 
-ダッシュボードを開くと以下のようになっています｡
+インストール後､ダッシュボードを開くと以下のようになっています｡
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/3d83459a-08c3-47b3-bb92-0e89060865a6/image.png" width="550" height="">
-
-&nbsp;
+https://t907947.p.clickup-attachments.com/t907947/3d83459a-08c3-47b3-bb92-0e89060865a6/image.png
 
 ### Docker Desktop 以外の手段
-Docker desktopを使用する以外にも代替手段があります｡ こちらは国内版バイオハッカソン23.9にて丹生さんより情報提供いただきました｡
+Docker desktopを使用する以外にも以下のような代替手段があります｡ 
 
 1. lima + docker (macOS)
 2. Rancher desktop ([https://rancherdesktop.io/](https://rancherdesktop.io/)) (macOS, moby): ただしRemote containerだと安定しないとのことです
 3. orbstack ([https://orbstack.dev/](https://orbstack.dev/)) (macOS)
 4. Docker on WSL (Windows)
 
-&nbsp;
+:::message
+こちらは国内版バイオハッカソン23.9にて丹生さんより情報提供いただきました｡
+:::
 
 &nbsp;
 
@@ -204,20 +174,13 @@ Docker desktopを使用する以外にも代替手段があります｡ こち�
 
 以下のリポジトリ[tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスしてください｡今回はこのリポジトリをテンプレートにして環境を作っていきます｡ このテンプレートでは既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されています｡
 
-&nbsp;
-
 [tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)
-
 https://github.com/tom-tan/cwl-for-remote-container-template
-
-&nbsp;
 
 ページ内の ｢Use this template｣(緑のボタン)をクリックし､｢Create a new repository｣を選択すると､自分のアカウントで新規リポジトリを作成することができます｡ 
 __なお､GitHubのアカウントを持っていない場合はこのステップを飛ばしてください｡__
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/b7265827-aa40-451d-b251-472e6abec596/image.png" width="550" height="">
-
-&nbsp;
+https://t907947.p.clickup-attachments.com/t907947/b7265827-aa40-451d-b251-472e6abec596/image.png
 
 次に `git clone` を行います(GitHubのアカウントがない場合は､tom-tan/cwl-for-remote-container-templateを､アカウントがある場合は､your_account/cwl-for-remote-container-template ということになります)｡
 
@@ -228,34 +191,27 @@ git clone https://github.com/tom-tan/cwl-for-remote-container-template
 #アカウントがある場合
 git clone https://github.com/your_account/cwl-for-remote-container-template
 ```
-
-&nbsp;
-
 この作業が終了したら､つづいてVSCodeを開きます｡ VSCode画面左下の緑の｢ >< ｣マークを押すと､ 検索窓に以下のようなオプションが出てくるので､｢コンテナーでフォルダーを開く｣を選択し､先程`git clone`したローカルリポジトリを開きます｡
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/3e86b0e8-d5b9-42aa-8934-caefbd58b73c/image.png" width="550" height="">
+https://t907947.p.clickup-attachments.com/t907947/3e86b0e8-d5b9-42aa-8934-caefbd58b73c/image.png
 
 最初の立ち上げ時には､5分程度かかりました｡
 ログを見ていると環境構築のために色々されていることがわかります｡
-
-<img src="https://t907947.p.clickup-attachments.com/t907947/f4bac0c6-adaa-4ea4-a794-734ab630d40d/image.png" width="550" height="">
-
-&nbsp;
+https://t907947.p.clickup-attachments.com/t907947/f4bac0c6-adaa-4ea4-a794-734ab630d40d/image.png
 
 ターミナルを開いてみると､以下のように`/workspaces/togotv_shooting(repository_name)`となっています｡
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/ea721043-8c13-4415-be0f-9fa971a1342c/image.png" width="550" height="">
+https://t907947.p.clickup-attachments.com/t907947/ea721043-8c13-4415-be0f-9fa971a1342c/image.png
 
 実際にCWL関連のツールは使えるようになっているのか見てみましょう｡
 `cwl` と入力してtabを2回押すと...
 
-<img src="https://hackmd.io/_uploads/SyI63Qze6.png" width="650" height="">
+https://hackmd.io/_uploads/SyI63Qze6.png
 
 このように､cwltoolなど実行に必要なツールが導入されています｡
-
 では､Dockerのコンテナが起動しているかどうかdocker desktopで確認してみると...
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/40fb1465-c5af-4bdf-abea-fc9cfb44a81d/image.png" width="550" height="">
+https://t907947.p.clickup-attachments.com/t907947/40fb1465-c5af-4bdf-abea-fc9cfb44a81d/image.png
 
 上記のように､立ち上がっているのがわかります｡
 これで環境構築が完了です｡
@@ -264,34 +220,26 @@ git clone https://github.com/your_account/cwl-for-remote-container-template
 
 ## 【番外編】GitHub Codespacesで実行環境を作って作業する
 
-ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ しかしながら､｢もっと楽に環境構築して動かしてみたい!!｣ という方もいらっしゃるかと思います｡ そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください｡
+ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ しかしながら､__｢もっと楽に環境構築して動かしてみたい!!｣__ という方もいらっしゃるかと思います｡ そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください｡
 
 
 #### 参考： [GitHub Codespaces の概要](https://docs.github.com/ja/codespaces/overview)
 
-<img src="https://hackmd.io/_uploads/HJvDa7GgT.png" width="550" height="">
-
-&nbsp;
+https://docs.github.com/ja/codespaces/overview
 
 先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ このとき｢Open in a codespace｣を選べばなんとブラウザでこの開発環境が立ち上がります! 
 
 また､VScode経由でも開くことが可能です｡ ｢GitHub codespaces｣という拡張機能をインストールしてください｡その後｡左下の｢><｣ボタンを押してください｡
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/760c595c-7e08-47dd-b5c7-a862c2f71194/image.png" width="100" height="">
-
-&nbsp;
+https://t907947.p.clickup-attachments.com/t907947/760c595c-7e08-47dd-b5c7-a862c2f71194/image.png
 
 次に､｢Create New Codespace｣をクリックして､立ち上げたいリポジトリを選択します｡
+Create New Codespaceをクリックすると以下のような表示が出てきます｡
 
-Create New Codespaceをクリックすると
-
-<img src="https://t907947.p.clickup-attachments.com/t907947/b0aa9b0e-6370-4c91-b666-937df1847ee5/image.png" width="500" height="">
-
-&nbsp;
+https://t907947.p.clickup-attachments.com/t907947/b0aa9b0e-6370-4c91-b666-937df1847ee5/image.png
 
 リポジトリを選択して...
-
-<img src="https://t907947.p.clickup-attachments.com/t907947/633cc294-92f3-477b-a9d6-bdfd6f142bf9/image.png" width="500" height="">
+https://t907947.p.clickup-attachments.com/t907947/633cc294-92f3-477b-a9d6-bdfd6f142bf9/image.png
 
 そうすると､自動的に環境が構築されていきます｡
 今回はすでに環境を構築しているものを使用します｡なお､Codespaceで作成した環境は､自分のGitHubのページ(Your Codespaces)から確認できます｡最初の環境の立ち上げには同様に5分程度時間がかかります｡
@@ -299,9 +247,9 @@ Create New Codespaceをクリックすると
 :::message alert
 1ヶ月で使用できる時間には限りがあるようです｡
 使用時間が全体の90%を超えると､警告のメールが届きました｡
-:::
 
-&nbsp;
+
+:::
 
 :::message alert
 __修正1：Use this templateしなくてもcodespacesを開く例をサラッと説明__
@@ -310,14 +258,10 @@ __修正2：山本さんが送ってくれたスクショとかも貼る(ユー�
 
 &nbsp;
 
-&nbsp;
-
-# zatsu-cwl-generatorを使ってcwlファイルを生成する
+# zatsu-cwl-generatorを使ってcwlファイルを作る
 
 ここまではCWLに関する説明､および環境導入を行いました｡ 
-ここからは､CWLファイルの記述､実行を行っていきます... ということですが､
-
-&nbsp;
+ここからは､CWLファイルの記述､実行を行っていきます... ということですが､このCWLファイルを簡単に生成できるツールを使って
 
 初めにgrepコマンドとwcコマンドを使ったワークフローをCWLによって記述する例を紹介します｡
 
@@ -328,23 +272,20 @@ grep one mock.txt > grep_out.txt
 ```
 
 #### 参考：[CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
-
-&nbsp;
+https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB
 
 CWLファイルは記述する内容を YAMLかJSON の形式で記述し、｢.cwl ｣という拡張子でファイルに保存します。
-実行時にこの CWL ファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡まずはじめにスクリプトの最初の処理である `grep one mock.txt > grepout.txt` の処理をCWLファイルとして記述していきます｡
+実行時にこの CWL ファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
+まずはじめにスクリプトの最初の処理である `grep one mock.txt > grepout.txt` の処理をCWLファイルとして記述していきます｡
 
 :::message alert
 __追記：https://view.commonwl.org/workflows?search=__
 :::
 
-&nbsp;
-
 今回は､コマンドラインツールであるzatsu-cwl-genratorを使ってファイルを __出力__ してみます｡
 
 参考：[雑に始めるCWL！をもっと雑に始めたい](https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a)
-
-&nbsp;
+https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a
 
 まず､ターミナルを開いて､zatsu-cwl-generatorと入力します｡
 次に､cwlファイルとして書きたい処理を '' で囲んで記入します｡ 今回は`grep`コマンドの処理を例に実行してみます｡
@@ -352,8 +293,6 @@ __追記：https://view.commonwl.org/workflows?search=__
 ```bash
 zatsu-cwl-generator 'grep one ./data/mock.txt > grepout.txt'
 ```
-
-&nbsp;
 
 実行すると､標準出力に以下のようにcwlファイルが出力されます｡
 
@@ -388,7 +327,7 @@ stdout: grepout.txt
 ```
 
 この出力される形式はYAML形式です｡
-shebang以下には､今回CWLを実行するためのフィールドとして､上から順に
+shebang(`#!/usr/bin/env cwl-runner`)以下には､今回CWLを実行するためのフィールドとして､上から順に
 `class` ､ `cwlversion`､`baseCommand`､ `arguments`､ `inputs` ､ `outputs`､ `stdout` が出力されています｡
 
 この出力をリダイレクトしてファイルとして保存します｡
@@ -406,11 +345,8 @@ zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > ./zatsu_generator/grep_z
 現在､v1.0, v1.1, v1.2など複数のバージョンに対応しています｡
 なお､この記事ではv1.0で書いていますが､基本的な書き方はどのバージョンでも大きく変わりません｡
 
-<img src="https://t907947.p.clickup-attachments.com/t907947/cf8cf2c7-57b7-4173-bdee-21c202175c66/image.png" width="500" height="">
-
+https://t907947.p.clickup-attachments.com/t907947/cf8cf2c7-57b7-4173-bdee-21c202175c66/image.png
 :::
-
-&nbsp; 
 
 ### 記述が正しいか確認する
 
@@ -611,7 +547,6 @@ options:
 
 このように､zatsu-cwl-generatorで生成されたファイルを修正しながら､CWLの文法を勉強していくということが可能です｡
 このように､自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
-
 :::
 
 ## 参考リンク集
