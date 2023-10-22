@@ -138,7 +138,7 @@ https://code.visualstudio.com/download
 
 インストール後､VScodeの画面をよくみると....
 
-https://t907947.p.clickup-attachments.com/t907947/a0ec0686-3952-4149-b1a7-6c0245a2f93b/image.png
+![VScode-1](https://t907947.p.clickup-attachments.com/t907947/a0ec0686-3952-4149-b1a7-6c0245a2f93b/image.png)
 
 &nbsp;
 
