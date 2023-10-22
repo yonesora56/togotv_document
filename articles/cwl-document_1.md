@@ -218,7 +218,7 @@ https://docs.github.com/ja/codespaces/overview
 先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ このとき｢Open in a codespace｣を選べばなんとブラウザでこの開発環境が立ち上がります! 
 
 また､VScode経由でも開くことが可能です｡ 
-そのためには｢GitHub codespaces｣という拡張機能をインストールしてください｡
+そのためには [｢GitHub codespaces｣](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) という拡張機能をインストールしてください｡
 その後｡左下の｢><｣ボタンを押してください｡
 
 ![](https://t907947.p.clickup-attachments.com/t907947/760c595c-7e08-47dd-b5c7-a862c2f71194/image.png)
@@ -495,14 +495,9 @@ inputs:
 エラーメッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ています｡
 ここでは`one`という文字列(string)を入力するので､以下のように修正できます｡
 
-```yaml
-inputs:
-  - id: one
-    type: string #stringに変更
-    default: one
-```
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl#L9-L11
 
-そうするとエラーメッセージが消え､`ー-help`オプションを使うとargumentsとして表示されるようになります｡
+そうするとエラーメッセージが消え､`--help`オプションを使うとargumentsとして表示されるようになります｡
 
 ```bash
 cwltool grep_zatsu.cwl --help
@@ -521,6 +516,5 @@ options:
 
 このように､zatsu-cwl-generatorで生成されたファイルを修正しながら､CWLの文法を勉強していくということが可能です｡
 自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
-:::
 
 ## 参考リンク集
