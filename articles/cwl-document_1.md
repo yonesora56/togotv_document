@@ -7,7 +7,7 @@ published: false
 ---
 :::message
 今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡
-#### [togotv_cwl_for_remote_container](https://github.com/yonezawa-sora/togotv_cwl_for_remote_container)
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 :::
 
 :::message alert
@@ -142,26 +142,22 @@ https://code.visualstudio.com/download
 
 &nbsp;
 
-https://hackmd.io/_uploads/BJZmvmfg6.png
+![VScode-2](https://hackmd.io/_uploads/BJZmvmfg6.png)
 
 左下に｢ >< ｣というマークが出てきます｡ このボタンを押すことで次の作業に移ることができます｡これでVScodeは一旦､準備完了です｡
 
-&nbsp;
-
 :::message
-この｢Dev Containers｣だけでなく､他の拡張機能を含んだ拡張機能パック｢[Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)｣をインストールする方法もあるようです｡
+この｢Dev Containers｣だけでなく､他の拡張機能を含んだ拡張機能パック[Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)をインストールする方法もあるようです｡
 
-![](https://t907947.p.clickup-attachments.com/t907947/c73afc83-d397-4826-b62c-de24f1d30ea1/image.png)
+![remote development](https://t907947.p.clickup-attachments.com/t907947/c73afc83-d397-4826-b62c-de24f1d30ea1/image.png)
 :::
-
-&nbsp;
 
 Dev containersに関する情報は以下の記事が参考になります｡ 
 開発環境を揃える､という点でこの機能は非常に重要なことがわかります｡
 
 #### 参考：[Devcontainer(Remote Container) いいぞという話 開発環境を整える](https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56)
 
-<img src="https://hackmd.io/_uploads/r1sDumfla.png" width="500" height="">
+https://hackmd.io/_uploads/r1sDumfla.png
   
 
 #### 参考：[開発コンテナ(Development Containers)を使おう](https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)
