@@ -219,7 +219,7 @@ https://docs.github.com/ja/codespaces/overview
 
 また､VScode経由でも開くことが可能です｡ 
 そのためには [｢GitHub codespaces｣](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) という拡張機能をインストールしてください｡
-その後｡左下の｢><｣ボタンを押してください｡
+その後､左下の｢><｣ボタンを押してください｡
 
 ![](https://t907947.p.clickup-attachments.com/t907947/760c595c-7e08-47dd-b5c7-a862c2f71194/image.png)
 
@@ -239,9 +239,10 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 自分の場合では､Codespacesの使用時間が(1ヶ月で割り当てられている)全体の90%を超えると､警告のメールが届きました｡
 :::
 
-:::message alert
-__修正1：Use this templateしなくてもcodespacesを開く例をサラッと説明__
-__修正2：山本さんが送ってくれたスクショとかも貼る(ユーザー名隠す)__
+:::message
+このCodespacesを使った環境構築では､実は｢Use this template｣というような作業が不要なケースがあります｡
+まず､[cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスします｡
+![show repository](./screenshots_1.png)
 :::
 
 &nbsp;
