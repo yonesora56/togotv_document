@@ -254,6 +254,9 @@ __修正2：山本さんが送ってくれたスクショとかも貼る(ユー�
 初めにgrepコマンドとwcコマンドを使ったワークフローをCWLによって記述する例を紹介します｡
 
 実行するのは､`grep one mock.txt > grep_out.txt`です｡ 
+mock.txtに対して､`one`という文字列をgrepで検索し､その結果をgrep_out.txtに出力します｡
+
+
 
 ```bash
 grep one mock.txt > grep_out.txt
@@ -330,7 +333,7 @@ zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > ./zatsu_generator/grep_z
 現在､v1.0, v1.1, v1.2など複数のバージョンに対応しています｡
 なお､この記事ではv1.0で書いていますが､基本的な書き方はどのバージョンでも大きく変わりません｡
 
-https://t907947.p.clickup-attachments.com/t907947/cf8cf2c7-57b7-4173-bdee-21c202175c66/image.png
+![](https://t907947.p.clickup-attachments.com/t907947/cf8cf2c7-57b7-4173-bdee-21c202175c66/image.png)
 :::
 
 ### 記述が正しいか確認する
@@ -427,6 +430,7 @@ options:
   --mock_txt MOCK_TXT
 ```
 このように､指定したパラメータ(今回は`--mock_txt`)に関する情報が取得できます｡
+ちなみに`cwltool --help grep_zatsu.cwl`とやるとcwltoolに関するhelpが出力されます｡
 
 大文字の`MOCK_TXT`のあとの部分に具体的に説明を付け加える際には､__`doc`フィールドを追加することで可能になります｡__
 例として､grep_zatsu.cwlに`doc`フィールドを以下のように書き加えました｡
@@ -477,7 +481,6 @@ options:
   --mock_txt MOCK_TXT  please input text file
 ```
 #### [参考：user_guide 2.16 best-practices](https://www.commonwl.org/user_guide/topics/best-practices.html)
-https://www.commonwl.org/user_guide/topics/best-practices.html
 :::
 
 ### (発展編) 自分で修正する
