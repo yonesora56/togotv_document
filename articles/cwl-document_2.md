@@ -48,31 +48,24 @@ wc -l grep_out.txt > wc_out.txt
 
 &nbsp;
 
-次に､実際にCWLファイルの記述を行っていきます｡今回主役となるコマンドは ｢grep｣ と｢wc｣の2つです｡ 今回記述する流れとしては以下の2ステップです｡
+前回は環境構築と､zatsu-cwl-genratorを使ってCWLファイルの生成と実行を行いました｡
+この記事では､更に手を動かす作業を行っていきます｡主役となるコマンドは ｢grep｣ と｢wc｣の2つです｡ 
+今回記述する流れとしては以下の2ステップです｡
 __Step1：コマンドの処理に関するcwlファイルを書く(今回は2つ)__
 __Step2：ワークフロー全体を記述するcwlファイルを書く__
 
 &nbsp;
 
-CWLファイルは記述する内容を YAMLかJSON の形式で記述し、｢.cwl ｣という拡張子でファイルに保存します。実行時にこの CWL ファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡まずはじめにスクリプトの最初の処理である `grep one mock.txt > grepout.txt` の処理をCWLファイルとして記述していきます｡
+## zatsu-cwl-generatorを使ってcwlファイルを2つ書く(Step1)
 
-:::danger
+それでは実際に書いていきましょう｡ 
+まず､前回書いていたgrepの処理に関するCWLファイルを以下に示します｡
 
-__追記：https://view.commonwl.org/workflows?search=__
-:::
-
-&nbsp;
-
-## zatsu-cwl-generatorを使ってcwlファイルを書く(Step1)
-
-それでは実際に書いていきましょう｡ 今回は､コマンドラインツールであるzatsu-cwl-genratorを使ってファイルを __出力__ してみます｡
-
-参考：[雑に始めるCWL！をもっと雑に始めたい](https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a)
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl
 
 &nbsp;
 
-
-```yaml=
+```yaml:
 #!/usr/bin/env cwl-runner
 # Generated from: grep one mock.txt > grepout.txt
 class: CommandLineTool
@@ -105,7 +98,7 @@ stdout: grepout.txt
 ```
 
 再度実行すると以下のようになります｡
-```bash=
+```bash:
 cwltool grep_zatsu.cwl --help
 INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
