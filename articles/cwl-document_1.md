@@ -26,14 +26,13 @@ __本記事の対象となる方__
 # なぜワークフロー言語を使用するのか
 
 バイオインフォマティクスにおけるデータ解析では、一つのツールのみで解析が終了することは極めて稀です｡ 通常､複数のツールを組み合わせて、大量のデータに対して一連のプロセスを繰り返し実行する必要があります。これらの作業手順は、__ワークフロー(またはパイプライン)__ と呼ばれます。
-しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
+しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、__ワークフロー言語__ を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます(参考：[^1] [^2])｡
 
 https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
-#### [参考：Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
 https://www.nature.com/articles/d41586-019-02619-z
 
-現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントと統合TVの動画では**Common Workflow Language (CWL)** について環境構築と実例をご紹介します。
+現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントと統合TVの動画では **Common Workflow Language (CWL)** について環境構築とその実例をご紹介します。
 
 &nbsp;
 
@@ -41,36 +40,31 @@ https://www.nature.com/articles/d41586-019-02619-z
 では次に､数多くあるワークフロー言語の中でも､なぜCWLなのか?ということについてここで説明します｡
 
 ### 1\. bentenなどの開発ツールが充実している
-CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
+CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています[^3]｡
 
-[参考：CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 https://www.commonwl.org/tools/
 
 ### 2\.自分の実行したい環境に合わせて最適なものが選択できる
-CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
+CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です[^4]｡
 
-[参考：CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 https://www.commonwl.org/implementations/
 
 実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
 https://github.com/ddbj/human-reseq
 
 このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
-CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
+CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメント[^5] [^6]や書籍も多くあるので、ぜひ参考にしてください。
 
-[参考：CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
-[参考：Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
 https://oumpy.github.io/blog/2018/12/cwl.html
 
 CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやcondaを使ってインストールすることが可能です。
 しかしながら､環境構築は大変な場合が多々あるかと思います。そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
 
-※なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
-
-[指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
-https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597
+:::message
+※なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事[^7]がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
+:::
 
 &nbsp;
 
@@ -83,22 +77,21 @@ https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597
 
 ダウンロードは以下のページにアクセスしておこないます｡ 皆さんも自分のコンピュータの環境に合わせて選んでください｡
 
-#### [参考：Download Visual Studio Code](https://code.visualstudio.com/download)
 https://code.visualstudio.com/download
 
 この記事では､macOSの｢Apple silicon｣をクリックしてインストールして執筆しています｡
 
 ## 【STEP1-2】拡張機能を導入する
 
-環境構築の準備については､動画で見てもらったほうがわかりやすいかと思いますので､ここでは補足的な情報を主に記述しています｡
+先程述べたように､VSCodeには豊富な拡張機能が存在します｡ 
+サイドバー(ここでは左)の拡張機能のボタン(四角が4つあつまっている部分)を押すと､様々な拡張機能がMarketplaceで検索できます｡
+ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ 
+こちらが必要なのでインストールします[^8](以前は｢Remote Container extension｣という名前だったようですが､どうやら変わったようです)｡
 
-先程述べたように､VSCodeには豊富な拡張機能が存在します｡ サイドバー(ここでは左)の拡張機能のボタン(四角が4つあつまっている部分)を押すと､様々な拡張機能がMarketplaceで検索できます｡
-
-ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ こちらが必要なのでインストールします(以前は｢Remote -Container extension｣という名前だったようですが､どうやら変わったようです)｡
 ![Dev-containers](https://t907947.p.clickup-attachments.com/t907947/8dede111-052d-4ea4-ba7c-007ed30335ed/image.png)
 
-#### [参考：Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
 https://code.visualstudio.com/docs/devcontainers/containers
+
 
 インストール後､VScodeの画面をよくみると....
 
@@ -115,23 +108,21 @@ https://code.visualstudio.com/docs/devcontainers/containers
 ![remote development](https://t907947.p.clickup-attachments.com/t907947/c73afc83-d397-4826-b62c-de24f1d30ea1/image.png)
 :::
 
-Dev containersに関する情報は以下の記事が参考になります｡ こちらも合わせてご覧ください｡
+Dev containersに関する情報は以下の記事が参考になります[^9] [^10]｡ こちらも合わせてご覧ください｡
 
-#### [参考：Devcontainer(Remote Container) いいぞという話 開発環境を整える](https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56)
 https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56
 
-#### [参考：開発コンテナ(Development Containers)を使おう](https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)
 https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B
 
-この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など) ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
+この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など)ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
 
 &nbsp;
 
 ## 【STEP2】Docker Desktopのインストール
 
-次にDocker Desktopをインストールします｡ 下のリンクから可能です｡ 今回はMac(Apple chip)版をインストールします｡
+次にDocker Desktopをインストールします｡ ダウンロードは下のリンクにアクセスすることで可能です｡ 
+今回はMac(Apple chip)版をインストールします｡
 
-#### [参考：Docker公式サイト](https://www.docker.com/products/docker-desktop/)
 https://www.docker.com/products/docker-desktop
 
 &nbsp;
@@ -140,16 +131,16 @@ https://www.docker.com/products/docker-desktop
 
 ![docker-dashboard](https://t907947.p.clickup-attachments.com/t907947/3d83459a-08c3-47b3-bb92-0e89060865a6/image.png)
 
+:::message
 ### Docker Desktop 以外の手段
 Docker desktopを使用する以外にも以下のような代替手段があります｡ 
 
 1. lima + docker (macOS)
-2. Rancher desktop ([https://rancherdesktop.io/](https://rancherdesktop.io/)) (macOS, moby): ただしRemote containerだと安定しないとのことです
+2. Rancher desktop ([https://rancherdesktop.io/](https://rancherdesktop.io/)) (macOS, moby) ※ただし今回使用しているようなRemote containerだと安定しないとのことです
 3. orbstack ([https://orbstack.dev/](https://orbstack.dev/)) (macOS)
 4. Docker on WSL (Windows)
 
-:::message
-こちらは国内版バイオハッカソン23.9にて丹生さんより情報提供いただきました｡
+※ こちらは国内版バイオハッカソン23.9にて丹生さんより情報提供いただきました｡
 :::
 
 &nbsp;
@@ -207,10 +198,8 @@ git clone https://github.com/your_account/cwl-for-remote-container-template
 
 ## 【番外編】GitHub Codespacesで実行環境を作って作業する
 
-ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ しかしながら､__｢もっと楽に環境構築して動かしてみたい!!｣__ という方もいらっしゃるかと思います｡ そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください｡
+ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ しかしながら､__｢もっと楽に環境構築して動かしてみたい!!｣__ という方もいらっしゃるかと思います｡ そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください[^11]｡
 
-
-#### [参考：GitHub Codespaces の概要](https://docs.github.com/ja/codespaces/overview)
 https://docs.github.com/ja/codespaces/overview
 
 先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ このとき｢Open in a codespace｣を選べばなんとブラウザでこの開発環境が立ち上がります! 
@@ -240,7 +229,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 :::message
 このCodespacesを使った環境構築では､実は｢Use this template｣というような作業が不要なケースがあります｡
 まず､[cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスします｡
-![show repository](./screenshots_1.png)
+![show repository](../screenshots/screenshots_1.png)
 :::
 
 &nbsp;
@@ -521,5 +510,14 @@ options:
 
 # 参考リンク集
 
-1. [43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
-2. 
+[^1]: [43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
+[^2]: [Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
+[^3]: [CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
+[^4]: [CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
+[^5]: [CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
+[^6]: [Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
+[^7]: [指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
+[^8]: [Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
+[^9]: [Devcontainer(Remote Container) いいぞという話 開発環境を整える](https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56)
+[^10]: [開発コンテナ(Development Containers)を使おう](https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)
+[^11]: [GitHub Codespaces の概要](https://docs.github.com/ja/codespaces/overview)
