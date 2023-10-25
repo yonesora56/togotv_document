@@ -31,23 +31,19 @@ __本記事の対象となる方__
 
 # grepコマンドとwcコマンドをCWL化する
 
-
-初めに(1)の記事で作ったgrepコマンドのcwlファイルに加え､wcコマンドを使ったワークフローをCWLによって記述する例を紹介します｡
-
+初めに(1)の記事で作ったgrepコマンドのcwlファイルに加え､wcコマンドの処理をCWLによって記述し､この2つを __連続して解析できるようにする__ 例を紹介します｡
 実行するのは､`grep one mock.txt > grep_out.txt` と `wc -l grep_out.txt > wc_out.txt` の2つです｡ 
-この2つは､日本語ドキュメント(CWL Start Guide JP)でも説明されている例になります｡
+この2つは､日本語ドキュメント(CWL Start Guide JP)[^1]でも説明されている例になります｡
 
 ```bash:example
 grep one mock.txt > grep_out.txt
 wc -l grep_out.txt > wc_out.txt
 ```
 
-#### 参考：[CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
-
 &nbsp;
 
 前回は環境構築と､zatsu-cwl-genratorを使ってCWLファイルの生成と実行を行いました｡
-この記事では､更に手を動かす作業を行っていきます｡主役となるコマンドは ｢grep｣ と｢wc｣の2つです｡ 
+この記事では､更に手を動かす作業を行っていきます｡主役となるコマンドは`grep`と`wc`の2つです｡ 
 今回記述する流れとしては以下の2ステップです｡
 __Step1：コマンドの処理に関するcwlファイルを書く(今回は2つ)__
 __Step2：ワークフロー全体を記述するcwlファイルを書く__
@@ -78,18 +74,15 @@ options:
   --mock_txt MOCK_TXT  please input text file
 ```
 
-参考：[user_guide 2.16 best-practices](https://www.commonwl.org/user_guide/topics/best-practices.html)
-
 &nbsp;
 
-同様に､wcコマンドを使用したCWLファイルをzatsu-cwl-generatorで出力してみます｡
+以前の記事で紹介したように､wcコマンドを使用したCWLファイルをzatsu-cwl-generatorで出力してみます｡
 
-```bash=
+```bash:
 zatsu-cwl-generator 'wc -l grep_out.txt > wc_out.txt' > wc_zatsu.cwl
 ```
 
 出力された結果が以下になります｡
-
 ```yaml:
 #!/usr/bin/env cwl-runner
 # Generated from: wc -l grep_out.txt > wc_out.txt
@@ -117,9 +110,7 @@ outputs:
 stdout: wc_out.txt
 ```
 
-&nbsp;
-
-先程と同様に､まず`--validate` オプションを使って評価してみます｡
+こちらも同様に､実行の前に`--validate` オプションを使って評価してみます｡
 
 ```bash:
 cwltool --validate wc_zatsu.cwl
@@ -132,10 +123,14 @@ WARNING wc_zatsu.cwl:14:7: Warning: Field 'location' contains undefined referenc
 wc_zatsu.cwl is valid CWL.
 ```
 
-警告は出ましたが､基本的な部分は大丈夫なようです｡
-少し修正して､以下のように書いてみました｡
+警告が出力されましたが､基本的な部分は大丈夫なようです｡
+警告では､`location`フィールドが`grep_out.txt`というファイルを参照しているが､その記述形式が定義されていないというメッセージが出力されています｡
+このまま実行しても良いかもしれませんが､CWLの勉強も兼ねて修正してみましょう｡
 
-```bash:
+警告にもあったように､`location`フィールドでは､ファイルをただ書くのではなく､`file://`からはじまる書き方(実行者側のファイルシステムのパス)にしたほうが良いようです[^2] [^3]｡
+そこで以下のように修正しました｡
+
+```yaml:
 #!/usr/bin/env cwl-runner
 # Generated from: wc -l grep_out.txt > wc_out.txt
 class: CommandLineTool
@@ -143,12 +138,13 @@ cwlVersion: v1.0
 baseCommand: wc
 arguments:
   - -l
-  - $(inputs.grep_file)
+  - $(inputs.l)
 inputs:
-  - id: grep_file #わかりやすいように名前を変更
+  - id: l
     type: File
     default:
-      class: File #locationフィールドを一旦削除
+      class: File
+      location: file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt 
 outputs:
   - id: all-for-debugging
     type:
@@ -159,7 +155,6 @@ outputs:
   - id: out
     type: stdout
 stdout: wc_out.txt
-
 ```
 
 もう一度`--validate`オプションで確認してみます｡
@@ -168,20 +163,77 @@ stdout: wc_out.txt
 cwltool --validate wc_zatsu.cwl
 INFO /usr/local/bin/cwltool 3.1.20231016170136
 INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
+wc_zatsu.cwl:14:7: Warning: Field 'location' contains undefined reference to
+                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+WARNING wc_zatsu.cwl:14:7: Warning: Field 'location' contains undefined reference to
+                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
 wc_zatsu.cwl is valid CWL.
 ```
 
-&nbsp;
+同じ警告が出てしまいましたが､一旦､このまま実行してみます｡
+`--debug`オプションをつけて実行してみます｡
 
-大丈夫なようなので､次に実際に実行してみます｡
-
+:::details result
 ```bash:
-cwltool wc_zatsu.cwl
+cwltool --debug ./zatsu_generator/wc_zatsu.cwl
 INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
+INFO Resolved './zatsu_generator/wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
+zatsu_generator/wc_zatsu.cwl:14:7: Warning: Field 'path' contains undefined reference to
+                                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+WARNING zatsu_generator/wc_zatsu.cwl:14:7: Warning: Field 'path' contains undefined reference to
+                                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+DEBUG Parsed job order from command line: {
+    "__id": "./zatsu_generator/wc_zatsu.cwl",
+    "l": {
+        "class": "File",
+        "path": "file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt"
+    }
+}
+DEBUG [job wc_zatsu.cwl] initializing from file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl
+DEBUG [job wc_zatsu.cwl] {
+    "l": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt",
+        "basename": "grep_out.txt",
+        "nameroot": "grep_out",
+        "nameext": ".txt"
+    }
+}
 ERROR Input object failed validation:
-Anonymous file object must have 'contents' and 'basename' fields.
+zatsu_generator/wc_zatsu.cwl:13:7: [Errno 2] No such file or directory:
+                                   '/workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 169, in visit
+    st = os.lstat(deref)
+FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/cwltool/main.py", line 1301, in main
+    (out, status) = real_executor(
+  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 62, in __call__
+    return self.execute(process, job_order_object, runtime_context, logger)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 145, in execute
+    self.run_jobs(process, job_order_object, logger, runtime_context)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 220, in run_jobs
+    for job in jobiter:
+  File "/usr/local/lib/python3.10/site-packages/cwltool/command_line_tool.py", line 992, in job
+    builder.pathmapper = self.make_path_mapper(reffiles, builder.stagedir, runtimeContext, True)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/command_line_tool.py", line 485, in make_path_mapper
+    return PathMapper(reffiles, runtimeContext.basedir, stagedir, separateDirs)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 95, in __init__
+    self.setup(dedup(referenced_files), basedir)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 198, in setup
+    self.visit(
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 158, in visit
+    with SourceLine(
+  File "/usr/local/lib/python3.10/site-packages/schema_salad/sourceline.py", line 249, in __exit__
+    raise self.makeError(str(exc_value)) from exc_value
+schema_salad.exceptions.ValidationException: zatsu_generator/wc_zatsu.cwl:13:7: [Errno 2] No such file or directory:
+                                   '/workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
 ```
+:::
 
 エラーが発生しました｡どうやら`input`フィールドの部分でうまくいっていないようです｡
 `contents` と `basename` フィールドを追加してみましょう｡
@@ -383,3 +435,7 @@ INFO [workflow ] completed success
 ```
 
 このように処理され､最終的にwc\_out.txtが出力されます｡
+
+# 参考リンク集
+
+[^1]: [CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
