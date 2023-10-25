@@ -33,11 +33,11 @@ __実際に修正していく過程もこの記事では載せているので､
 # grepコマンドとwcコマンドをCWL化する
 
 初めに(1)の記事で作ったgrepコマンドのcwlファイルに加え､wcコマンドの処理をCWLによって記述し､この2つを __連続して解析できるようにする__ 例を紹介します｡
-実行するのは､`grep one mock.txt > grep_out.txt` と `wc -l grepout.txt > wcout.txt` の2つです｡ 
+実行するのは､`grep one mock.txt > grepout.txt` と `wc -l grepout.txt > wcout.txt` の2つです｡ 
 この2つは､日本語ドキュメント(CWL Start Guide JP)[^1]でも説明されている例になります｡
 
 ```bash:example
-grep one mock.txt > grep_out.txt
+grep one mock.txt > grepout.txt
 wc -l grepout.txt > wcout.txt
 ```
 
@@ -61,7 +61,7 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zat
 このファイルは､zatsu-cwl-generatorを使って生成したものを､少し修正しています｡
 再度実行すると以下のようになります｡
 
-::::details grep_zatsu.cwl実行結果
+:::details grep_zatsu.cwl実行結果
 ```bash:
 cwltool ./zatsu_generator/grep_zatsu.cwl
 INFO /usr/local/bin/cwltool 3.1.20231016170136
@@ -91,7 +91,7 @@ INFO [job grep_zatsu.cwl] completed success
     }
 }INFO Final process status is success
 ```
-::::
+:::
 
 &nbsp;
 
@@ -301,7 +301,6 @@ DEBUG Removing intermediate output directory /tmp/s1835wqr
         "path": "/workspaces/togotv_shooting/zatsu_generator/wcout.txt"
     }
 }INFO Final process status is success
-
 ```
 :::
 
@@ -310,16 +309,29 @@ DEBUG Removing intermediate output directory /tmp/s1835wqr
 
 https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/wcout.txt
 
+これで2つのCWLファイルが揃いました｡次に､この2つを __一つのコマンドで実行できる__ ようにするファイルを用意します｡
+
 &nbsp;
 
-## ワークフローの記述を行う(Step2)
+&nbsp;
 
-それでは､この2つのステップを実際にワークフローとして記述していきます｡
-`grep-and-count.cwl`というファイルを作成していきます｡ 
+# ワークフローの記述を行う
 
-以下では､これまでとは異なる部分を中心に解説します｡
+これまで作ってきたファイルは一つの処理を記述したものです｡
+その場合は､`class`フィールドに`CommandLineTool`と記述します｡
 
-`class`フィールド：ここにはこれまでと違い､`Workflow`と記述します｡
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl#L1-L3
+
+一方､これから作るファイルは､この`class`フィールドに`Workflow`と記述します｡
+以下から`grep-and-count.cwl`というファイルを作成していきます｡このワークフローの記述は現在zatu-cwl-generatorではサポートされていないので､手動で記述していきます｡
+
+:::message
+詳細な説明はトグルに書いていますので､お時間があれば参考にしてください｡
+:::
+
+::::details grep-and-count.cwlの記述
+
+まずはじめに､ワークフローの記述を行うことを明示するために､`class`フィールドに`Workflow`と記述します｡
 
 ```yaml:
 #!/usr/bin/env cwl-runner
@@ -332,7 +344,7 @@ class: Workflow
 
 `inputs`フィールド：ここでは､ __｢ワークフロー｣__ として必要な入力のパラメータについて記述します｡
 
-```yaml=
+```yaml
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: Workflow
@@ -369,6 +381,9 @@ outputs:
 `steps`フィールド：ここでは､具体的なワークフローの手順を記述します｡ それぞれのステップでのインプット､アウトプットを"in"､"out"として記述します｡ 
 `run`フィールドには先程作成したCommandLinetoolの処理を記述したファイルを記述しておきます｡ 
 なお､`out`フィールドでは､リスト形式(\[ \] で囲む)で書くことで､複数の出力を書くことができます｡ 
+
+::::
+
 実際に書いてみたのが以下になります｡
 
 ```yaml:
@@ -400,10 +415,10 @@ steps:
 
 &nbsp;
 
-### 実際に実行してみる
+## 実際にワークフローを実行してみる
 
 それでは実際にこのワークフローを実行してみましょう｡ 
-ワークフローの実行には今回､cwl-runnerを使用して実行します｡
+実行には今回､cwl-runnerを使用して実行します｡
 
 ```bash:
 cwl-runner grep-and-count.cwl --grep_pattern one --target_file ./grepout.txt
@@ -438,7 +453,7 @@ INFO [workflow ] completed success
 
 ```
 
-このように処理され､最終的にwc\_out.txtが出力されます｡
+このように処理され､最終的にwcout.txtが出力されます｡
 
 # 参考リンク集
 
