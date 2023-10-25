@@ -28,7 +28,6 @@ __本記事の対象となる方__
 バイオインフォマティクスにおけるデータ解析では、一つのツールのみで解析が終了することは極めて稀です｡ 通常､複数のツールを組み合わせて、大量のデータに対して一連のプロセスを繰り返し実行する必要があります。これらの作業手順は、__ワークフロー(またはパイプライン)__ と呼ばれます。
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、ワークフロー言語を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
-#### [参考：43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
 https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
 #### [参考：Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
@@ -160,10 +159,9 @@ Docker desktopを使用する以外にも以下のような代替手段があり
 ここまででVScodeとdockerのインストールが完了しました｡ 次にCWLを実行する環境のテンプレートをGitHubから取得します｡
 
 まず､以下に示しているリポジトリにアクセスしてください｡
-今回はこのリポジトリをテンプレートにして環境を作っていきます｡ 
+今回はこのリポジトリ([tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template))をテンプレートにして環境を作っていきます｡ 
 このテンプレートでは既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されています｡
 
-#### [tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)
 https://github.com/tom-tan/cwl-for-remote-container-template
 
 ページ内の ｢Use this template｣(緑のボタン)をクリックし､｢Create a new repository｣を選択すると､自分のアカウントで新規リポジトリを作成することができます｡ 
@@ -522,3 +520,6 @@ options:
 自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
 
 # 参考リンク集
+
+1. [43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
+2. 
