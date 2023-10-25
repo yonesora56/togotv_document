@@ -144,7 +144,10 @@ wc_zatsu.cwl is valid CWL.
 
 警告が出力されましたが､基本的な部分は大丈夫なようです｡
 警告では､`location`フィールドが`grep_out.txt`というファイルを参照しているが､その記述形式が定義されていないというメッセージが出力されています｡
-このまま実行しても良いかもしれませんが､CWLの勉強も兼ねて修正してみましょう｡
+このまま実行しても良いかもしれませんが､CWLの勉強も兼ねて修正してみましょう(以下のトグルに修正､そしてエラーの原因を突き止めた経緯を書いているのでお時間があれば参考にしてください)｡
+
+
+::::details ｗc_zatsu.cwlの修正とエラーの原因
 
 警告にもあったように､`location`フィールドでは､ファイルをただ書くのではなく､`file://`からはじまる書き方(実行者側のファイルシステムのパス)にしたほうが良いようです[^2] [^3]｡
 そこで以下のように修正しました｡
@@ -176,8 +179,9 @@ outputs:
 stdout: wc_out.txt
 ```
 
-もう一度`--validate`オプションで確認してみます｡
+一旦､このままcwltoolで実行してみました(エラーの特定のため `--debug`オプションを追加しました)｡
 
+:::details cwltool実行結果
 ```bash:
 cwltool --debug ./zatsu_generator/wc_zatsu.cwl
 INFO /usr/local/bin/cwltool 3.1.20231016170136
@@ -270,38 +274,8 @@ outputs:
     type: stdout
 stdout: wc_out.txt
 ```
+::::
 
-再度実行して結果を見てみた所､カウントが本来は4なのですが､0と表示されていました｡
-そこで､pathを明示すれば良いのかなと考え､以下のように`path`フィールドを追加して再修正しました｡
-
-```yaml:
-#!/usr/bin/env cwl-runner
-# Generated from: wc -l grep_out.txt > wc_out.txt
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: wc
-arguments:
-  - -l
-  - $(inputs.grep_file)
-inputs:
-  - id: grep_file
-    type: File
-    default:
-      class: File
-      basename: "grepout.txt"
-      contents: "This is a text file."
-      path: ./grepout.txt # pathフィールドを追加
-outputs:
-  - id: all-for-debugging
-    type:
-      type: array
-      items: [File, Directory]
-    outputBinding:
-      glob: "*"
-  - id: out
-    type: stdout
-stdout: wc_out.txt
-```
 
 結果を見てみると､4としっかりカウントされていました｡
 
