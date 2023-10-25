@@ -443,3 +443,5 @@ INFO [workflow ] completed success
 # 参考リンク集
 
 [^1]: [CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
+[^2]: [CWL実行時に、パラメータとしてファイルを渡したときの location や path](https://qiita.com/manabuishiirb/items/8e9747ce3d902f5fba0a)
+[^3]: [Common Workflow Language (CWL) Command Line Tool Description, v1.0.2 5.1.5 File](https://www.commonwl.org/v1.0/CommandLineTool.html#File)
