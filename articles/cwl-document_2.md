@@ -144,7 +144,7 @@ wc_zatsu.cwl is valid CWL.
 
 警告が出力されましたが､基本的な部分は大丈夫なようです｡
 警告では､`location`フィールドが`grep_out.txt`というファイルを参照しているが､その記述形式が定義されていないというメッセージが出力されています｡
-このまま実行しても良いかもしれませんが､CWLの勉強も兼ねて修正してみましょう(以下のトグルに修正の経緯を書いているのでお時間があれば参考にしてください)｡
+このまま実行する前に､CWLの勉強も兼ねて修正してみましょう(以下のトグルに修正の経緯を書いているのでお時間があれば参考にしてください)｡
 
 
 :::details wc_zatsu.cwlの修正
@@ -166,7 +166,7 @@ inputs:
     type: File
     default:
       class: File
-      location: file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt 
+      location: file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt # ここを修正
 outputs:
   - id: all-for-debugging
     type:
@@ -307,7 +307,9 @@ DEBUG Removing intermediate output directory /tmp/s1835wqr
 実行が成功したようです｡
 結果を見てみると､4としっかりカウントされていました｡
 
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/wcout.txt
+```txt:
+4 /tmp/307b8iig/stg0c1080cc-90eb-40a9-b697-064ab90b3855/grepout.txt
+```
 
 これで2つのCWLファイルが揃いました｡次に､この2つを __一つのコマンドで実行できる__ ようにするファイルを用意します｡
 
