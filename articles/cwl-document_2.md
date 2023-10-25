@@ -33,12 +33,12 @@ __実際に修正していく過程もこの記事では載せているので､
 # grepコマンドとwcコマンドをCWL化する
 
 初めに(1)の記事で作ったgrepコマンドのcwlファイルに加え､wcコマンドの処理をCWLによって記述し､この2つを __連続して解析できるようにする__ 例を紹介します｡
-実行するのは､`grep one mock.txt > grep_out.txt` と `wc -l grep_out.txt > wc_out.txt` の2つです｡ 
+実行するのは､`grep one mock.txt > grep_out.txt` と `wc -l grepout.txt > wcout.txt` の2つです｡ 
 この2つは､日本語ドキュメント(CWL Start Guide JP)[^1]でも説明されている例になります｡
 
 ```bash:example
 grep one mock.txt > grep_out.txt
-wc -l grep_out.txt > wc_out.txt
+wc -l grepout.txt > wcout.txt
 ```
 
 &nbsp;
@@ -98,13 +98,13 @@ INFO [job grep_zatsu.cwl] completed success
 以前の記事で紹介した過程と同様に､wcコマンドを使用したCWLファイルをzatsu-cwl-generatorで出力してみます｡
 
 ```bash:
-zatsu-cwl-generator 'wc -l grep_out.txt > wc_out.txt' > wc_zatsu.cwl
+zatsu-cwl-generator 'wc -l grepout.txt > wcout.txt' > wc_zatsu.cwl
 ```
 
 出力された結果が以下になります｡
 ```yaml:
 #!/usr/bin/env cwl-runner
-# Generated from: wc -l grep_out.txt > wc_out.txt
+# Generated from: wc -l grep_out.txt > wcout.txt
 class: CommandLineTool
 cwlVersion: v1.0
 baseCommand: wc
@@ -126,7 +126,7 @@ outputs:
       glob: "*"
   - id: out
     type: stdout
-stdout: wc_out.txt
+stdout: wcout.txt
 ```
 
 こちらも同様に､実行の前に`--validate` オプションを使って評価してみます｡
@@ -144,10 +144,10 @@ wc_zatsu.cwl is valid CWL.
 
 警告が出力されましたが､基本的な部分は大丈夫なようです｡
 警告では､`location`フィールドが`grep_out.txt`というファイルを参照しているが､その記述形式が定義されていないというメッセージが出力されています｡
-このまま実行しても良いかもしれませんが､CWLの勉強も兼ねて修正してみましょう(以下のトグルに修正､そしてエラーの原因を突き止めた経緯を書いているのでお時間があれば参考にしてください)｡
+このまま実行しても良いかもしれませんが､CWLの勉強も兼ねて修正してみましょう(以下のトグルに修正の経緯を書いているのでお時間があれば参考にしてください)｡
 
 
-::::details ｗc_zatsu.cwlの修正とエラーの原因
+:::details wc_zatsu.cwlの修正
 
 警告にもあったように､`location`フィールドでは､ファイルをただ書くのではなく､`file://`からはじまる書き方(実行者側のファイルシステムのパス)にしたほうが良いようです[^2] [^3]｡
 そこで以下のように修正しました｡
@@ -166,7 +166,7 @@ inputs:
     type: File
     default:
       class: File
-      location: file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt 
+      location: file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt 
 outputs:
   - id: all-for-debugging
     type:
@@ -179,111 +179,136 @@ outputs:
 stdout: wc_out.txt
 ```
 
-一旦､このままcwltoolで実行してみました(エラーの特定のため `--debug`オプションを追加しました)｡
+再度､`--validate`オプションを使って評価してみます｡
+
+```bash:
+cwltool --validate wc_zatsu.cwl
+INFO /usr/local/bin/cwltool 3.1.20231016170136
+INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
+wc_zatsu.cwl is valid CWL.
+```
+無事､修正されました｡
+このように､`--validate`オプションはCWLファイルの記述が正しいかどうかを確認するのに便利です｡
+:::
+
+警告された部分を修正したので､次に実際に実行してみましょう｡ (`--debug`オプションをつけて行いました)
 
 :::details cwltool実行結果
 ```bash:
-cwltool --debug ./zatsu_generator/wc_zatsu.cwl
+cwltool --debug wc_zatsu.cwl
 INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved './zatsu_generator/wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
-zatsu_generator/wc_zatsu.cwl:14:7: Warning: Field 'location' contains undefined reference to
-                                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
-WARNING zatsu_generator/wc_zatsu.cwl:14:7: Warning: Field 'location' contains undefined reference to
-                                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
 DEBUG Parsed job order from command line: {
-    "__id": "./zatsu_generator/wc_zatsu.cwl",
+    "__id": "wc_zatsu.cwl",
     "l": {
         "class": "File",
-        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt"
+        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt"
     }
 }
 DEBUG [job wc_zatsu.cwl] initializing from file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl
 DEBUG [job wc_zatsu.cwl] {
     "l": {
         "class": "File",
-        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt",
-        "basename": "grep_out.txt",
-        "nameroot": "grep_out",
+        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt",
+        "size": 16,
+        "basename": "grepout.txt",
+        "nameroot": "grepout",
         "nameext": ".txt"
     }
 }
-ERROR Input object failed validation:
-zatsu_generator/wc_zatsu.cwl:14:7: [Errno 2] No such file or directory:
-                                   '/workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 169, in visit
-    st = os.lstat(deref)
-FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.10/site-packages/cwltool/main.py", line 1301, in main
-    (out, status) = real_executor(
-  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 62, in __call__
-    return self.execute(process, job_order_object, runtime_context, logger)
-  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 145, in execute
-    self.run_jobs(process, job_order_object, logger, runtime_context)
-  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 220, in run_jobs
-    for job in jobiter:
-  File "/usr/local/lib/python3.10/site-packages/cwltool/command_line_tool.py", line 992, in job
-    builder.pathmapper = self.make_path_mapper(reffiles, builder.stagedir, runtimeContext, True)
-  File "/usr/local/lib/python3.10/site-packages/cwltool/command_line_tool.py", line 485, in make_path_mapper
-    return PathMapper(reffiles, runtimeContext.basedir, stagedir, separateDirs)
-  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 95, in __init__
-    self.setup(dedup(referenced_files), basedir)
-  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 198, in setup
-    self.visit(
-  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 158, in visit
-    with SourceLine(
-  File "/usr/local/lib/python3.10/site-packages/schema_salad/sourceline.py", line 249, in __exit__
-    raise self.makeError(str(exc_value)) from exc_value
-schema_salad.exceptions.ValidationException: zatsu_generator/wc_zatsu.cwl:14:7: [Errno 2] No such file or directory:
-                                   '/workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+DEBUG [job wc_zatsu.cwl] path mappings is {
+    "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt": [
+        "/workspaces/togotv_shooting/zatsu_generator/grepout.txt",
+        "/tmp/307b8iig/stg0c1080cc-90eb-40a9-b697-064ab90b3855/grepout.txt",
+        "File",
+        true
+    ]
+}
+DEBUG [job wc_zatsu.cwl] command line bindings is [
+    {
+        "position": [
+            -1000000,
+            0
+        ],
+        "datum": "wc"
+    },
+    {
+        "position": [
+            0,
+            0
+        ],
+        "datum": "-l"
+    },
+    {
+        "position": [
+            0,
+            1
+        ],
+        "valueFrom": "$(inputs.l)"
+    }
+]
+DEBUG [job wc_zatsu.cwl] initial work dir {}
+INFO [job wc_zatsu.cwl] /tmp/s1835wqr$ wc \
+    -l \
+    /tmp/307b8iig/stg0c1080cc-90eb-40a9-b697-064ab90b3855/grepout.txt > /tmp/s1835wqr/wcout.txt
+DEBUG Could not collect memory usage, job ended before monitoring began.
+INFO [job wc_zatsu.cwl] completed success
+DEBUG [job wc_zatsu.cwl] outputs {
+    "all-for-debugging": [
+        {
+            "location": "file:///tmp/s1835wqr/wcout.txt",
+            "basename": "wcout.txt",
+            "nameroot": "wcout",
+            "nameext": ".txt",
+            "class": "File",
+            "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+            "size": 68,
+            "http://commonwl.org/cwltool#generation": 0
+        }
+    ],
+    "out": {
+        "location": "file:///tmp/s1835wqr/wcout.txt",
+        "basename": "wcout.txt",
+        "nameroot": "wcout",
+        "nameext": ".txt",
+        "class": "File",
+        "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+        "size": 68,
+        "http://commonwl.org/cwltool#generation": 0
+    }
+}
+DEBUG [job wc_zatsu.cwl] Removing input staging directory /tmp/307b8iig
+DEBUG [job wc_zatsu.cwl] Removing temporary directory /tmp/42prtgxi
+DEBUG Moving /tmp/s1835wqr/wcout.txt to /workspaces/togotv_shooting/zatsu_generator/wcout.txt
+DEBUG Removing intermediate output directory /tmp/s1835wqr
+{
+    "all-for-debugging": [
+        {
+            "location": "file:///workspaces/togotv_shooting/zatsu_generator/wcout.txt",
+            "basename": "wcout.txt",
+            "class": "File",
+            "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+            "size": 68,
+            "path": "/workspaces/togotv_shooting/zatsu_generator/wcout.txt"
+        }
+    ],
+    "out": {
+        "location": "file:///workspaces/togotv_shooting/zatsu_generator/wcout.txt",
+        "basename": "wcout.txt",
+        "class": "File",
+        "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+        "size": 68,
+        "path": "/workspaces/togotv_shooting/zatsu_generator/wcout.txt"
+    }
+}INFO Final process status is success
 
 ```
 :::
 
-エラーが発生しました｡
-どうやら`input`フィールドの部分でうまくいっていないようです｡
-
-```yaml:
-#!/usr/bin/env cwl-runner
-# Generated from: wc -l grep_out.txt > wc_out.txt
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: wc
-arguments:
-  - -l
-  - $(inputs.grep_file)
-inputs:
-  - id: grep_file
-    type: File
-    default:
-      class: File
-      basename: "grepout.txt"
-      contents: "This is a text file."
-outputs:
-  - id: all-for-debugging
-    type:
-      type: array
-      items: [File, Directory]
-    outputBinding:
-      glob: "*"
-  - id: out
-    type: stdout
-stdout: wc_out.txt
-```
-::::
-
-
+実行が成功したようです｡
 結果を見てみると､4としっかりカウントされていました｡
 
-```text:
-4 /tmp/o8n3tzc8/stg195a993d-1cac-4ba9-bfd2-4266ebad333f/grepout.txt
-```
-
-このように､エラーメッセージや結果を見るなどして適切なファイルに逐次修正することが大事です｡
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/wcout.txt
 
 &nbsp;
 
