@@ -19,11 +19,15 @@ zennとの連携用
 ## [CWL document 2](./articles/cwl-document_2.md)
 
 - workflowの実行例の説明をもう少し追加して完成
+- <https://view.commonwl.org/workflows/github.com/manabuishii/cwl-samples/blob/bff3770d52404b12d2d0f12b45c4c0edd3213dba/grep-and-count-for-figure-1.cwl>
 - 脚注を追加予定
 
 &nbsp;
 
 ## [CWL document 3](./articles/cwl-document_3.md)
+
+- hintsフィールドとrequirementsフィールドの説明を追加する
+- 脚注を追加予定
 
 ## 丹生さんへのリサーチ(20230928)
 
@@ -33,7 +37,7 @@ zennとの連携用
 
 3. なんでCWLを扱うのか?
     - 記載を追加済み
-4. hintフィールドとrequirementsフィールド(https://www.commonwl.org/v1.0/CommandLineTool.html#Requirements_and_hints)
+4. hintsフィールドとrequirementsフィールド(https://www.commonwl.org/v1.0/CommandLineTool.html#Requirements_and_hints)
 5. CWLをなんのエンジンで実行するかで`requirements`フィールドの実行の可否が決まる
     - エンジンによってはサポートしていない事例も
     - バッジで準拠を確認できる(implementation)

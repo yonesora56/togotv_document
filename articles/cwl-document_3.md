@@ -5,27 +5,27 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
 published: false
 ---
-__※今回の記事で使用したCWLファイルをおいているリポジトリは以下からアクセスすることができます｡__
+__※今回の記事で使用したCWLファイルをおいているリポジトリは以下からアクセスすることができます__
 https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 
 :::message alert
 この赤いフィールドは後ほど修正する点をメモしています
 :::
 
-# バイオインフォマティクスの解析をワークフロー化する
+# バイオインフォマティクスの解析手順をワークフロー化する
 
-これまで､環境構築､`grep`と`wc`の処理に関するワークフローを作る作業を行いました｡
+これまで､環境構築､`grep`と`wc`の処理に関するワークフローを作る作業を紹介しました｡
 ここでは､具体的に生命科学で使用されているツールを使った例をワークフローとして記述してみる例を紹介します｡
 今回は以下に示す5つのステップをワークフローとして記述してみます｡
 
-**(1) BLASTpコマンドによる配列類似性検索**
+**(1)blastpコマンドによる配列類似性検索**
 **(2)awkによるヒットしたIDの抽出**
 **(3)blastdbcmdによるヒットしたIDのfastaファイルの抽出**
-**(4) ClustalOmegaによるマルチプルアラインメント**
+**(4)ClustalOmegaによるマルチプルアラインメント**
 **(5)fasttreeによるブートストラップ値の算出**
 
 今回取り上げたツールをうち､awk以外はBiocontainersによってdocker imageが構築されています(awkはUbuntu:23.10をイメージとして使用しています)｡
-docker hubのホームページ にアクセスし､コマンドをコピー&ペーストすることでこれらのimageをpullすることができます｡
+dockerhubのホームページにアクセスし､コマンドをコピー&ペーストすることでこれらのimageをpullすることができます｡
 
 :::danger
 __修正1：まずdockerなしの状態で記述した後､dockerについて記述する__
@@ -85,7 +85,7 @@ docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 make
 
 次に､実際の処理について､CWLファイルを記述していきましょう｡ 今回実行する5つのステップのコマンドは以下のようになっています｡
 
-```bash=
+```bash:
 # Step1
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20 
 
@@ -115,7 +115,7 @@ __変更：`-c`オプションを使ってコンテナの場合を紹介する__
 __変更：出力された結果を__
 :::
 
-```bash=
+```bash:
 zatsu-cwl-generator "docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20" > blastp.cwl
 ```
 
@@ -125,86 +125,7 @@ zatsu-cwl-generator "docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/b
 
 ```yaml
 #!/usr/bin/env cwl-runner
-# Generated from: docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: docker
-arguments:
-  - $(inputs.run)
-  - --rm
-  - -it
-  - -v
-  - $(inputs.v)
-  - -w
-  - $(inputs.w)
-  - $(inputs.blast:v2_2_31_cv2)
-  - $(inputs.blastp)
-  - -query
-  - $(inputs.query)
-  - -db
-  - $(inputs.db)
-  - -evalue
-  - $(inputs.evalue)
-  - -num_threads
-  - $(inputs.num_threads)
-  - -outfmt
-  - $(inputs.outfmt)
-  - -out
-  - $(inputs.out)
-  - -max_target_seqs
-  - $(inputs.max_target_seqs)
-inputs:
-  - id: run
-    type: Any
-    default: run
-  - id: v
-    type: Any
-    default: `pwd`:`pwd`
-  - id: w
-    type: Any
-    default: `pwd`
-  - id: blast:v2_2_31_cv2
-    type: File
-    default:
-      class: File
-      location: biocontainers/blast:v2.2.31_cv2
-  - id: blastp
-    type: Any
-    default: blastp
-  - id: query
-    type: File
-    default:
-      class: File
-      location: MSTN.fasta
-  - id: db
-    type: File
-    default:
-      class: File
-      location: uniprot_sprot.fasta
-  - id: evalue
-    type: Any
-    default: 1e-5
-  - id: num_threads
-    type: int
-    default: 4
-  - id: outfmt
-    type: int
-    default: 6
-  - id: out
-    type: File
-    default:
-      class: File
-      location: blastp_result_MSTN.txt
-  - id: max_target_seqs
-    type: int
-    default: 20
-outputs:
-  - id: all-for-debugging
-    type:
-      type: array
-      items: [File, Directory]
-    outputBinding:
-      glob: "*"
+
 ```
 
 パラメータなどの記述が標準出力に出力されます｡ しかしながら､修正すべき点がありますので修正していきましょう｡
@@ -336,7 +257,7 @@ BLASTでは､inputsのインデックス(引数は `-db` )の指定の部分の
 
 例えば今回は `secondaryFiles` フィールドを活用し､以下のように記述しています｡ 
 
-```yaml=
+```yaml:
   protein_database:
     type: File
     default: 
@@ -368,7 +289,7 @@ BLASTでは､inputsのインデックス(引数は `-db` )の指定の部分の
 パラメータを一つのYAMLファイルにまとめて実行することができます｡
 ファイルは以下のように書くことが可能です｡
 
-```yaml=
+```yaml:
 protein_query: 
   class: File
   path: ../data/MSTN.fasta
@@ -395,7 +316,7 @@ cwltool --outdir ./data ./Tools/1_blastp.cwl ./Tools/1_blastp.yml
 
 &nbsp;
 
-```bash=
+```bash:
 INFO /usr/local/bin/cwltool 3.1.20230906142556
 INFO Resolved './Tools/1_blastp.cwl' to 'file:///workspaces/togotv_shooting/Tools/1_blastp.cwl'
 INFO [job 1_blastp.cwl] /tmp/qe5n7kgg$ docker \
@@ -459,7 +380,7 @@ INFO [job 1_blastp.cwl] completed success
 
 ### 2_awk.cwl
 
-```yaml=
+```yaml:
 #!/usr/bin/env cwl-runner
 # Generated from: docker run --rm -it -v `pwd`:`pwd` -w `pwd` ubuntu:23.10 awk '{ print $2 }' blastp_result_MSTN.txt > blastp_result_id.txt
 class: CommandLineTool
@@ -496,7 +417,7 @@ stdout: $(inputs.output_id_file_name)
 
 ### 3\_blastdbcmd.cwl
 
-```yaml=
+```yaml:
 #!/usr/bin/env cwl-runner
 # Generated from: docker run --rm -it -v /workspaces/togotv_shooting/data:/workspaces/togotv_shooting/data  -w  /workspaces/togotv_shooting/data biocontainers/blast:v2.2.31_cv2 blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastp_results_MSTN.fasta
 class: CommandLineTool
@@ -548,7 +469,7 @@ outputs:
 
 ### 4_clustalo.cwl
 
-```yaml=
+```yaml:
 #!/usr/bin/env cwl-runner
 # Generated from: docker run --rm -it -v /workspaces/togotv_shooting/data:/workspaces/togotv_shooting/data -w /workspaces/togotv_shooting/data biocontainers/clustalo:v1.2.4-2-deb_cv1 clustalo -i /workspaces/togotv_shooting/data/blastp_results_MSTN.fasta --outfmt=fasta -o MSTN_aligned_sequence.fasta
 class: CommandLineTool
@@ -589,7 +510,7 @@ outputs:
 
 ### 5_fasttree.cwl
 
-```yaml=
+```yaml:
 #!/usr/bin/env cwl-runner
 # Generated from: docker run --rm -it -v /workspaces/togotv_shooting/data:/workspaces/togotv_shooting/data -w /workspaces/togotv_shooting/data biocontainers/fasttree:v2.1.10-2-deb_cv1 FastTree -out MSTN_tree.newick /workspaces/togotv_shooting/data/MSTN_aligned_sequence.fasta
 class: CommandLineTool
@@ -628,7 +549,7 @@ __修正：best practicesに載っているような書き方で最後書く__
 :::
 
 これまで､CommanlinetoolのCWLファイルを書いてみました｡次にこれらの5つのステップを実行するワークフローを記述していきます｡この例では､ワークフロー全体に関するパラメータを｢1\_protein\_query｣のように数字をつけています｡ 前の処理のアウトプットを受け取る部分は｢blastp\_result: step1\_blastp/blastp\_output\_file｣のように記述し､それ以外の全ての処理に関するパラメータをinputsで記述しています｡
-```yaml=
+```yaml:
 #!/usr/bin/env cwl-runner
 cwlVersion: v1.0
 class: Workflow
@@ -743,7 +664,7 @@ steps:
 
 ### パラメータファイル(YAMLファイル)
 
-```yaml=
+```yaml:
 # 1_blastp.cwl のパラメータ
 1_protein_query:
   class: File
@@ -777,7 +698,7 @@ steps:
 &nbsp;
 
 最後に`cwltool –-validate`を実行します｡
-```yaml=
+```yaml:
 cwltool --validate ./workflow/6_phylogenetic-workflow.cwl ./workflow/input.yaml
 INFO /usr/local/bin/cwltool 3.1.20230906142556
 INFO Resolved './workflow/6_phylogenetic-workflow.cwl' to 'file:///workspaces/togotv_shooting/workflow/6_phylogenetic-workflow.cwl'
@@ -787,7 +708,7 @@ INFO Resolved './workflow/6_phylogenetic-workflow.cwl' to 'file:///workspaces/to
 書き方としては問題が無いようです｡
 続いて､CWLファイルに対して`--help`オプションを行ってみます｡
 
-```bash=
+```bash:
 cwltool ./workflow/6_phylogenetic-workflow.cwl --help
 ```
 
@@ -798,12 +719,12 @@ __追記：ここでも先頭何行か見せて､docフィールドを書くこ
 
 それでは､実際に実行してみます｡
 
-```yaml=
+```yaml:
 cwl-runner ./workflow/6_phylogenetic-workflow.cwl ./workflow/input.yml
 ```
 
 実行結果
-```bash=
+```bash:
 INFO /usr/local/bin/cwl-runner 3.1.20230906142556
 INFO Resolved './workflow/6_phylogenetic-workflow.cwl' to 'file:///workspaces/togotv_shooting/workflow/6_phylogenetic-workflow.cwl
 '                                                                                                                                 INFO [workflow ] start
@@ -996,6 +917,3 @@ __CWLで記述したファイルは様々な環境で実行することができ
 
 :::danger
 # 追記：リンク集を作成する
-
-1. 作ったワークフローのリポジトリ
-:::
