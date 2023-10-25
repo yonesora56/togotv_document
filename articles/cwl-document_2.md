@@ -51,7 +51,7 @@ __Step2：ワークフロー全体を記述するcwlファイルを書く__
 
 &nbsp;
 
-## zatsu-cwl-generatorを使ってcwlファイルを書く(Step1)
+## zatsu-cwl-generatorを使ってcwlファイルを書く
 
 それでは実際に書いていきましょう｡ 
 まず､前回書いていたgrepの処理に関するCWLファイルを以下に示します｡
