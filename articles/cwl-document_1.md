@@ -257,7 +257,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 実行するのは､`grep one mock.txt > grep_out.txt`です｡ 
 mock.txtに対して､`one`という文字列をgrepで検索し､その結果をgrep_out.txtに出力します｡
 
-
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/data/mock.txt
 
 ```bash
 grep one mock.txt > grep_out.txt

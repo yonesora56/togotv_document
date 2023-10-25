@@ -5,7 +5,6 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
 published: false
 ---
-
 __※今回の記事で使用したCWLファイルをおいているリポジトリは以下からアクセスすることができます｡__
 https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 
@@ -15,7 +14,8 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 
 # バイオインフォマティクスの解析をワークフロー化する
 
-次に､ 具体的に生命科学で使用されているツールを使った例をワークフローとして記述してみる例を紹介します｡
+これまで､環境構築､`grep`と`wc`の処理に関するワークフローを作る作業を行いました｡
+ここでは､具体的に生命科学で使用されているツールを使った例をワークフローとして記述してみる例を紹介します｡
 今回は以下に示す5つのステップをワークフローとして記述してみます｡
 
 **(1) BLASTpコマンドによる配列類似性検索**
