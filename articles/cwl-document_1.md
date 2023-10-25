@@ -30,6 +30,8 @@ __本記事の対象となる方__
 
 https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
 
+&nbsp;
+
 https://www.nature.com/articles/d41586-019-02619-z
 
 現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントと統合TVの動画では **Common Workflow Language (CWL)** について環境構築とその実例をご紹介します。
