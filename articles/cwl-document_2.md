@@ -24,7 +24,7 @@ __本記事の対象となる方__
 (1)の記事を見ていただいたあと､更にCWLを勉強したいという方向けの記事になります｡
 :::
 
-以前の記事では､環境構築やzatsu-cwl-generatorの使い方をご紹介しました｡
+以前の記事では､環境構築や[zatsu-cwl-generator](https://github.com/tom-tan/zatsu-cwl-generator)の使い方をご紹介しました｡
 この記事では､zatsu-cwl-generatorで生成されたcwlファイルを修正しながらワークフローを実際に記述する方法についてご紹介します｡ 
 
 &nbsp;
@@ -37,7 +37,7 @@ __本記事の対象となる方__
 実行するのは､`grep one mock.txt > grep_out.txt` と `wc -l grep_out.txt > wc_out.txt` の2つです｡ 
 この2つは､日本語ドキュメント(CWL Start Guide JP)でも説明されている例になります｡
 
-```bash=example
+```bash:example
 grep one mock.txt > grep_out.txt
 wc -l grep_out.txt > wc_out.txt
 ```

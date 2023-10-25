@@ -257,7 +257,9 @@ CWLファイルは記述する内容を YAMLかJSON の形式で記述し、｢.
 実行時にこのCWLファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
 まずはじめにスクリプトの最初の処理である `grep one mock.txt > grepout.txt` の処理をCWLファイルとして記述していきます｡
 
-今回は､上記の処理をCWLファイルとして生成することが可能なコマンドラインツールであるzatsu-cwl-genrator[^12]を使ってファイルを出力してみます｡
+今回は､上記の処理をCWLファイルとして生成することが可能なコマンドラインツールである[zatsu-cwl-genrator](https://github.com/tom-tan/zatsu-cwl-generator)[^12]を使ってファイルを出力してみます｡
+
+https://github.com/tom-tan/zatsu-cwl-generator
 
 https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a
 
