@@ -12,6 +12,14 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 この赤いフィールドは後ほど修正する点をメモしています
 :::
 
+:::message alert
+__修正1：まずdockerなしの状態で記述した後､dockerについて記述する__
+__修正2：`arguments`ではなく､`hints`フィールドを書く(条件がゆるい)__
+__修正3：dockerの説明のあとにsingularityの説明を加える__
+__変更：`-c`オプションを使ってコンテナの場合を紹介する__
+__変更：出力された結果を__
+:::
+
 # バイオインフォマティクスの解析手順をワークフロー化する
 
 これまで､環境構築､`grep`と`wc`の処理に関するワークフローを作る作業を紹介しました｡
@@ -25,25 +33,30 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 **(5)fasttreeによるnewick形式ファイルの出力**
 
 これにより､BLASTpでヒットした配列から､系統樹を作成する前段階の処理(newick形式のファイルを出力)をワークフローとして記述します｡
-これらのコマンドは､Biocondaやhomebrewなどからインストールすることができ､ローカルで実行することが可能です｡
+これらのコマンドは､Biocondaやhomebrewなどからインストールして実行することが可能ですが､今回は､dockerを使ったコマンドのCWLファイル作成を行います｡
 
-今回取り上げたツールのうち､awk以外はBiocontainersによってdocker imageが構築されています(awkはUbuntu:23.10をイメージとして使用しています)｡
-dockerhubのホームページにアクセスし､コマンドをコピー&ペーストすることでこれらのimageをpullすることができます｡
-
-:::danger
-__修正1：まずdockerなしの状態で記述した後､dockerについて記述する__
-__修正2：`arguments`ではなく､`hints`フィールドを書く(条件がゆるい)__
-__修正3：dockerの説明のあとにsingularityの説明を加える__
+:::message
+この記事でも後述していますが､__docker imageがある場合にはそのimageを使用して実行する__ CWLファイルを書くので､すでにツールをインストールしている場合でも試すことができます｡
 :::
+
+&nbsp;
 
 &nbsp;
 
 ## docker imageを取得する
 
-まず､それぞれのdocker imageをdocker hubからダウンロードします｡ tag を指定する形で今回はダウンロード(docker pull ... をコピー&ペースト)しました｡
+:::message
+すでに構築した環境にインストールしている方などはこの手順は飛ばしてください｡
+:::
+
+今回取り上げたツールのdocker imageを[docker hub](https://hub.docker.com/)から取得します｡
+[blast](https://hub.docker.com/r/biocontainers/blast)､[clustalo](https://hub.docker.com/r/biocontainers/clustalo)､[fasttree](https://hub.docker.com/r/biocontainers/fasttree)はすべて[BioContainers](https://biocontainers.pro/)によって構築されています[^1]｡また､awkについては[ubuntu](https://hub.docker.com/_/ubuntu)のimageを取得しました｡
+
+:::message
+tag を指定する形で今回はダウンロード(docker pull ... をコピー&ペースト)しました｡
+:::
 
 以下はターミナルで `docker image ls` を行った例です｡
-
 ```bash:
 docker image ls
 REPOSITORY               TAG                 IMAGE ID       CREATED       SIZE
@@ -55,48 +68,70 @@ biocontainers/blast      v2.2.31_cv2         5b25e08b9871   4 years ago   2.03GB
 
 &nbsp;
 
+&nbsp;
+
 ## ワークフローの準備を行う
 
 次に､インプットするファイルを準備していきます｡
 
 ### 1\. クエリ配列
 
-blastpを実行するので､今回クエリとするのは､ ウシのミオスタチンのタンパク質配列のfastaファイル (MSTN.fastaに名前を変更しています)です｡ curlコマンドで取得しました｡
-
+blastpを実行するので､今回クエリとするのは､ウシのミオスタチンのタンパク質配列のfastaファイル (MSTN.fastaに名前を変更しています)です｡ 
+curlコマンドで取得しました｡
 ```bash:
 curl -O https://rest.uniprot.org/uniprotkb/O18836.fasta
 ```
 
-
 ### 2\. インデックス(データベース)
 
-次に､BLASTのデータベースとして使用するUniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりcurlコマンドで取得しました｡ 
+次に､BLASTのデータベースとして使用するUniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりこちらもcurlコマンドで取得しました｡ 
 
 ```bash:
 curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/ uniprot_sprot.fasta.gz  
 ``` 
 
-このファイルをインデックスにするために､ `makeblastdb` コマンドを実行します｡ なお､この部分の処理は､ワークフローに組み込まない形で記述しました｡`makeblastdb` コマンド の実行は以下のように行いました｡
-
+このファイルをインデックスにするために､ `makeblastdb` コマンドを実行しました｡ 
+`makeblastdb` コマンド の実行は以下のように行いました｡ なお､解析するデータは全てdataディレクトリに置いています｡
 ```bash:
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 makeblastdb -in uniprot_sprot.fasta -dbtype prot -hash_index -parse_seqids 
 ```
 
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/tree/master/data
+
 &nbsp;
 
-## 実際にCWLファイルを書いてみる (CommandLineTool編)
+## zatsu-cwl-generatorを使ってcwlファイルを書く
 
-次に､実際の処理について､CWLファイルを記述していきましょう｡ 今回実行する5つのステップのコマンドは以下のようになっています｡
+次に､実際の処理について､CWLファイルを記述していきましょう｡ 今回もzatsu-cwl-generatorを使って書いていきます｡
+今回実行する5つのステップのコマンドは以下のようになっています｡ 
 
+```bash:
+# Step1
+blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20 
+
+# Step2
+awk '{ print $2 }' blastp_result.txt > blastp_result_id.txt
+
+#Step3
+blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastdbcmd_result.fasta
+
+#Step4
+clustalo -i blastdbcmd_result.fasta --outfmt=fasta -o clustalo_result.fasta
+
+#Step5
+FastTree -boot 100 -out MSTN_tree.newick clustalo_result.fasta
+```
+
+:::details Dockerコマンドで実行する場合(確認済み)
 ```bash:
 # Step1
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20 
 
 # Step2
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` awk '{ print $2 }' blastp_result_MSTN2.txt > blastp_result_id.txt
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` ubuntu:23.10 awk '{ print $2 }' `pwd`/data/blastp_result.txt > `pwd`/data/blastp_result_id.txt
 
 #Step3
-docker run --rm -it -v `pwd`:`pwd`  -w  `pwd` biocontainers/blast:v2.2.31_cv2 blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastp_results_MSTN.fasta
+docker run --rm -it -v `pwd`:`pwd`  -w  `pwd` biocontainers/blast:v2.2.31_cv2 blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastdbcmd_result.fasta
 
 #Step4
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/clustalo:v1.2.4-2-deb_cv1 clustalo -i `pwd`/blastp_results_MSTN.fasta --outfmt=fasta -o clustalo_result.fasta
@@ -104,42 +139,16 @@ docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/clustalo:v1.2.4-2-deb_
 #Step5
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/fasttree:v2.1.10-2-deb_cv1 FastTree -boot 100 -out MSTN_tree.newick `pwd`/clustalo_result.fasta
 ```
-
-&nbsp;
-
-### zatsu-cwl-generatorを使おう
-
-これらを手作業で書くという方法に加えて､すでにこの環境で使えるようになっている ｢zatsu-cwl-generator｣ を使って､アウトラインをある程度出力してもらう､という方法があります｡今回はこの方法を試してみます｡
-
-zatsu-cwl-generator に コマンドを""で囲んで入力します｡
-
-:::danger
-__変更：`-c`オプションを使ってコンテナの場合を紹介する__
-__変更：出力された結果を__
 :::
 
-```bash:
-zatsu-cwl-generator "docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20" > blastp.cwl
-```
-
-  
-
-出力されたファイルの中身を見てみましょう｡ ただし､これが完成版ではなく､実際に確認して修正することが必要です｡
-
-```yaml
-#!/usr/bin/env cwl-runner
-
-```
-
-パラメータなどの記述が標準出力に出力されます｡ しかしながら､修正すべき点がありますので修正していきましょう｡
-
 &nbsp;
 
-### dockerを使う時は...
-まず､大きな点として､baseCommand の修正があります｡
-ここで実行するコマンドですが､ここにはdocker ではなく､blastpと書き直します｡
-これは､`docker run` ... からはじまる部分の処理は全てCWLで処理してくれます｡
-なお､docker(のイメージを使うことを明示する)は "requirements" の部分で記述します｡
+## コンテナオプション(`-c`)を使って出力する
+
+それでは実際に作成していきます｡ 今回はblastpのコマンドを例として紹介したいと思います｡
+zatsu-cwl-generatorでは､
+
+&nbsp;
   
 
 ```yaml
@@ -736,4 +745,6 @@ __CWLで記述したファイルは様々な環境で実行することができ
 
 &nbsp;
 
-# 追記：リンク集を作成する
+# 参考リンク集
+
+[^1]: [バイオインフォマティクスのツールを再現性よく実行するためのコンテナ仮想化ツール群 BioContainers](https://kazumaxneo.hatenablog.com/entry/2018/10/02/112232)
