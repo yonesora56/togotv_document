@@ -231,7 +231,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 :::message alert
 このCodespacesを使った環境構築では､実は｢Use this template｣というような作業が不要なケースがあります｡
 まず､[cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスします｡
-![show repository](../screenshots/screenshots_1.png)
+![show repository](https://github.com/yonezawa-sora/togotv_document/blob/main/articles/screenshots/screenshots_1.png)
 :::
 
 &nbsp;

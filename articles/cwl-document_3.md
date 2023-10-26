@@ -15,16 +15,19 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 # バイオインフォマティクスの解析手順をワークフロー化する
 
 これまで､環境構築､`grep`と`wc`の処理に関するワークフローを作る作業を紹介しました｡
-ここでは､具体的に生命科学で使用されているツールを使った例をワークフローとして記述してみる例を紹介します｡
+ここでは､具体的にバイオインフォマティクス研究で使用されているツールを使った例を __ワークフロー__ として記述してみる例を紹介します｡
 今回は以下に示す5つのステップをワークフローとして記述してみます｡
 
 **(1)blastpコマンドによる配列類似性検索**
 **(2)awkによるヒットしたIDの抽出**
 **(3)blastdbcmdによるヒットしたIDのfastaファイルの抽出**
 **(4)ClustalOmegaによるマルチプルアラインメント**
-**(5)fasttreeによるブートストラップ値の算出**
+**(5)fasttreeによるnewick形式ファイルの出力**
 
-今回取り上げたツールをうち､awk以外はBiocontainersによってdocker imageが構築されています(awkはUbuntu:23.10をイメージとして使用しています)｡
+これにより､BLASTpでヒットした配列から､系統樹を作成する前段階の処理(newick形式のファイルを出力)をワークフローとして記述します｡
+これらのコマンドは､Biocondaやhomebrewなどからインストールすることができ､ローカルで実行することが可能です｡
+
+今回取り上げたツールのうち､awk以外はBiocontainersによってdocker imageが構築されています(awkはUbuntu:23.10をイメージとして使用しています)｡
 dockerhubのホームページにアクセスし､コマンドをコピー&ペーストすることでこれらのimageをpullすることができます｡
 
 :::danger
@@ -37,7 +40,7 @@ __修正3：dockerの説明のあとにsingularityの説明を加える__
 
 ## docker imageを取得する
 
-まず､それぞれのdocker imageをdocker hubからダウンロードします｡ tag を指定する形で今回はダウンロード(docker pull ... をコピー& ペースト)しました｡
+まず､それぞれのdocker imageをdocker hubからダウンロードします｡ tag を指定する形で今回はダウンロード(docker pull ... をコピー&ペースト)しました｡
 
 以下はターミナルで `docker image ls` を行った例です｡
 
@@ -96,10 +99,10 @@ docker run --rm -it -v `pwd`:`pwd` -w `pwd` awk '{ print $2 }' blastp_result_MST
 docker run --rm -it -v `pwd`:`pwd`  -w  `pwd` biocontainers/blast:v2.2.31_cv2 blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastp_results_MSTN.fasta
 
 #Step4
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/clustalo:v1.2.4-2-deb_cv1 clustalo -i `pwd`/blastp_results_MSTN.fasta --outfmt=fasta -o MSTN_aligned_sequence.fasta
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/clustalo:v1.2.4-2-deb_cv1 clustalo -i `pwd`/blastp_results_MSTN.fasta --outfmt=fasta -o clustalo_result.fasta
 
 #Step5
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/fasttree:v2.1.10-2-deb_cv1 FastTree -out MSTN_tree.newick `pwd`/MSTN_aligned_sequence.fasta
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/fasttree:v2.1.10-2-deb_cv1 FastTree -boot 100 -out MSTN_tree.newick `pwd`/clustalo_result.fasta
 ```
 
 &nbsp;
@@ -725,189 +728,7 @@ cwl-runner ./workflow/6_phylogenetic-workflow.cwl ./workflow/input.yml
 
 実行結果
 ```bash:
-INFO /usr/local/bin/cwl-runner 3.1.20230906142556
-INFO Resolved './workflow/6_phylogenetic-workflow.cwl' to 'file:///workspaces/togotv_shooting/workflow/6_phylogenetic-workflow.cwl
-'                                                                                                                                 INFO [workflow ] start
-INFO [workflow ] starting step step1_blastp
-INFO [step step1_blastp] start
-INFO [job step1_blastp] /tmp/2s81aqwz$ docker \
-    run \
-    -i \
-    --mount=type=bind,source=/tmp/2s81aqwz,target=/XKQdXE \
-    --mount=type=bind,source=/tmp/omtpty6t,target=/tmp \
-    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2d2-f
-7dc16036a89/uniprot_sprot.fasta,readonly \                                                                                            --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.phd,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.phi,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.phr,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.pin,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.pog,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.psd,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.psi,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stg9579ad21-d27b-4919-a2
-d2-f7dc16036a89/uniprot_sprot.fasta.psq,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/MSTN.fasta,target=/var/lib/cwl/stg074f1962-1693-4b69-8f5d-66b5ca45e6
-76/MSTN.fasta,readonly \                                                                                                              --workdir=/XKQdXE \
-    --read-only=true \
-    --user=1000:1000 \
-    --rm \
-    --cidfile=/tmp/2fxzkh85/20230928045240-374338.cid \
-    --env=TMPDIR=/tmp \
-    --env=HOME=/XKQdXE \
-    biocontainers/blast:v2.2.31_cv2 \
-    blastp \
-    -query \
-    /var/lib/cwl/stg074f1962-1693-4b69-8f5d-66b5ca45e676/MSTN.fasta \
-    -db \
-    /var/lib/cwl/stg9579ad21-d27b-4919-a2d2-f7dc16036a89/uniprot_sprot.fasta \
-    -evalue \
-    0.00001 \
-    -num_threads \
-    4 \
-    -outfmt \
-    6 \
-    -out \
-    blastp_result.txt \
-    -max_target_seqs \
-    20
-INFO [job step1_blastp] Max memory used: 6MiB
-INFO [job step1_blastp] completed success
-INFO [step step1_blastp] completed success
-INFO [workflow ] starting step step2_awk
-INFO [step step2_awk] start
-INFO [job step2_awk] /tmp/dll4rpk0$ docker \
-    run \
-    -i \
-    --mount=type=bind,source=/tmp/dll4rpk0,target=/XKQdXE \
-    --mount=type=bind,source=/tmp/end82mmy,target=/tmp \
-    --mount=type=bind,source=/tmp/2s81aqwz/blastp_result.txt,target=/var/lib/cwl/stg79db6e9b-c182-4436-8210-c6e4c82c3883/blastp_re
-sult.txt,readonly \                                                                                                                   --workdir=/XKQdXE \
-    --read-only=true \
-    --log-driver=none \
-    --user=1000:1000 \
-    --rm \
-    --cidfile=/tmp/hp2d02kz/20230928045242-157190.cid \
-    --env=TMPDIR=/tmp \
-    --env=HOME=/XKQdXE \
-    ubuntu:23.10 \
-    awk \
-    '{ print $2 }' \
-    /var/lib/cwl/stg79db6e9b-c182-4436-8210-c6e4c82c3883/blastp_result.txt \
-    blastp_result_id.txt > /tmp/dll4rpk0/blastp_result_id.txt
-INFO [job step2_awk] completed success
-INFO [step step2_awk] completed success
-INFO [workflow ] starting step step3_blastdbcmd
-INFO [step step3_blastdbcmd] start
-INFO [job step3_blastdbcmd] /tmp/qjene9aj$ docker \
-    run \
-    -i \
-    --mount=type=bind,source=/tmp/qjene9aj,target=/XKQdXE \
-    --mount=type=bind,source=/tmp/_adhvpty,target=/tmp \
-    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4ba-3
-1f50dcb2572/uniprot_sprot.fasta,readonly \                                                                                            --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.phd,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.phi,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.phr,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.pin,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.pog,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.psd,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.psi,readonly \                                                                                    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stgcc8a126f-0ce6-4f81-a4
-ba-31f50dcb2572/uniprot_sprot.fasta.psq,readonly \                                                                                    --mount=type=bind,source=/tmp/dll4rpk0/blastp_result_id.txt,target=/var/lib/cwl/stg0b724761-074f-4d10-aaf8-8109d1c3da00/blastp
-_result_id.txt,readonly \                                                                                                             --workdir=/XKQdXE \
-    --read-only=true \
-    --user=1000:1000 \
-    --rm \
-    --cidfile=/tmp/8kcrikj8/20230928045243-166987.cid \
-    --env=TMPDIR=/tmp \
-    --env=HOME=/XKQdXE \
-    biocontainers/blast:v2.2.31_cv2 \
-    blastdbcmd \
-    -db \
-    /var/lib/cwl/stgcc8a126f-0ce6-4f81-a4ba-31f50dcb2572/uniprot_sprot.fasta \
-    -entry_batch \
-    /var/lib/cwl/stg0b724761-074f-4d10-aaf8-8109d1c3da00/blastp_result_id.txt \
-    -out \
-    blastdbcmd_output.fasta
-INFO [job step3_blastdbcmd] completed success
-INFO [step step3_blastdbcmd] completed success
-INFO [workflow ] starting step step4_clustalo
-INFO [step step4_clustalo] start
-INFO [job step4_clustalo] /tmp/0ch20d7y$ docker \
-    run \
-    -i \
-    --mount=type=bind,source=/tmp/0ch20d7y,target=/XKQdXE \
-    --mount=type=bind,source=/tmp/kj4ogriu,target=/tmp \
-    --mount=type=bind,source=/tmp/qjene9aj/blastdbcmd_output.fasta,target=/var/lib/cwl/stgedb08f31-1999-4c21-9ea9-87f61c72e296/bla
-stdbcmd_output.fasta,readonly \                                                                                                       --workdir=/XKQdXE \
-    --read-only=true \
-    --user=1000:1000 \
-    --rm \
-    --cidfile=/tmp/t3efhk2e/20230928045244-184118.cid \
-    --env=TMPDIR=/tmp \
-    --env=HOME=/XKQdXE \
-    biocontainers/clustalo:v1.2.4-2-deb_cv1 \
-    clustalo \
-    -i \
-    /var/lib/cwl/stgedb08f31-1999-4c21-9ea9-87f61c72e296/blastdbcmd_output.fasta \
-    --outfmt \
-    fasta \
-    -o \
-    clustalo_output.fasta
-INFO [job step4_clustalo] completed success
-INFO [step step4_clustalo] completed success
-INFO [workflow ] starting step step5_fasttree
-INFO [step step5_fasttree] start
-INFO [job step5_fasttree] /tmp/8kehyeh7$ docker \
-    run \
-    -i \
-    --mount=type=bind,source=/tmp/8kehyeh7,target=/XKQdXE \
-    --mount=type=bind,source=/tmp/7u14_wey,target=/tmp \
-    --mount=type=bind,source=/tmp/0ch20d7y/clustalo_output.fasta,target=/var/lib/cwl/stg358ccb55-655e-428a-b172-d4444da82abf/clust
-alo_output.fasta,readonly \                                                                                                           --workdir=/XKQdXE \
-    --read-only=true \
-    --user=1000:1000 \
-    --rm \
-    --cidfile=/tmp/godhcg8g/20230928045245-203729.cid \
-    --env=TMPDIR=/tmp \
-    --env=HOME=/XKQdXE \
-    biocontainers/fasttree:v2.1.10-2-deb_cv1 \
-    fasttree \
-    -out \
-    fasttree_output.newick \
-    /var/lib/cwl/stg358ccb55-655e-428a-b172-d4444da82abf/clustalo_output.fasta
-FastTree Version 2.1.10 Double precision (No SSE3)
-Alignment: /var/lib/cwl/stg358ccb55-655e-428a-b172-d4444da82abf/clustalo_output.fasta
-Amino acid distances: BLOSUM45 Joins: balanced Support: SH-like 1000
-Search: Normal +NNI +SPR (2 rounds range 10) +ML-NNI opt-each=1
-TopHits: 1.00*sqrtN close=default refresh=0.80
-ML Model: Jones-Taylor-Thorton, CAT approximation with 20 rate categories
-Initial topology in 0.00 seconds
-Refining topology: 15 rounds ME-NNIs, 2 rounds ME-SPRs, 7 rounds ML-NNIs
-Total branch-length 0.205 after 0.01 sec
-ML-NNI round 1: LogLk = -1664.746 NNIs 2 max delta 0.00 Time 0.12
-      0.12 seconds: Site likelihoods with rate category 1 of 20
-Switched to using 20 rate categories (CAT approximation)
-Rate categories were divided by 0.677 so that average rate = 1.0
-CAT-based log-likelihoods may not be comparable across runs
-Use -gamma for approximate but comparable Gamma(20) log-likelihoods
-ML-NNI round 2: LogLk = -1632.213 NNIs 0 max delta 0.00 Time 0.24
-Turning off heuristics for final round of ML NNIs (converged)
-      0.24 seconds: ML NNI round 3 of 7, 1 of 11 splits
-ML-NNI round 3: LogLk = -1632.213 NNIs 0 max delta 0.00 Time 0.33 (final)
-Optimize all lengths: LogLk = -1632.213 Time 0.35
-Total time: 0.44 seconds Unique: 13/20 Bad splits: 0/10
-INFO [job step5_fasttree] Max memory used: 0MiB
-INFO [job step5_fasttree] completed success
-INFO [step step5_fasttree] completed success
-INFO [workflow ] completed success
-{
-    "final_output_bootstrap": {
-        "location": "file:///workspaces/togotv_shooting/fasttree_output.newick",
-        "basename": "fasttree_output.newick",
-        "class": "File",
-        "checksum": "sha1$2174533dd0b0da12a274ed2e0849f7c878c9376b",
-        "size": 807,
-        "path": "/workspaces/togotv_shooting/fasttree_output.newick"
-    }
-}INFO Final process status is success
+
 ```
 
 解析が成功しているようです｡ 実際に､newick形式のファイルも出力されています｡ このように､何回もコマンドを実行せず､1つのコマンドで実行することができます｡
@@ -915,5 +736,4 @@ __CWLで記述したファイルは様々な環境で実行することができ
 
 &nbsp;
 
-:::danger
 # 追記：リンク集を作成する
