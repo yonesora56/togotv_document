@@ -36,7 +36,7 @@ __変更：出力された結果を__
 これらのコマンドは､Biocondaやhomebrewなどからインストールして実行することが可能ですが､今回は､dockerを使ったコマンドのCWLファイル作成を行います｡
 
 :::message
-この記事でも後述していますが､__docker imageがある場合にはそのimageを使用して実行する__ CWLファイルを書くので､すでにツールをインストールしている場合でも試すことができます｡
+この記事でも後述していますが､__docker imageがある場合にはそのimageを使用して実行する__ CWLファイルを書くので､すでにツールをインストールしている場合でも試すことが可能です｡
 :::
 
 &nbsp;
@@ -46,14 +46,15 @@ __変更：出力された結果を__
 ## docker imageを取得する
 
 :::message
-すでに構築した環境にインストールしている方などはこの手順は飛ばしてください｡
+すでに構築した環境にBLASTなどのツールをインストールしている方はこの手順は飛ばしてください｡
 :::
 
-今回取り上げたツールのdocker imageを[docker hub](https://hub.docker.com/)から取得します｡
-[blast](https://hub.docker.com/r/biocontainers/blast)､[clustalo](https://hub.docker.com/r/biocontainers/clustalo)､[fasttree](https://hub.docker.com/r/biocontainers/fasttree)はすべて[BioContainers](https://biocontainers.pro/)によって構築されています[^1]｡また､awkについては[ubuntu](https://hub.docker.com/_/ubuntu)のimageを取得しました｡
+今回取り上げるツールのdocker imageを[docker hub](https://hub.docker.com/)から取得します｡
+[blast](https://hub.docker.com/r/biocontainers/blast)､[clustalo](https://hub.docker.com/r/biocontainers/clustalo)､[fasttree](https://hub.docker.com/r/biocontainers/fasttree)はすべて[BioContainers](https://biocontainers.pro/)によって構築されています[^1]｡
+また､awkについては[ubuntu](https://hub.docker.com/_/ubuntu)のimageを取得しました｡
 
 :::message
-tag を指定する形で今回はダウンロード(docker pull ... をコピー&ペースト)しました｡
+今回は､tag を指定する形でダウンロード(docker pull ... をコピー&ペースト)しました｡
 :::
 
 以下はターミナルで `docker image ls` を行った例です｡
@@ -77,21 +78,21 @@ biocontainers/blast      v2.2.31_cv2         5b25e08b9871   4 years ago   2.03GB
 ### 1\. クエリ配列
 
 blastpを実行するので､今回クエリとするのは､ウシのミオスタチンのタンパク質配列のfastaファイル (MSTN.fastaに名前を変更しています)です｡ 
-curlコマンドで取得しました｡
+curlコマンドでUniProtから取得しました｡
 ```bash:
 curl -O https://rest.uniprot.org/uniprotkb/O18836.fasta
 ```
 
 ### 2\. インデックス(データベース)
 
-次に､BLASTのデータベースとして使用するUniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりこちらもcurlコマンドで取得しました｡ 
+次に､BLASTのデータベースとして使用するUniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりcurlコマンドで取得しました｡ 
 
 ```bash:
 curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/ uniprot_sprot.fasta.gz  
 ``` 
 
-このファイルをインデックスにするために､ `makeblastdb` コマンドを実行しました｡ 
-`makeblastdb` コマンド の実行は以下のように行いました｡ なお､解析するデータは全てdataディレクトリに置いています｡
+このファイルをインデックスにするため､ `makeblastdb` コマンドを実行しました｡ 
+`makeblastdb` コマンド の実行は以下のように行いました｡ なお､解析するデータは全てdataディレクトリにおいていますが､UniProtのタンパク質配列のfastaファイルはサイズが大きいのでgitiignoreに記述しています｡
 ```bash:
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 makeblastdb -in uniprot_sprot.fasta -dbtype prot -hash_index -parse_seqids 
 ```
@@ -145,11 +146,91 @@ docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/fasttree:v2.1.10-2-deb
 
 ## コンテナオプション(`-c`)を使って出力する
 
-それでは実際に作成していきます｡ 今回はblastpのコマンドを例として紹介したいと思います｡
-zatsu-cwl-generatorでは､
+それでは実際に作成していきます｡ 
+今回はblastpのコマンドを例にするとともに､Dockerを使用するコマンドで出力する例を紹介したいと思います｡
+
+zatsu-cwl-generatorでは､`-c`オプションを使うことで､コンテナを使用するコマンドを出力することができます｡
+以下のように実行します｡
+
+```bash
+zatsu-cwl-generator "blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20" -c biocontainers/blast:v2.2.31_cv2
+```
+
+これまでと同じようにコマンドを""でくくったあとに､`-c` もしくは`--container` オプションをつけて､imageを記載します｡ すると､以下のようにCWLファイルが出力されます｡
+
+:::details コンテナオプションを使って出力した場合のCWLファイル
+```yaml
+#!/usr/bin/env cwl-runner
+# Generated from: blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20
+class: CommandLineTool
+cwlVersion: v1.0
+baseCommand: blastp
+arguments:
+  - -query
+  - $(inputs.query)
+  - -db
+  - $(inputs.db)
+  - -evalue
+  - $(inputs.evalue)
+  - -num_threads
+  - $(inputs.num_threads)
+  - -outfmt
+  - $(inputs.outfmt)
+  - -out
+  - $(inputs.out)
+  - -max_target_seqs
+  - $(inputs.max_target_seqs)
+inputs:
+  - id: query
+    type: File
+    default:
+      class: File
+      location: MSTN.fasta
+  - id: db
+    type: File
+    default:
+      class: File
+      location: uniprot_sprot.fasta
+  - id: evalue
+    type: Any
+    default: 1e-5
+  - id: num_threads
+    type: int
+    default: 4
+  - id: outfmt
+    type: int
+    default: 6
+  - id: out
+    type: File
+    default:
+      class: File
+      location: blastp_result.txt
+  - id: max_target_seqs
+    type: int
+    default: 20
+outputs:
+  - id: all-for-debugging
+    type:
+      type: array
+      items: [File, Directory]
+    outputBinding:
+      glob: "*"
+hints:
+  - class: DockerRequirement
+    dockerPull: biocontainers/blast:v2.2.31_cv2
+```
+
+実は､下に`hints`フィールドというものが出力されています｡
+
+```yaml
+hints:
+  - class: DockerRequirement
+    dockerPull: biocontainers/blast:v2.2.31_cv2
+```
+
+
 
 &nbsp;
-  
 
 ```yaml
 #!/usr/bin/env cwl-runner
