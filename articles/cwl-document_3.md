@@ -219,6 +219,7 @@ hints:
   - class: DockerRequirement
     dockerPull: biocontainers/blast:v2.2.31_cv2
 ```
+:::
 
 実は､下に`hints`フィールドというものが出力されています｡
 
