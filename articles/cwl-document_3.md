@@ -925,7 +925,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 ## 他のファイルもcwlファイルとして書いてみる
 
 blastpのプロセスのように､他のプロセスもCWLファイルとして書いてみます｡
-zatsu-cwl-generatorを使って生成し､修正したバージョンは`v2`などのようにファイル名を変更しています｡
+__zatsu-cwl-generatorを使って生成し__､修正したバージョンは`v2`などのようにファイル名を変更しています｡
 また､`awk`以外のプロセスはdocker imageとしてBioContainersにあるものを使用し､`hints`フィールドを追加しています｡
 
 :::message
@@ -942,6 +942,8 @@ biocontainers/blast      v2.2.31_cv2         5b25e08b9871   5 years ago   2.03GB
 
 :::details 2_awk_v2.cwl
 
+#### zatsu-cwl-generatorを使って生成
+
 ```bash
 zatsu-cwl-generator "awk '{ print $2 }' blastp_result.txt > blastp_result_id.txt" > 2_awk.cwl
 ```
@@ -955,6 +957,20 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 :::
 
 :::details 3_blastdbcmd_v2.cwl
+
+#### zatsu-cwl-generatorを使って生成
+
+```bash
+zatsu-cwl-generator "blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastdbcmd_result.fasta" --container biocontainers/blast:v2.2.31_cv2 > 3_blastdbcmd_docker.cwl
+```
+
+最初のblastp検索のように､`secondaryFiles`フィールドを使って複数のインデックスファイルを指定している他､ファイル名を`string`に変更しています｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/3_blastdbcmd_docker_v2.cwl
+
+実行した結果は以下の通りです｡ 無事､ファイルが出力されています｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastdbcmd_result.fasta
 
 :::
 
