@@ -1020,16 +1020,13 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 :::
 
 これで全てのプロセスをCWLファイルとして書くことができました｡
-zatsu-cwl-generatorを使うことで､簡単にCWLファイルを生成することができました｡
-
-&nbsp;
+__このように､zatsu-cwl-generatorを使うことで､簡単にCWLファイルを生成することができます｡__
 
 :::message
 ### Apptainer (Singularity)も使ってみよう
-
+dockerを
 
 :::
-
 https://sc.ddbj.nig.ac.jp/software/Apptainer/
 
 ****
@@ -1049,8 +1046,10 @@ __修正：best practicesに載っているような書き方で最後書く__
   
 &nbsp;
 
-### パラメータをYAMLファイルでまとめて与える
+## パラメータをYAMLファイルでまとめて与える
 
+zatsu-cwl-generatorで出力されるcwlファイルは､デフォルトでパラメータが記載されています｡
+しかしながら､この
 パラメータを一つのYAMLファイルにまとめて実行することができます｡
 ファイルは以下のように書くことが可能です｡
 
@@ -1072,171 +1071,7 @@ max_target_sequence: 20
 
 &nbsp;
 
-### 1_blastp.cwlの実行
 
-```bash=
-cwltool --outdir ./data ./Tools/1_blastp.cwl ./Tools/1_blastp.yml
-```
-今回は`--outdir`オプションを使って､出力先のディレクトリを指定して実行してみます｡
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-これまで､CommanlinetoolのCWLファイルを書いてみました｡次にこれらの5つのステップを実行するワークフローを記述していきます｡この例では､ワークフロー全体に関するパラメータを｢1\_protein\_query｣のように数字をつけています｡ 前の処理のアウトプットを受け取る部分は｢blastp\_result: step1\_blastp/blastp\_output\_file｣のように記述し､それ以外の全ての処理に関するパラメータをinputsで記述しています｡
-```yaml:
-#!/usr/bin/env cwl-runner
-cwlVersion: v1.0
-class: Workflow
-doc: "5つのステップを実行するワークフロー: blastp, awk, blastdbcmd, clustalo, and fasttree"
-#最初のインプットのみ記述しようと思ったが､全部書いてわかりやすく書く方針に
-# 前のステップの出力の書き方に注意
-inputs: 
-  #blastp
-  1_protein_query: 
-    type: File
-  2_protein_database:
-    type: File
-    secondaryFiles:
-      - ^.fasta.phd
-      - ^.fasta.phi
-      - ^.fasta.phr
-      - ^.fasta.pin
-      - ^.fasta.pog
-      - ^.fasta.psd
-      - ^.fasta.psi
-      - ^.fasta.psq
-  3_e-value: 
-    type: float?
-  4_number_of_threads: 
-    type: int
-  5_outformat_type: 
-    type: int
-  6_output_file_name: 
-    type: string
-  7_max_target_sequence: 
-    type: int
-  #awk
-  8_output_id_file_name:
-    type: string
-  #blastdbcmd
-  9_blastdbcmd_protein_database:
-    type: File
-    secondaryFiles:
-      - ^.fasta.phd
-      - ^.fasta.phi
-      - ^.fasta.phr
-      - ^.fasta.pin
-      - ^.fasta.pog
-      - ^.fasta.psd
-      - ^.fasta.psi
-      - ^.fasta.psq
-  10_blastdbcmd_output_name:
-    type: string
-  #clustalo
-  11_clustalo_format:
-    type: string
-  12_clustalo_output_name:
-    type: string
-  #fasttree
-  13_fasttree_output_file_name:
-    type: string
-  
-
-outputs:
-  final_output_bootstrap: 
-    type: File
-    outputSource: step5_fasttree/fasttree_output_file
-steps:
-  step1_blastp:
-    run: ../Tools/1_blastp.cwl 
-    in: 
-      protein_query: 1_protein_query
-      protein_database: 2_protein_database
-      e-value: 3_e-value
-      number_of_threads: 4_number_of_threads
-      outformat_type: 5_outformat_type
-      output_file_name: 6_output_file_name
-      max_target_sequence: 7_max_target_sequence
-    out: [blastp_output_file] 
-
-  step2_awk:
-    run: ../Tools/2_awk.cwl
-    in:
-      blastp_result: step1_blastp/blastp_output_file 
-      output_id_file_name: 8_output_id_file_name
-    out: [awk_output]
-
-  step3_blastdbcmd:
-    run: ../Tools/3_blastdbcmd.cwl
-    in: 
-      blastdbcmd_protein_database: 9_blastdbcmd_protein_database
-      id_query: step2_awk/awk_output 
-      blastdbcmd_output_name: 10_blastdbcmd_output_name
-    out: [blastdbcmd_output]
-
-  step4_clustalo:
-    run: ../Tools/4_clustalo.cwl
-    in:
-      clustalo_inputs: step3_blastdbcmd/blastdbcmd_output
-      clustalo_format: 11_clustalo_format
-      clustalo_output_name: 12_clustalo_output_name
-    out: [clustalo_output]
-
-  step5_fasttree:
-    run: ../Tools/5_fasttree.cwl
-    in:
-      fasttree_output_file_name: 13_fasttree_output_file_name
-      fasttree_input_file: step4_clustalo/clustalo_output
-    out: [fasttree_output_file]
-```
-
-最後に全てのパラメータ(1\_protein\_queryのように書いている部分)を記述したファイル を作成します｡すでに述べたように､パラメータはYAMLファイルとしてまとめて記述することが可能です｡
-
-以下のような記述になりました｡
-
-&nbsp;
-
-### パラメータファイル(YAMLファイル)
-
-```yaml:
-# 1_blastp.cwl のパラメータ
-1_protein_query:
-  class: File
-  path: ../data/MSTN.fasta
-2_protein_database:
-  class: File
-  path: ../data/uniprot_sprot.fasta
-3_e-value: 1e-5
-4_number_of_threads: 4
-5_outformat_type: 6
-6_output_file_name: "blastp_result.txt"
-7_max_target_sequence: 20
-
-# 2_awk.cwl のパラメータ
-8_output_id_file_name: "blastp_result_id.txt"
-
-# 3_blastdbcmd.cwl のパラメータ
-9_blastdbcmd_protein_database:
-  class: File
-  path: "../data/uniprot_sprot.fasta"
-10_blastdbcmd_output_name: "blastdbcmd_output.fasta"
-
-# 4_clustalo.cwl のパラメータ
-11_clustalo_format: "fasta"
-12_clustalo_output_name: "clustalo_output.fasta"
-
-# 5_fasttree.cwl のパラメータ
-13_fasttree_output_file_name: "fasttree_output.newick"
-```
-
-&nbsp;
 
 最後に`cwltool –-validate`を実行します｡
 ```yaml:
@@ -1264,13 +1099,13 @@ __追記：ここでも先頭何行か見せて､docフィールドを書くこ
 cwl-runner ./workflow/6_phylogenetic-workflow.cwl ./workflow/input.yml
 ```
 
-実行結果
-```bash:
+解析が成功しているようです｡ 
+実際に､newick形式のファイルも出力されています｡ 
+このように､何回もコマンドを実行せず､1つのコマンドで実行することができます｡
 
-```
+3つの記事では詳しい部分についてはあまり解説していません､
 
-解析が成功しているようです｡ 実際に､newick形式のファイルも出力されています｡ このように､何回もコマンドを実行せず､1つのコマンドで実行することができます｡
-__CWLで記述したファイルは様々な環境で実行することができますので､ぜひご自身でクローンして確かめてください!__
+https://www.commonwl.org/user_guide/topics/best-practices.html#best-practices
 
 &nbsp;
 
