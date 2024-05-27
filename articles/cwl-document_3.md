@@ -97,7 +97,7 @@ FastTree -boot 100 -out MSTN_tree.newick clustalo_result.fasta
 
 &nbsp;
 
-## zatsu-cwl-generatorを使ってcwlファイルを書く
+## zatsu-cwl-generatorを使ってblastpを実行するcwlファイルを書く
 
 次に､上記の処理について､cwlファイルを記述していきましょう｡ zatsu-cwl-generatorを使ってコードを生成し､修正しながら作成していきます｡
 今回は､`zatsu_cwl_bioinformatics`ディレクトリで作業を行っています｡修正のプロセスはトグル内に示してあるので､ぜひご覧ください｡
@@ -978,6 +978,36 @@ cwltool --debug 3_blastdbcmd_docker_v2.cwl
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastdbcmd_result.fasta
 :::
 
+:::details 4_clustalo.cwl
+
+#### zatsu-cwl-generatorを使って生成
+
+```bash
+zatsu-cwl-generator "clustalo -i blastdbcmd_result.fasta --outfmt=fasta -o clustalo_result.fasta" --container biocontainers/clustalo:v1.2.4-2-deb_cv1 > 4_clustalo_docker.cwl
+```
+
+clustaloのプロセスでは､__修正が必要なく､生成することができました__
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/4_clustalo_docker.cwl
+
+```bash:実行
+cwltool --debug 4_clustalo_docker.cwl
+```
+
+実行した結果は以下の通りです｡ 無事､ファイルが出力されています｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/clustalo_result.fasta
+:::
+
+:::details 5_fasttree.cwl
+
+#### zatsu-cwl-generatorを使って生成
+
+```bash
+zatsu-cwl-generator "fasttree -nt clustalo_result.fasta > fasttree_result.nwk" --container biocontainers/fasttree:v2.1.10-2-deb_cv1 > 5_fasttree_docker.cwl
+```
+
+:::
 
 &nbsp;
 
