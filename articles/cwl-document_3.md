@@ -949,6 +949,9 @@ zatsu-cwl-generator "awk '{ print $2 }' blastp_result.txt > blastp_result_id.txt
 色々試行錯誤した結果､このファイルで実行できました｡
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/2_awk_v2.cwl
 
+```bash:実行
+cwltool --debug 2_awk_v2.cwl
+```
 実行したファイルは以下の通りです｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastp_result_id.txt
@@ -965,6 +968,10 @@ zatsu-cwl-generator "blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_resu
 最初のblastp検索のように､`secondaryFiles`フィールドを使って複数のインデックスファイルを指定している他､ファイル名を`string`に変更しています｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/3_blastdbcmd_docker_v2.cwl
+
+```bash:実行
+cwltool --debug 3_blastdbcmd_docker_v2.cwl
+```
 
 実行した結果は以下の通りです｡ 無事､ファイルが出力されています｡
 
