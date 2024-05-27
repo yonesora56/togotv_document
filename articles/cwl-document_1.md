@@ -7,7 +7,7 @@ published: false
 ---
 
 __※今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
+https://github.com/yonesora56/togotv_cwl_for_remote_container
 
 &nbsp;
 
@@ -30,9 +30,9 @@ https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-H
 
 &nbsp;
 
-https://www.nature.com/articles/d41586-019-02619-z
+[Workflow systems turn raw data into scientific knowledge](https://www.nature.com/articles/d41586-019-02619-z)
 
-現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントと統合TVの動画では **Common Workflow Language (CWL)** について環境構築とその実例をご紹介します。
+現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントでは **Common Workflow Language (CWL)** について環境構築とその実例をご紹介します。
 
 &nbsp;
 
