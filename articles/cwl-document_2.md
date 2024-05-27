@@ -7,11 +7,9 @@ published: false
 ---
 
 __※今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
+https://github.com/yonesora56/togotv_cwl_for_remote_container
 
-:::message alert
-この赤いフィールドは後ほど修正する点をメモしています
-:::
+&nbsp;
 
 # はじめに
 
@@ -25,8 +23,14 @@ __本記事の対象となる方__
 :::
 
 以前の記事では､環境構築や[zatsu-cwl-generator](https://github.com/tom-tan/zatsu-cwl-generator)の使い方をご紹介しました｡
-この記事では､zatsu-cwl-generatorで生成されたcwlファイルを修正しながらワークフローを実際に記述する方法についてご紹介します｡ 
-__実際に修正していく過程もこの記事では載せているので､ぜひ参考にしてください｡__
+
+https://github.com/tom-tan/cwl-for-remote-container-template
+
+この記事では､zatsu-cwl-generatorで生成されたcwlファイルを用いて､ワークフローを実際に記述する方法についてご紹介します｡ 
+
+:::message
+実際に修正していく過程もこの記事では載せているので(トグルになっている部分です)､ぜひ参考にしてください｡
+:::
 
 &nbsp;
 
@@ -46,6 +50,7 @@ wc -l grepout.txt > wcout.txt
 前回は環境構築と､zatsu-cwl-genratorを使ってCWLファイルの生成と実行を行いました｡
 この記事では､更に手を動かす作業を行っていきます｡主役となるコマンドは`grep`と`wc`の2つです｡ 
 今回記述する流れとしては以下の2ステップです｡
+
 __Step1：コマンドの処理に関するcwlファイルを書く(今回は2つ)__
 __Step2：ワークフロー全体を記述するcwlファイルを書く__
 
@@ -56,9 +61,9 @@ __Step2：ワークフロー全体を記述するcwlファイルを書く__
 それでは実際に書いていきましょう｡ 
 まず､前回書いていたgrepの処理に関するCWLファイルを以下に示します｡
 
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl
 
-このファイルは､zatsu-cwl-generatorを使って生成したものを､少し修正しています｡
+このファイルは､zatsu-cwl-generatorを使って生成したものを少し修正しています｡
 再度実行すると以下のようになります｡
 
 :::details grep_zatsu.cwl実行結果
@@ -148,7 +153,6 @@ wc_zatsu.cwl is valid CWL.
 
 
 :::details wc_zatsu.cwlの修正
-
 警告にもあったように､`location`フィールドでは､ファイルをただ書くのではなく､`file://`からはじまる書き方(実行者側のファイルシステムのパス)にしたほうが良いようです[^2] [^3]｡
 そこで以下のように修正しました｡
 
@@ -191,7 +195,7 @@ wc_zatsu.cwl is valid CWL.
 このように､`--validate`オプションはCWLファイルの記述が正しいかどうかを確認するのに便利です｡
 :::
 
-警告された部分を修正したので､次に実際に実行してみましょう｡ (`--debug`オプションをつけて行いました)
+警告された部分を修正したファイルを用いて､次に実際に実行してみましょう｡ (`--debug`オプションをつけて行いました)
 
 :::details cwltool実行結果
 ```bash:
