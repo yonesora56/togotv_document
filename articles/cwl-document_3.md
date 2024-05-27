@@ -901,7 +901,21 @@ DEBUG Removing intermediate output directory /tmp/8hge4mo3
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastp_result.txt
 
-しっかり出力結果も得られています! これでCWLの修正は完了です｡
+しっかり出力結果も得られています! ウシのミオスタチンと配列類似性があるタンパク質配列が得られています｡
+これでCWLの修正は完了ですが､更に改善することもできます｡
+
+:::message 
+
+上記のcwlファイルの例では､E-valueの指定を`Any`にしていましたが､具体的な型を指定することで､より正確な入力を受け付けることができます｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v3.cwl#L41-L43
+
+`1e-05`のように指数表記で入力するため､`float?`のように記載してみました｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v4.cwl#L41-L43
+
+これにより､`Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']` とハイライトされていた部分が解消されました｡
+:::
 
 ****
 
