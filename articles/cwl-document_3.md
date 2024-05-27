@@ -13,11 +13,7 @@ https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
 :::
 
 :::message alert
-__修正1：まずdockerなしの状態で記述した後､dockerについて記述する__
-__修正2：`arguments`ではなく､`hints`フィールドを書く(条件がゆるい)__
 __修正3：dockerの説明のあとにsingularityの説明を加える__
-__変更：`-c`オプションを使ってコンテナの場合を紹介する__
-__変更：出力された結果を__
 :::
 
 # バイオインフォマティクスの解析手順をワークフロー化する
@@ -293,10 +289,27 @@ tics/blastp_result.txt'
 `inputs`フィールドに書いてある部分が修正が必要のようです｡
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker.cwl#L41-L45
 
-ここは､ファイルそのものではなく､__ファイル名__ になるはずなので､以下のように修正します｡
+ここは､ファイルそのものではなく､__ファイル名__ になるはずなので､以下のように修正してみました｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v2.cwl#L41-L43
 
+それでは再度実行してみましょう｡
+:::details 修正後のCWLファイル
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/cwltool_out/1_blastp_docker_v2_result.txt
+:::
+今回もファイルの出力はうまくいきましたが､空のファイルが出力されてしまいました｡
+エラーを見てみると､`BLAST Database error: No alias or index file found for protein database [/var/lib/cwl/stgb5786c95-6694-4f59-9707-d79eced66e64/uniprot_sprot.fasta]`などが見られ､データベースが見つからないというエラーが出ています｡
+これはBLASTなどに見られるエラーで､インデックス作成時に複数のインデックスファイルも含めて記述する必要があります｡
+それでは､これを修正してみましょう｡
+
+&nbsp;
+
+### (4) 修正プロセス 2 複数のインデックスファイルの記載
+
+
+
+
+****
 
 &nbsp;
 
