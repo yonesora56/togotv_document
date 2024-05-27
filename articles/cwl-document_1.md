@@ -414,7 +414,7 @@ INFO [job grep_zatsu.cwl] completed success
     }
 }INFO Final process status is success
 ```
-無事ワークフローが成功し､`zatsu_cwl`ディレクトリ内に `grep_out.txt` が出力されました｡
+無事ワークフローが成功し､`zatsu_cwl`ディレクトリ内に `grepout.txt` が出力されました｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grepout.txt
 
