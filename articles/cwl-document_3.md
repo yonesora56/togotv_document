@@ -1006,7 +1006,17 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 ```bash
 zatsu-cwl-generator "fasttree -nt clustalo_result.fasta > fasttree_result.nwk" --container biocontainers/fasttree:v2.1.10-2-deb_cv1 > 5_fasttree_docker.cwl
 ```
+fasttreeのプロセスでは､__修正が必要なく､生成することができました__
 
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/5_fasttree_docker.cwl
+
+```bash:実行
+cwltool --debug 5_fasttree_docker.cwl
+```
+
+実行した結果は以下の通りです｡ 無事､ファイルが出力されています｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/fasttree_result.nwk
 :::
 
 &nbsp;
