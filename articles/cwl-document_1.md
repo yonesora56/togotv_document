@@ -92,7 +92,7 @@ https://code.visualstudio.com/download
 ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ 
 こちらが必要なのでインストールします[^8](以前は｢Remote Container extension｣という名前だったようですが､どうやら変わったようです)｡
 
-![Dev-container](https://github.com/yonesora56/togotv_document/blob/main/images/Devcontainer.png)
+![Dev-container](https://storage.googleapis.com/zenn-user-upload/e5d7dc91c2e3-20240527.png)
 
 https://code.visualstudio.com/docs/devcontainers/containers
 
@@ -119,7 +119,7 @@ https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56
 
 https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B
 
-この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など)ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載)｡
+この拡張機能を使って､新しく環境構築などを行う(VScodeから自分にあった環境をつくる､など)ことも可能ですが､今回はGitHubにすでに用意されているテンプレートを使って簡単に実行できる方法をご紹介します(【STEP3】に記載しています)｡
 
 &nbsp;
 
@@ -134,7 +134,7 @@ https://www.docker.com/products/docker-desktop
 
 インストール後､ダッシュボードを開くと以下のようになっています｡
 
-![docker-dashboard](https://t907947.p.clickup-attachments.com/t907947/3d83459a-08c3-47b3-bb92-0e89060865a6/image.png)
+![docker-dashboard](https://storage.googleapis.com/zenn-user-upload/39e82f2f5450-20240527.png)
 
 :::message
 ### Docker Desktop 以外の手段
@@ -161,9 +161,12 @@ Docker desktopを使用する以外にも以下のような代替手段があり
 https://github.com/tom-tan/cwl-for-remote-container-template
 
 ページ内の ｢Use this template｣(緑のボタン)をクリックし､｢Create a new repository｣を選択すると､自分のアカウントで新規リポジトリを作成することができます｡ 
-__なお､GitHubのアカウントを持っていない場合はこのステップを飛ばしてください｡__
 
-![template](https://t907947.p.clickup-attachments.com/t907947/b7265827-aa40-451d-b251-472e6abec596/image.png)
+:::message
+__GitHubのアカウントを持っていない場合はこのステップを飛ばしてください｡__
+:::
+
+![template](https://storage.googleapis.com/zenn-user-upload/7a7a0a256bad-20240527.png)
 
 次に `git clone` を行います(GitHubのアカウントがない場合は､tom-tan/cwl-for-remote-container-templateを､アカウントがある場合は､your_account/cwl-for-remote-container-template ということになります)｡
 
@@ -171,33 +174,35 @@ __なお､GitHubのアカウントを持っていない場合はこのステッ
 #アカウントが無い場合
 git clone https://github.com/tom-tan/cwl-for-remote-container-template 
 
-#アカウントがある場合(Use this template後)
+#アカウントがある場合(Use this template後の状態  your_accountは自分のアカウント名に置き換えてください)
 git clone https://github.com/your_account/cwl-for-remote-container-template
 ```
 この作業が終了したら､つづいてVSCodeを開きます｡ VSCode画面左下の緑の｢ >< ｣マークを押すと､ 検索窓に以下のようなオプションが出てくるので､｢コンテナーでフォルダーを開く｣を選択し､先程`git clone`したローカルリポジトリを開きます｡
 
-![](https://t907947.p.clickup-attachments.com/t907947/3e86b0e8-d5b9-42aa-8934-caefbd58b73c/image.png)
+![VScode-3](https://storage.googleapis.com/zenn-user-upload/14917eb2b27b-20240527.png)
 
 最初の立ち上げ時には､5分程度かかりました｡
 ログを見ていると環境構築のために色々されていることがわかります｡
-![](https://t907947.p.clickup-attachments.com/t907947/f4bac0c6-adaa-4ea4-a794-734ab630d40d/image.png)
+![VScode-4](https://storage.googleapis.com/zenn-user-upload/da6eb7c3671d-20240527.png)
 
 ターミナルを開いてみると､以下のように`/workspaces/togotv_shooting(repository_name)`となっています｡
 
-![](https://t907947.p.clickup-attachments.com/t907947/ea721043-8c13-4415-be0f-9fa971a1342c/image.png)
+![VScode-5](https://storage.googleapis.com/zenn-user-upload/4eccb0de1a0c-20240527.png)
+
+&nbsp;
 
 実際にCWL関連のツールは使えるようになっているのか見てみましょう｡
 `cwl` と入力してtabを2回押すと...
 
-![](https://hackmd.io/_uploads/SyI63Qze6.png)
+![VScode-6](https://storage.googleapis.com/zenn-user-upload/899cc2808da0-20240527.png)
 
 このように､cwltoolなど実行に必要なツールが導入されています｡
 では､Dockerのコンテナが起動しているかどうかdocker desktopで確認してみると...
 
-![](https://t907947.p.clickup-attachments.com/t907947/40fb1465-c5af-4bdf-abea-fc9cfb44a81d/image.png)
+![docker_dashboard2](https://storage.googleapis.com/zenn-user-upload/5c5d14a8f9df-20240527.png)
 
 上記のように､立ち上がっているのがわかります｡
-これで環境構築が完了です｡
+これで一旦環境構築が完了です｡
 
 &nbsp;
 
@@ -207,21 +212,21 @@ git clone https://github.com/your_account/cwl-for-remote-container-template
 
 https://docs.github.com/ja/codespaces/overview
 
-先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ このとき｢Open in a codespace｣を選べばなんとブラウザでこの開発環境が立ち上がります! 
+先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ このとき｢Open in a codespace｣を選べばブラウザでこの開発環境が立ち上げることができます｡
 
 また､VScode経由でも開くことが可能です｡ 
 そのためには [｢GitHub codespaces｣](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) という拡張機能をインストールしてください｡
 その後､左下の｢><｣ボタンを押してください｡
 
-![](https://t907947.p.clickup-attachments.com/t907947/760c595c-7e08-47dd-b5c7-a862c2f71194/image.png)
+![VScode-7](https://storage.googleapis.com/zenn-user-upload/e94f99c773f2-20240527.png)
 
 次に､｢Create New Codespace｣をクリックして､立ち上げたいリポジトリを選択します｡
 Create New Codespaceをクリックすると以下のような表示が出てきます｡
 
-![](https://t907947.p.clickup-attachments.com/t907947/b0aa9b0e-6370-4c91-b666-937df1847ee5/image.png)
+![VScode-8](https://storage.googleapis.com/zenn-user-upload/58e04cac7aa6-20240527.png)
 
-リポジトリを選択して...
-![](https://t907947.p.clickup-attachments.com/t907947/633cc294-92f3-477b-a9d6-bdfd6f142bf9/image.png)
+ここから`Use this template`で取得したリポジトリを選択して... ()
+![VScode-9](https://storage.googleapis.com/zenn-user-upload/968a26a0596e-20240527.png)
 
 そうすると､自動的に環境が構築されていきます｡
 今回はすでに環境を構築しているものを使用します｡なお､Codespaceで作成した環境は､自分のGitHubのページ(Your Codespaces)から確認できます｡最初の環境の立ち上げには同様に5分程度時間がかかります｡
@@ -232,8 +237,16 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 :::
 
 :::message alert
-このCodespacesを使った環境構築では､実は｢Use this template｣というような作業が不要なケースがあります｡
+このCodespacesを使った環境構築では､実は`Use this template`をしなくても立ち上げることができます｡
 まず､[cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスします｡
+
+`Use this template`ボタンの横に`V`があると思いますが､これを押すと､Open in a codespaceという選択肢が出てきます｡
+![VScode-10](https://storage.googleapis.com/zenn-user-upload/3a5650a912bb-20240527.png)
+
+こちらを選択すると､自動的にCodespacesが立ち上がります｡
+![VScode-11](https://storage.googleapis.com/zenn-user-upload/9ae5837c0737-20240527.png)
+
+より簡単に環境構築を行うことができますが､Codespacesの使用時間には注意が必要です｡
 :::
 
 &nbsp;
@@ -248,7 +261,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 実行するのは､`grep one mock.txt > grep_out.txt`です｡ 
 mock.txtに対して､`one`という文字列をgrepで検索し､その結果をgrep_out.txtに出力します｡
 
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/data/mock.txt
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/data/mock.txt
 
 ```bash
 grep one mock.txt > grep_out.txt
@@ -325,7 +338,7 @@ zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > ./zatsu_generator/grep_z
 現在､v1.0, v1.1, v1.2など複数のバージョンに対応しています｡
 なお､この記事ではv1.0で書いていますが､基本的な書き方はどのバージョンでも大きく変わりません｡
 
-![](https://t907947.p.clickup-attachments.com/t907947/cf8cf2c7-57b7-4173-bdee-21c202175c66/image.png)
+![cwl_version_check](https://storage.googleapis.com/zenn-user-upload/76a8a6e82763-20240527.png)
 :::
 
 &nbsp;
@@ -446,7 +459,7 @@ inputs:
     default: one
   - id: mock_txt
     type: File
-    doc: please input text file #記載を追加
+    doc: please input text file #記載をここに追加
     default:
       class: File
       location: mock.txt
@@ -461,7 +474,7 @@ outputs:
     type: stdout
 stdout: grepout.txt
 ```
-再度実行すると以下のようになります｡
+再度実行してみると以下のようになります｡
 
 ```bash:
 cwltool grep_zatsu.cwl --help
@@ -489,13 +502,13 @@ options:
 ```yaml
 inputs:
   - id: one
-    type: Any #赤線で示された部分
+    type: Any #赤線で示されていた部分
     default: one
 ```
 エラーメッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ています｡
 ここでは`one`という文字列(string)を入力するので､以下のように修正できます｡
 
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl#L9-L12
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl#L9-L12
 
 そうするとエラーメッセージが消え､`--help`オプションを使うとargumentsとして表示されるようになります｡
 
