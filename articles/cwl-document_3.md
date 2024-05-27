@@ -295,7 +295,237 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 それでは再度実行してみましょう｡
 :::details 修正後のCWLファイル
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/cwltool_out/1_blastp_docker_v2_result.txt
+```bash:1_blastp_docker_v2.cwl
+cwltool --debug 1_blastp_docker_v2.cwl --query ./MSTN.fasta --db ./uniprot_sprot.fasta --num_threads 8 --outfmt 7 --out blastp_result.txt --max_target_seqs 20
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved '1_blastp_docker_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker_v2.cwl'
+DEBUG Can't make command line argument from Any
+DEBUG Parsed job order from command line: {
+    "__id": "1_blastp_docker_v2.cwl",
+    "query": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta"
+    },
+    "db": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta"
+    },
+    "num_threads": 8,
+    "outfmt": 7,
+    "out": "blastp_result.txt",
+    "max_target_seqs": 20
+}
+DEBUG [job 1_blastp_docker_v2.cwl] initializing from file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker_v2
+.cwl                                                                                                                                               DEBUG [job 1_blastp_docker_v2.cwl] {
+    "query": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta",
+        "size": 476,
+        "basename": "MSTN.fasta",
+        "nameroot": "MSTN",
+        "nameext": ".fasta"
+    },
+    "db": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta",
+        "size": 284812502,
+        "basename": "uniprot_sprot.fasta",
+        "nameroot": "uniprot_sprot",
+        "nameext": ".fasta"
+    },
+    "num_threads": 8,
+    "outfmt": 7,
+    "out": "blastp_result.txt",
+    "max_target_seqs": 20,
+    "evalue": 1e-05
+}
+DEBUG [job 1_blastp_docker_v2.cwl] path mappings is {
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta",
+        "/var/lib/cwl/stga7998393-9a81-4cc7-9591-8fe9236fcf5d/MSTN.fasta",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta",
+        "/var/lib/cwl/stgb5786c95-6694-4f59-9707-d79eced66e64/uniprot_sprot.fasta",
+        "File",
+        true
+    ]
+}
+DEBUG [job 1_blastp_docker_v2.cwl] command line bindings is [
+    {
+        "position": [
+            -1000000,
+            0
+        ],
+        "datum": "blastp"
+    },
+    {
+        "position": [
+            0,
+            0
+        ],
+        "datum": "-query"
+    },
+    {
+        "position": [
+            0,
+            1
+        ],
+        "valueFrom": "$(inputs.query)"
+    },
+    {
+        "position": [
+            0,
+            2
+        ],
+        "datum": "-db"
+    },
+    {
+        "position": [
+            0,
+            3
+        ],
+        "valueFrom": "$(inputs.db)"
+    },
+    {
+        "position": [
+            0,
+            4
+        ],
+        "datum": "-evalue"
+    },
+    {
+        "position": [
+            0,
+            5
+        ],
+        "valueFrom": "$(inputs.evalue)"
+    },
+    {
+        "position": [
+            0,
+            6
+        ],
+        "datum": "-num_threads"
+    },
+    {
+        "position": [
+            0,
+            7
+        ],
+        "valueFrom": "$(inputs.num_threads)"
+    },
+    {
+        "position": [
+            0,
+            8
+        ],
+        "datum": "-outfmt"
+    },
+    {
+        "position": [
+            0,
+            9
+        ],
+        "valueFrom": "$(inputs.outfmt)"
+    },
+    {
+        "position": [
+            0,
+            10
+        ],
+        "datum": "-out"
+    },
+    {
+        "position": [
+            0,
+            11
+        ],
+        "valueFrom": "$(inputs.out)"
+    },
+    {
+        "position": [
+            0,
+            12
+        ],
+        "datum": "-max_target_seqs"
+    },
+    {
+        "position": [
+            0,
+            13
+        ],
+        "valueFrom": "$(inputs.max_target_seqs)"
+    }
+]
+DEBUG [job 1_blastp_docker_v2.cwl] initial work dir {}
+INFO [job 1_blastp_docker_v2.cwl] /tmp/17begc9b$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/17begc9b,target=/jFvgAu \
+    --mount=type=bind,source=/tmp/pvwugmew,target=/tmp \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta,target=/var/lib/cwl/stga7998393-9a81-4
+cc7-9591-8fe9236fcf5d/MSTN.fasta,readonly \                                                                                                            --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stgb5786c
+95-6694-4f59-9707-d79eced66e64/uniprot_sprot.fasta,readonly \                                                                                          --workdir=/jFvgAu \
+    --read-only=true \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/nquyx9tk/20240527074301-528880.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/jFvgAu \
+    biocontainers/blast:v2.2.31_cv2 \
+    blastp \
+    -query \
+    /var/lib/cwl/stga7998393-9a81-4cc7-9591-8fe9236fcf5d/MSTN.fasta \
+    -db \
+    /var/lib/cwl/stgb5786c95-6694-4f59-9707-d79eced66e64/uniprot_sprot.fasta \
+    -evalue \
+    0.00001 \
+    -num_threads \
+    8 \
+    -outfmt \
+    7 \
+    -out \
+    blastp_result.txt \
+    -max_target_seqs \
+    20
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was reque
+sted                                                                                                                                               BLAST Database error: No alias or index file found for protein database [/var/lib/cwl/stgb5786c95-6694-4f59-9707-d79eced66e64/uniprot_sprot.fasta] 
+in search path [/jFvgAu::]                                                                                                                         WARNING [job 1_blastp_docker_v2.cwl] exited with status: 2
+WARNING [job 1_blastp_docker_v2.cwl] completed permanentFail
+DEBUG [job 1_blastp_docker_v2.cwl] outputs {
+    "all-for-debugging": [
+        {
+            "location": "file:///tmp/17begc9b/blastp_result.txt",
+            "basename": "blastp_result.txt",
+            "nameroot": "blastp_result",
+            "nameext": ".txt",
+            "class": "File",
+            "checksum": "sha1$da39a3ee5e6b4b0d3255bfef95601890afd80709",
+            "size": 0,
+            "http://commonwl.org/cwltool#generation": 0
+        }
+    ]
+}
+DEBUG [job 1_blastp_docker_v2.cwl] Removing input staging directory /tmp/e_qr0ldv
+DEBUG [job 1_blastp_docker_v2.cwl] Removing temporary directory /tmp/pvwugmew
+DEBUG Moving /tmp/17begc9b/blastp_result.txt to /workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt
+DEBUG Removing intermediate output directory /tmp/17begc9b
+{
+    "all-for-debugging": [
+        {
+            "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt",
+            "basename": "blastp_result.txt",
+            "class": "File",
+            "checksum": "sha1$da39a3ee5e6b4b0d3255bfef95601890afd80709",
+            "size": 0,
+            "path": "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt"
+        }
+    ]
+}WARNING Final process status is permanentFail
+```
 :::
 今回もファイルの出力はうまくいきましたが､空のファイルが出力されてしまいました｡
 エラーを見てみると､`BLAST Database error: No alias or index file found for protein database [/var/lib/cwl/stgb5786c95-6694-4f59-9707-d79eced66e64/uniprot_sprot.fasta]`などが見られ､データベースが見つからないというエラーが出ています｡
@@ -306,8 +536,372 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 ### (4) 修正プロセス 2 複数のインデックスファイルの記載
 
+`inputs`フィールドの部分を修正してみます｡
 
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v2.cwl#L27-L31
 
+BLASTでは､inputsのインデックス(引数は `-db` )の指定の部分の記述方法についていくつか方法があるようです｡
+
+https://qiita.com/Yohei__K/items/b947655eb59a8853c172
+
+今回は `secondaryFiles` フィールドを活用し､以下のように記述してみます｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v3.cwl#L27-L40
+
+このように記述することで､複数のインデックスファイルを指定することができます｡
+それでは再度実行してみましょう｡
+
+:::details 修正後のCWLファイル
+```bash:1_blastp_docker_v3.cwl
+cwltool --debug 1_blastp_docker_v3.cwl --query ./MSTN.fasta --db ./uniprot_sprot.fasta --num_threads 8 --outfmt 7 --out blastp_result.txt --max_target_seqs 20
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved '1_blastp_docker_v3.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker_v3.cwl'
+DEBUG Can't make command line argument from Any
+DEBUG Parsed job order from command line: {
+    "__id": "1_blastp_docker_v3.cwl",
+    "query": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta"
+    },
+    "db": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta"
+    },
+    "num_threads": 8,
+    "outfmt": 7,
+    "out": "blastp_result.txt",
+    "max_target_seqs": 20
+}
+DEBUG [job 1_blastp_docker_v3.cwl] initializing from file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker_v3
+.cwl                                                                                                                                               DEBUG [job 1_blastp_docker_v3.cwl] {
+    "query": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta",
+        "size": 476,
+        "basename": "MSTN.fasta",
+        "nameroot": "MSTN",
+        "nameext": ".fasta"
+    },
+    "db": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta",
+        "size": 284812502,
+        "basename": "uniprot_sprot.fasta",
+        "nameroot": "uniprot_sprot",
+        "nameext": ".fasta",
+        "secondaryFiles": [
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd",
+                "basename": "uniprot_sprot.fasta.phd",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".phd"
+            },
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi",
+                "basename": "uniprot_sprot.fasta.phi",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".phi"
+            },
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr",
+                "basename": "uniprot_sprot.fasta.phr",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".phr"
+            },
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin",
+                "basename": "uniprot_sprot.fasta.pin",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".pin"
+            },
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog",
+                "basename": "uniprot_sprot.fasta.pog",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".pog"
+            },
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd",
+                "basename": "uniprot_sprot.fasta.psd",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".psd"
+            },
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi",
+                "basename": "uniprot_sprot.fasta.psi",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".psi"
+            },
+            {
+                "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq",
+                "basename": "uniprot_sprot.fasta.psq",
+                "class": "File",
+                "nameroot": "uniprot_sprot.fasta",
+                "nameext": ".psq"
+            }
+        ]
+    },
+    "num_threads": 8,
+    "outfmt": 7,
+    "out": "blastp_result.txt",
+    "max_target_seqs": 20,
+    "evalue": 1e-05
+}
+DEBUG [job 1_blastp_docker_v3.cwl] path mappings is {
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta",
+        "/var/lib/cwl/stgcb307528-6f4f-4251-9517-0121cb068d7e/MSTN.fasta",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.phd",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.phi",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.phr",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.pin",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.pog",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.psd",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.psi",
+        "File",
+        true
+    ],
+    "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq": [
+        "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq",
+        "/var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.psq",
+        "File",
+        true
+    ]
+}
+DEBUG [job 1_blastp_docker_v3.cwl] command line bindings is [
+    {
+        "position": [
+            -1000000,
+            0
+        ],
+        "datum": "blastp"
+    },
+    {
+        "position": [
+            0,
+            0
+        ],
+        "datum": "-query"
+    },
+    {
+        "position": [
+            0,
+            1
+        ],
+        "valueFrom": "$(inputs.query)"
+    },
+    {
+        "position": [
+            0,
+            2
+        ],
+        "datum": "-db"
+    },
+    {
+        "position": [
+            0,
+            3
+        ],
+        "valueFrom": "$(inputs.db)"
+    },
+    {
+        "position": [
+            0,
+            4
+        ],
+        "datum": "-evalue"
+    },
+    {
+        "position": [
+            0,
+            5
+        ],
+        "valueFrom": "$(inputs.evalue)"
+    },
+    {
+        "position": [
+            0,
+            6
+        ],
+        "datum": "-num_threads"
+    },
+    {
+        "position": [
+            0,
+            7
+        ],
+        "valueFrom": "$(inputs.num_threads)"
+    },
+    {
+        "position": [
+            0,
+            8
+        ],
+        "datum": "-outfmt"
+    },
+    {
+        "position": [
+            0,
+            9
+        ],
+        "valueFrom": "$(inputs.outfmt)"
+    },
+    {
+        "position": [
+            0,
+            10
+        ],
+        "datum": "-out"
+    },
+    {
+        "position": [
+            0,
+            11
+        ],
+        "valueFrom": "$(inputs.out)"
+    },
+    {
+        "position": [
+            0,
+            12
+        ],
+        "datum": "-max_target_seqs"
+    },
+    {
+        "position": [
+            0,
+            13
+        ],
+        "valueFrom": "$(inputs.max_target_seqs)"
+    }
+]
+DEBUG [job 1_blastp_docker_v3.cwl] initial work dir {}
+INFO [job 1_blastp_docker_v3.cwl] /tmp/8hge4mo3$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/8hge4mo3,target=/RrTBZF \
+    --mount=type=bind,source=/tmp/7sot2rlv,target=/tmp \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta,target=/var/lib/cwl/stgcb307528-6f4f-4
+251-9517-0121cb068d7e/MSTN.fasta,readonly \                                                                                                            --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stg90d0f4
+dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.phd,readonly \                                                                                  --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.phi,readonly \                                                                                  --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.phr,readonly \                                                                                  --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.pin,readonly \                                                                                  --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.pog,readonly \                                                                                  --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.psd,readonly \                                                                                  --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.psi,readonly \                                                                                  --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stg90
+d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta.psq,readonly \                                                                                  --workdir=/RrTBZF \
+    --read-only=true \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/jj7sjx1j/20240527075910-603277.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/RrTBZF \
+    biocontainers/blast:v2.2.31_cv2 \
+    blastp \
+    -query \
+    /var/lib/cwl/stgcb307528-6f4f-4251-9517-0121cb068d7e/MSTN.fasta \
+    -db \
+    /var/lib/cwl/stg90d0f4dc-8137-4082-8c5d-4eaf670f8786/uniprot_sprot.fasta \
+    -evalue \
+    0.00001 \
+    -num_threads \
+    8 \
+    -outfmt \
+    7 \
+    -out \
+    blastp_result.txt \
+    -max_target_seqs \
+    20
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was reque
+sted                                                                                                                                               INFO [job 1_blastp_docker_v3.cwl] completed success
+DEBUG [job 1_blastp_docker_v3.cwl] outputs {
+    "all-for-debugging": [
+        {
+            "location": "file:///tmp/8hge4mo3/blastp_result.txt",
+            "basename": "blastp_result.txt",
+            "nameroot": "blastp_result",
+            "nameext": ".txt",
+            "class": "File",
+            "checksum": "sha1$48540e3f3f63e4dd5a26ca6899cea47e8447849e",
+            "size": 1923,
+            "http://commonwl.org/cwltool#generation": 0
+        }
+    ]
+}
+DEBUG [job 1_blastp_docker_v3.cwl] Removing input staging directory /tmp/4qgo5l0s
+DEBUG [job 1_blastp_docker_v3.cwl] Removing temporary directory /tmp/7sot2rlv
+DEBUG Moving /tmp/8hge4mo3/blastp_result.txt to /workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt
+DEBUG Removing intermediate output directory /tmp/8hge4mo3
+{
+    "all-for-debugging": [
+        {
+            "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt",
+            "basename": "blastp_result.txt",
+            "class": "File",
+            "checksum": "sha1$48540e3f3f63e4dd5a26ca6899cea47e8447849e",
+            "size": 1923,
+            "path": "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt"
+        }
+    ]
+}INFO Final process status is success
+```
+:::
+
+今回は成功しています! 結果を見てみましょう｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastp_result.txt
+
+しっかり出力結果も得られています! これでCWLの修正は完了です｡
 
 ****
 
@@ -342,6 +936,7 @@ biocontainers/fasttree   v2.1.10-2-deb_cv1   bdfde5d6026c   4 years ago   118MB
 biocontainers/clustalo   v1.2.4-2-deb_cv1    d14a5e27e301   4 years ago   118MB
 biocontainers/blast      v2.2.31_cv2         5b25e08b9871   4 years ago   2.03GB
 ```
+:
 
 &nbsp;
 
