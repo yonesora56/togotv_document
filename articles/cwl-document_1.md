@@ -30,7 +30,7 @@ https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-H
 
 &nbsp;
 
-[Workflow systems turn raw data into scientific knowledge](https://www.nature.com/articles/d41586-019-02619-z)
+https://doi.org/10.1038/d41586-019-02619-z
 
 現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントでは **Common Workflow Language (CWL)** について環境構築とその実例をご紹介します。
 
