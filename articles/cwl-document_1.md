@@ -67,7 +67,7 @@ CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやc
 :::message
 ※なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事[^7]がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
 
-(※ 制作が大変遅くなってしまい申し訳ありません!!!)
+__(※ 制作が大変遅くなってしまい申し訳ありません!!!)__
 :::
 
 &nbsp;
@@ -92,7 +92,7 @@ https://code.visualstudio.com/download
 ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ 
 こちらが必要なのでインストールします[^8](以前は｢Remote Container extension｣という名前だったようですが､どうやら変わったようです)｡
 
-![Dev-container](https://storage.googleapis.com/zenn-user-upload/e5d7dc91c2e3-20240527.png)
+[Dev-container](../images/Devcontainer.png)
 
 https://code.visualstudio.com/docs/devcontainers/containers
 
