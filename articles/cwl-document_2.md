@@ -59,7 +59,7 @@ __Step2：ワークフロー全体を記述するcwlファイルを書く__
 ## zatsu-cwl-generatorを使ってcwlファイルを書く
 
 それでは実際に書いていきましょう｡ 
-まず､前回 __zatsu-cwl-generator__を使って出力したgrepの処理に関するCWLファイルを以下に示します｡
+まず､前回 __zatsu-cwl-generator__ を使って出力したgrepの処理に関するCWLファイルを以下に示します｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu.cwl
 
@@ -348,23 +348,8 @@ INFO [workflow ] completed success
 ```
 
 最終的にwcout.txtが出力されます｡
-このように､複数の処理を一つのコマンドで実行することができました｡
-
-&nbsp;
-
-:::message
-### 少し修正してみよう
-grep-and-count.cwlのファイルを少し修正してみましょう｡
-
-
-
-
-`arguments`のフィールドでは､`$(inputs.l)`というふうに出力されているので､grep-and-count.cwlにおいて`grep_out`ではなく`l`として指定する必要があります｡
-
-しかしながら､`l`ではわかりにくいので､wc_zatsu.cwlの`outputs`フィールドに`grep_out`という名前をつけておくとわかりやすくなります｡
-
-
-:::
+複数の処理を一つのコマンドで実行することができました｡
+このように､CWLを使うことで､複数の処理を一つのコマンドで実行することができます｡
 
 
 [^1]: [CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
