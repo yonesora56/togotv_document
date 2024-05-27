@@ -183,7 +183,7 @@ WARNING 1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined r
 それではこのファイルを使って実行してみましょう｡
 
 ```bash:
-cwltool --debug 1_blastp_docker.cwl --query ./MSTN.fasta --db ./uniprot_sprot.fasta --num_threads 8 --outfmt 7 --out blastp_result.txt --max_target_seqs 20
+cwltool --debug 1_blastp_docker.cwl
 ```
 
 これまでと異なり､エラーが発生しました｡
@@ -296,7 +296,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 それでは再度実行してみましょう｡
 :::details 修正後のCWLファイル
 ```bash:1_blastp_docker_v2.cwl
-cwltool --debug 1_blastp_docker_v2.cwl --query ./MSTN.fasta --db ./uniprot_sprot.fasta --num_threads 8 --outfmt 7 --out blastp_result.txt --max_target_seqs 20
+cwltool --debug 1_blastp_docker_v2.cwl
 INFO /usr/local/bin/cwltool 3.1.20240508115724
 INFO Resolved '1_blastp_docker_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker_v2.cwl'
 DEBUG Can't make command line argument from Any
@@ -549,11 +549,14 @@ https://qiita.com/Yohei__K/items/b947655eb59a8853c172
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v3.cwl#L27-L40
 
 このように記述することで､複数のインデックスファイルを指定することができます｡
+
+https://www.commonwl.org/v1.0/CommandLineTool.html#CommandInputParameter
+
 それでは再度実行してみましょう｡
 
 :::details 修正後のCWLファイル
 ```bash:1_blastp_docker_v3.cwl
-cwltool --debug 1_blastp_docker_v3.cwl --query ./MSTN.fasta --db ./uniprot_sprot.fasta --num_threads 8 --outfmt 7 --out blastp_result.txt --max_target_seqs 20
+cwltool --debug 1_blastp_docker_v3.cwl
 INFO /usr/local/bin/cwltool 3.1.20240508115724
 INFO Resolved '1_blastp_docker_v3.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker_v3.cwl'
 DEBUG Can't make command line argument from Any
@@ -919,175 +922,56 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 ****
 
-&nbsp;
+## 他のファイルもcwlファイルとして書いてみる
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-## docker imageを取得する
+blastpのプロセスのように､他のプロセスもCWLファイルとして書いてみます｡
+zatsu-cwl-generatorを使って生成し､修正したバージョンは`v2`などのようにファイル名を変更しています｡
+また､`awk`以外のプロセスはdocker imageとしてBioContainersにあるものを使用し､`hints`フィールドを追加しています｡
 
 :::message
-すでに構築した環境にBLASTなどのツールをインストールしている方はこの手順は飛ばしてください｡
-:::
-
-今回取り上げるツールのdocker imageを[docker hub](https://hub.docker.com/)から取得します｡
+今回取り上げているツールのdocker imageを[docker hub](https://hub.docker.com/)から取得しました｡
 [blast](https://hub.docker.com/r/biocontainers/blast)､[clustalo](https://hub.docker.com/r/biocontainers/clustalo)､[fasttree](https://hub.docker.com/r/biocontainers/fasttree)はすべて[BioContainers](https://biocontainers.pro/)によって構築されています[^1]｡
-また､awkについては[ubuntu](https://hub.docker.com/_/ubuntu)のimageを取得しました｡
-
-:::message
-今回は､tag を指定する形でダウンロード(docker pull ... をコピー&ペースト)しました｡
-:::
-
-以下はターミナルで `docker image ls` を行った例です｡
 ```bash:
 docker image ls
 REPOSITORY               TAG                 IMAGE ID       CREATED       SIZE
-ubuntu                   23.10               78938b354ee7   2 weeks ago   72.1MB
 biocontainers/fasttree   v2.1.10-2-deb_cv1   bdfde5d6026c   4 years ago   118MB
 biocontainers/clustalo   v1.2.4-2-deb_cv1    d14a5e27e301   4 years ago   118MB
-biocontainers/blast      v2.2.31_cv2         5b25e08b9871   4 years ago   2.03GB
+biocontainers/blast      v2.2.31_cv2         5b25e08b9871   5 years ago   2.03GB
 ```
-:
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-```yaml
-#!/usr/bin/env cwl-runner
-# Generated from: docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20
-
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: [blastp] 
-
-requirements:
-  DockerRequirement: 
-    dockerPull: "biocontainers/blast:v2.2.31_cv2"  #ここにイメージを書く
-```
-&nbsp; 
-
-&nbsp;
-
-&nbsp;
-
-次にCase1でも書いていた`inputs` `outputs` セクションについて記述します｡ `arguments`の部分は今回は記述しない方法で書いていきます｡ 実際に書いてみたのが以下のスクリプトになります｡
-
-```yaml
-#!/usr/bin/env cwl-runner
-# Generated from: docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: [blastp]
-doc: BLASTP step 
-
-requirements:
-  DockerRequirement: #Dockerimageを記述
-    dockerPull: "biocontainers/blast:v2.2.31_cv2"
-
-# input
-inputs:
-  protein_query:
-    type: File
-    inputBinding:
-      prefix: "-query"
-      position: 1
-  protein_database:
-    type: File
-    default: 
-      class: File
-      path: ../data/uniprot_sprot.fasta
-    inputBinding:
-      prefix: "-db"
-      position: 2
-    secondaryFiles:
-      - ^.fasta.phd
-      - ^.fasta.phi
-      - ^.fasta.phr
-      - ^.fasta.pin
-      - ^.fasta.pog
-      - ^.fasta.psd
-      - ^.fasta.psi
-      - ^.fasta.psq
-
-  e-value:
-    type: float?
-    default: 1e-5
-    inputBinding:
-      prefix: "-evalue"
-      position: 3
-  number_of_threads:
-    type: int
-    default: 4
-    inputBinding:
-      prefix: "-num_threads"
-      position: 4
-  outformat_type:
-    type: int
-    default: 6
-    inputBinding:
-      prefix: "-outfmt"
-      position: 5
-  output_file_name:
-    type: string
-    inputBinding:
-      prefix: "-out"
-      position: 6
-  max_target_sequence:
-    type: int
-    default: 20
-    inputBinding:
-      prefix: "-max_target_seqs"
-      position: 7
-
-#outputs
-outputs:
-  blastp_output_file:
-    type: File
-    outputBinding:
-      glob: "$(inputs.output_file_name)"
-
-# stdout
-stdout: $(inputs.output_file_name)
-```
-&nbsp;
-
-:::success
-### BLASTのワークフローの書き方
-
-BLASTでは､inputsのインデックス(引数は `-db` )の指定の部分の記述方法についていくつか方法があるようです｡
-
-例えば今回は `secondaryFiles` フィールドを活用し､以下のように記述しています｡ 
-
-```yaml:
-  protein_database:
-    type: File
-    default: 
-      class: File
-      path: ../data/uniprot_sprot.fasta #pathを記述
-    inputBinding:
-      prefix: "-db"
-      position: 2
-    secondaryFiles:
-      - ^.fasta.phd
-      - ^.fasta.phi
-      - ^.fasta.phr
-      - ^.fasta.pin
-      - ^.fasta.pog
-      - ^.fasta.psd
-      - ^.fasta.psi
-      - ^.fasta.psq
-```
-ファイルとして指定しておき､パスについても明記しています｡また､`secandaryFiles`で､インデックス参照時にprotein_databaseに指定しているファイルと同じディレクトリになくてはいけないファイルを指定しています｡
-
-#### 参考1：[cwl-samples-2023/debuginfo.cwl](https://github.com/manabuishii/cwl-samples-2023/blob/main/debuginfo.cwl#L10-L11)
-#### 参考2：[5.1 CommandInputParameter](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandInputParameter)
 :::
+
+:::details 2_awk_v2.cwl
+
+```bash
+zatsu-cwl-generator "awk '{ print $2 }' blastp_result.txt > blastp_result_id.txt" > 2_awk.cwl
+```
+
+色々試行錯誤した結果､このファイルで実行できました｡
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/2_awk_v2.cwl
+
+実行したファイルは以下の通りです｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastp_result_id.txt
+:::
+
+:::details 3_blastdbcmd_v2.cwl
+
+:::
+
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
   
 &nbsp;
 
@@ -1123,233 +1007,15 @@ cwltool --outdir ./data ./Tools/1_blastp.cwl ./Tools/1_blastp.yml
 
 &nbsp;
 
-```bash:
-INFO /usr/local/bin/cwltool 3.1.20230906142556
-INFO Resolved './Tools/1_blastp.cwl' to 'file:///workspaces/togotv_shooting/Tools/1_blastp.cwl'
-INFO [job 1_blastp.cwl] /tmp/qe5n7kgg$ docker \
-    run \
-    -i \
-    --mount=type=bind,source=/tmp/qe5n7kgg,target=/DcjUoi \
-    --mount=type=bind,source=/tmp/p__s1km1,target=/tmp \
-    --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-9100
-606072ca/uniprot_sprot.fasta,readonly \                                                                                                  --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.phd,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.phi,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.phr,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.pin,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.pog,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.psd,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.psi,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stgd1ff326d-ac51-4352-b27b-
-9100606072ca/uniprot_sprot.fasta.psq,readonly \                                                                                          --mount=type=bind,source=/workspaces/togotv_shooting/data/MSTN.fasta,target=/var/lib/cwl/stge2ab10d6-20a1-4698-88fe-dc0997863178/
-MSTN.fasta,readonly \                                                                                                                    --workdir=/DcjUoi \
-    --read-only=true \
-    --user=1000:1000 \
-    --rm \
-    --cidfile=/tmp/d3yca0_g/20230928025733-664451.cid \
-    --env=TMPDIR=/tmp \
-    --env=HOME=/DcjUoi \
-    biocontainers/blast:v2.2.31_cv2 \
-    blastp \
-    -query \
-    /var/lib/cwl/stge2ab10d6-20a1-4698-88fe-dc0997863178/MSTN.fasta \
-    -db \
-    /var/lib/cwl/stgd1ff326d-ac51-4352-b27b-9100606072ca/uniprot_sprot.fasta \
-    -evalue \
-    0.00001 \
-    -num_threads \
-    4 \
-    -outfmt \
-    6 \
-    -out \
-    blastp_result.txt \
-    -max_target_seqs \
-    20
-INFO [job 1_blastp.cwl] Max memory used: 11MiB
-INFO [job 1_blastp.cwl] completed success
-{
-    "blastp_output_file": {
-        "location": "file:///workspaces/togotv_shooting/data/blastp_result.txt",
-        "basename": "blastp_result.txt",
-        "class": "File",
-        "checksum": "sha1$31464e2d0bdfd65f89e0542688844d3686bf278c",
-        "size": 1536,
-        "path": "/workspaces/togotv_shooting/data/blastp_result.txt"
-    }
-}INFO Final process status is success
-
-```
-実行が成功したようです｡blastpの結果も出力されました｡
-同様に他のCWLファイルも､zatsu-cwl-generatorで一旦出力後､修正する形で書いてみましょう｡その結果を以下に示します｡ 
+&nbsp;
 
 &nbsp;
 
-## CWLファイル(CommandLineTool)記述例
-
-### 2_awk.cwl
-
-```yaml:
-#!/usr/bin/env cwl-runner
-# Generated from: docker run --rm -it -v `pwd`:`pwd` -w `pwd` ubuntu:23.10 awk '{ print $2 }' blastp_result_MSTN.txt > blastp_result_id.txt
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: [awk]
-
-requirements:
-  DockerRequirement:
-    dockerPull: "ubuntu:23.10"
-
-# 固定の引数
-arguments:
-  - valueFrom: '{ print $2 }' 
-    position: 1
-
-inputs:
-  blastp_result:
-    type: File
-    inputBinding:
-      position: 2
-  output_id_file_name:
-    type: string
-    inputBinding:
-      position: 3
-outputs:
-  awk_output:
-    type: File
-    outputBinding:
-      glob: "$(inputs.output_id_file_name)"
-stdout: $(inputs.output_id_file_name)
-```
+&nbsp;
 
 &nbsp;
 
-### 3\_blastdbcmd.cwl
-
-```yaml:
-#!/usr/bin/env cwl-runner
-# Generated from: docker run --rm -it -v /workspaces/togotv_shooting/data:/workspaces/togotv_shooting/data  -w  /workspaces/togotv_shooting/data biocontainers/blast:v2.2.31_cv2 blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastp_results_MSTN.fasta
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: [blastdbcmd]
-
-requirements:
-  DockerRequirement:
-    dockerPull: "biocontainers/blast:v2.2.31_cv2"
-
-# Inputs
-inputs:
-  blastdbcmd_protein_database:
-    type: File
-    default: 
-      class: File
-      path: ../data/uniprot_sprot.fasta
-    inputBinding:
-      prefix: "-db"
-      position: 1
-    secondaryFiles:
-      - ^.fasta.phd
-      - ^.fasta.phi
-      - ^.fasta.phr
-      - ^.fasta.pin
-      - ^.fasta.pog
-      - ^.fasta.psd
-      - ^.fasta.psi
-      - ^.fasta.psq
-  id_query:
-    type: File
-    inputBinding:
-      prefix: "-entry_batch"
-      position: 2
-  blastdbcmd_output_name:
-    type: string
-    inputBinding:
-      prefix: "-out"
-      position: 3
-#Outputs
-outputs:
-  blastdbcmd_output:
-    type: File
-    outputBinding:
-      glob: "$(inputs.blastdbcmd_output_name)"
-```
-
-&nbsp;
-
-### 4_clustalo.cwl
-
-```yaml:
-#!/usr/bin/env cwl-runner
-# Generated from: docker run --rm -it -v /workspaces/togotv_shooting/data:/workspaces/togotv_shooting/data -w /workspaces/togotv_shooting/data biocontainers/clustalo:v1.2.4-2-deb_cv1 clustalo -i /workspaces/togotv_shooting/data/blastp_results_MSTN.fasta --outfmt=fasta -o MSTN_aligned_sequence.fasta
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: [clustalo]
-
-requirements:
-  DockerRequirement:
-    dockerPull: "biocontainers/clustalo:v1.2.4-2-deb_cv1"
-
-# Inputs
-inputs:
-  clustalo_inputs:
-    type: File
-    inputBinding:
-      prefix: "-i"
-      position: 1
-  clustalo_format:
-    type: string
-    default: "fasta"
-    inputBinding:
-      prefix: "--outfmt"
-      position: 2
-  clustalo_output_name:
-    type: string
-    inputBinding:
-      prefix: "-o"
-      position: 3
-
-outputs:
-  clustalo_output:
-    type: File
-    outputBinding:
-      glob: "$(inputs.clustalo_output_name)"
-```
-
-&nbsp; 
-
-### 5_fasttree.cwl
-
-```yaml:
-#!/usr/bin/env cwl-runner
-# Generated from: docker run --rm -it -v /workspaces/togotv_shooting/data:/workspaces/togotv_shooting/data -w /workspaces/togotv_shooting/data biocontainers/fasttree:v2.1.10-2-deb_cv1 FastTree -out MSTN_tree.newick /workspaces/togotv_shooting/data/MSTN_aligned_sequence.fasta
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: [fasttree]
-
-requirements:
-  DockerRequirement:
-    dockerPull: "biocontainers/fasttree:v2.1.10-2-deb_cv1"
-
-#Inputs
-inputs:
-  fasttree_output_file_name:
-    type: string
-    inputBinding:
-      prefix: "-out"
-      position: 1
-  fasttree_input_file:
-    type: File
-    inputBinding:
-      position: 2
-# Outputs
-outputs:
-  fasttree_output_file:
-    type: File
-    outputBinding:
-      glob: "$(inputs.fasttree_output_file_name)" 
-```
-
-&nbsp;
-
-### ワークフローを記述する
+## ワークフローを記述する
 
 :::danger
 __修正：best practicesに載っているような書き方で最後書く__
@@ -1540,7 +1206,7 @@ __CWLで記述したファイルは様々な環境で実行することができ
 
 &nbsp;
 
-:::details 参考：Dockerコマンドで実行する場合(確認済み)
+:::details 参考：Dockerでコマンド実行する例
 ```bash:
 # Step1
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20 
