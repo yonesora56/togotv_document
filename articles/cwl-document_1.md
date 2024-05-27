@@ -532,7 +532,6 @@ options:
 
 &nbsp;
 
-# 参考リンク集
 [^1]: [43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
 [^2]: [Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
 [^3]: [CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
