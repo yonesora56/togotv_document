@@ -49,6 +49,8 @@ CWLでは､複数のツールで実行することができます｡例えば�
 
 https://www.commonwl.org/implementations/#what-can-execute-cwl-descriptions
 
+&nbsp;
+
 実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
 https://github.com/ddbj/human-reseq
 
@@ -60,10 +62,12 @@ https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 https://oumpy.github.io/blog/2018/12/cwl.html
 
 CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやcondaを使ってインストールすることが可能です。
-しかしながら､環境構築は大変な場合が多々あるかと思います。そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
+しかしながら､環境構築は大変な場合があるかと思います。そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
 
 :::message
 ※なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事[^7]がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
+
+(※ 制作が大変遅くなってしまい申し訳ありません!!!)
 :::
 
 &nbsp;
