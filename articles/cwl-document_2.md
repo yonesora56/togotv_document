@@ -63,36 +63,35 @@ __Step2：ワークフロー全体を記述するcwlファイルを書く__
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl
 
-このファイルは､zatsu-cwl-generatorを使って生成したものを少し修正しています｡
-再度実行すると以下のようになります｡
+このファイルは､__zatsu-cwl-generator__ を使って生成したものを少し修正しています｡
 
 :::details grep_zatsu.cwl実行結果
+再度実行すると以下のようになります｡
 ```bash:
-cwltool ./zatsu_generator/grep_zatsu.cwl
-INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
-INFO [job grep_zatsu.cwl] /tmp/hyklfokj$ grep \
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grep_zatsu.cwl'
+INFO [job grep_zatsu.cwl] /tmp/lojon8ug$ grep \
     one \
-    /tmp/04eizij3/stg0ab8da43-ade2-4118-837c-e62d095ee2c3/mock.txt > /tmp/hyklfokj/grepout.txt
+    /tmp/lcq3t7yn/stg023a9b56-8cd0-46b5-a657-f2f85c7022f7/mock.txt > /tmp/lojon8ug/grepout.txt
 INFO [job grep_zatsu.cwl] completed success
 {
     "all-for-debugging": [
         {
-            "location": "file:///workspaces/togotv_shooting/grepout.txt",
+            "location": "file:///workspaces/togotv_cwl_for_remote_container/grepout.txt",
             "basename": "grepout.txt",
             "class": "File",
             "checksum": "sha1$a972f6d93fec7529fd4af8344ca298eea43dfbc5",
             "size": 16,
-            "path": "/workspaces/togotv_shooting/grepout.txt"
+            "path": "/workspaces/togotv_cwl_for_remote_container/grepout.txt"
         }
     ],
     "out": {
-        "location": "file:///workspaces/togotv_shooting/grepout.txt",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/grepout.txt",
         "basename": "grepout.txt",
         "class": "File",
         "checksum": "sha1$a972f6d93fec7529fd4af8344ca298eea43dfbc5",
         "size": 16,
-        "path": "/workspaces/togotv_shooting/grepout.txt"
+        "path": "/workspaces/togotv_cwl_for_remote_container/grepout.txt"
     }
 }INFO Final process status is success
 ```
@@ -107,9 +106,9 @@ zatsu-cwl-generator 'wc -l grepout.txt > wcout.txt' > wc_zatsu.cwl
 ```
 
 出力された結果が以下になります｡
-```yaml:
+```yaml:wc_zatsu.cwl
 #!/usr/bin/env cwl-runner
-# Generated from: wc -l grep_out.txt > wcout.txt
+# Generated from: wc -l grepout.txt > wcout.txt
 class: CommandLineTool
 cwlVersion: v1.0
 baseCommand: wc
@@ -121,7 +120,7 @@ inputs:
     type: File
     default:
       class: File
-      location: grep_out.txt
+      location: grepout.txt
 outputs:
   - id: all-for-debugging
     type:
@@ -134,16 +133,16 @@ outputs:
 stdout: wcout.txt
 ```
 
-こちらも同様に､実行の前に`--validate` オプションを使って評価してみます｡
+こちらも前回と同様に､実行の前に`--validate` オプションを使って評価してみます｡
 
 ```bash:
 cwltool --validate wc_zatsu.cwl
-INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/wc_zatsu.cwl'
 wc_zatsu.cwl:14:7: Warning: Field 'location' contains undefined reference to
-                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+                   'file:///workspaces/togotv_cwl_for_remote_container/grepout.txt'
 WARNING wc_zatsu.cwl:14:7: Warning: Field 'location' contains undefined reference to
-                   'file:///workspaces/togotv_shooting/zatsu_generator/grep_out.txt'
+                   'file:///workspaces/togotv_cwl_for_remote_container/grepout.txt'
 wc_zatsu.cwl is valid CWL.
 ```
 
@@ -200,20 +199,20 @@ wc_zatsu.cwl is valid CWL.
 :::details cwltool実行結果
 ```bash:
 cwltool --debug wc_zatsu.cwl
-INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl'
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/wc_zatsu.cwl'
 DEBUG Parsed job order from command line: {
     "__id": "wc_zatsu.cwl",
     "l": {
         "class": "File",
-        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt"
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/grepout.txt"
     }
 }
-DEBUG [job wc_zatsu.cwl] initializing from file:///workspaces/togotv_shooting/zatsu_generator/wc_zatsu.cwl
+DEBUG [job wc_zatsu.cwl] initializing from file:///workspaces/togotv_cwl_for_remote_container/wc_zatsu.cwl
 DEBUG [job wc_zatsu.cwl] {
     "l": {
         "class": "File",
-        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/grepout.txt",
         "size": 16,
         "basename": "grepout.txt",
         "nameroot": "grepout",
@@ -221,9 +220,9 @@ DEBUG [job wc_zatsu.cwl] {
     }
 }
 DEBUG [job wc_zatsu.cwl] path mappings is {
-    "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt": [
-        "/workspaces/togotv_shooting/zatsu_generator/grepout.txt",
-        "/tmp/307b8iig/stg0c1080cc-90eb-40a9-b697-064ab90b3855/grepout.txt",
+    "file:///workspaces/togotv_cwl_for_remote_container/grepout.txt": [
+        "/workspaces/togotv_cwl_for_remote_container/grepout.txt",
+        "/tmp/pbnduiaj/stgd43bded9-331b-4e42-b3ff-9320fca88a30/grepout.txt",
         "File",
         true
     ]
@@ -252,68 +251,66 @@ DEBUG [job wc_zatsu.cwl] command line bindings is [
     }
 ]
 DEBUG [job wc_zatsu.cwl] initial work dir {}
-INFO [job wc_zatsu.cwl] /tmp/s1835wqr$ wc \
+INFO [job wc_zatsu.cwl] /tmp/b0g5thnx$ wc \
     -l \
-    /tmp/307b8iig/stg0c1080cc-90eb-40a9-b697-064ab90b3855/grepout.txt > /tmp/s1835wqr/wcout.txt
+    /tmp/pbnduiaj/stgd43bded9-331b-4e42-b3ff-9320fca88a30/grepout.txt > /tmp/b0g5thnx/wcout.txt
 DEBUG Could not collect memory usage, job ended before monitoring began.
 INFO [job wc_zatsu.cwl] completed success
 DEBUG [job wc_zatsu.cwl] outputs {
     "all-for-debugging": [
         {
-            "location": "file:///tmp/s1835wqr/wcout.txt",
+            "location": "file:///tmp/b0g5thnx/wcout.txt",
             "basename": "wcout.txt",
             "nameroot": "wcout",
             "nameext": ".txt",
             "class": "File",
-            "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+            "checksum": "sha1$20a5c93cd335c322b56b24adb30b3d85522649a8",
             "size": 68,
             "http://commonwl.org/cwltool#generation": 0
         }
     ],
     "out": {
-        "location": "file:///tmp/s1835wqr/wcout.txt",
+        "location": "file:///tmp/b0g5thnx/wcout.txt",
         "basename": "wcout.txt",
         "nameroot": "wcout",
         "nameext": ".txt",
         "class": "File",
-        "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+        "checksum": "sha1$20a5c93cd335c322b56b24adb30b3d85522649a8",
         "size": 68,
         "http://commonwl.org/cwltool#generation": 0
     }
 }
-DEBUG [job wc_zatsu.cwl] Removing input staging directory /tmp/307b8iig
-DEBUG [job wc_zatsu.cwl] Removing temporary directory /tmp/42prtgxi
-DEBUG Moving /tmp/s1835wqr/wcout.txt to /workspaces/togotv_shooting/zatsu_generator/wcout.txt
-DEBUG Removing intermediate output directory /tmp/s1835wqr
+DEBUG [job wc_zatsu.cwl] Removing input staging directory /tmp/pbnduiaj
+DEBUG [job wc_zatsu.cwl] Removing temporary directory /tmp/_5mdfw2x
+DEBUG Moving /tmp/b0g5thnx/wcout.txt to /workspaces/togotv_cwl_for_remote_container/wcout.txt
+DEBUG Removing intermediate output directory /tmp/b0g5thnx
 {
     "all-for-debugging": [
         {
-            "location": "file:///workspaces/togotv_shooting/zatsu_generator/wcout.txt",
+            "location": "file:///workspaces/togotv_cwl_for_remote_container/wcout.txt",
             "basename": "wcout.txt",
             "class": "File",
-            "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+            "checksum": "sha1$20a5c93cd335c322b56b24adb30b3d85522649a8",
             "size": 68,
-            "path": "/workspaces/togotv_shooting/zatsu_generator/wcout.txt"
+            "path": "/workspaces/togotv_cwl_for_remote_container/wcout.txt"
         }
     ],
     "out": {
-        "location": "file:///workspaces/togotv_shooting/zatsu_generator/wcout.txt",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/wcout.txt",
         "basename": "wcout.txt",
         "class": "File",
-        "checksum": "sha1$bf7e1060bfb4a5e4659788eb512d14297d5cfd93",
+        "checksum": "sha1$20a5c93cd335c322b56b24adb30b3d85522649a8",
         "size": 68,
-        "path": "/workspaces/togotv_shooting/zatsu_generator/wcout.txt"
+        "path": "/workspaces/togotv_cwl_for_remote_container/wcout.txt"
     }
 }INFO Final process status is success
 ```
-:::
 
 実行が成功したようです｡
 結果を見てみると､4としっかりカウントされていました｡
+:::
 
-```txt:
-4 /tmp/307b8iig/stg0c1080cc-90eb-40a9-b697-064ab90b3855/grepout.txt
-```
+
 
 これで2つのCWLファイルが揃いました｡次に､この2つを __一つのコマンドで実行できる__ ようにするファイルを用意します｡
 
