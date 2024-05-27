@@ -177,6 +177,11 @@ git clone https://github.com/tom-tan/cwl-for-remote-container-template
 #アカウントがある場合(Use this template後の状態  your_accountは自分のアカウント名に置き換えてください)
 git clone https://github.com/your_account/cwl-for-remote-container-template
 ```
+
+:::message
+この記事ではリポジトリの名前を`togotv_cwl_for_remote_container`に変更しています｡
+:::
+
 この作業が終了したら､つづいてVSCodeを開きます｡ VSCode画面左下の緑の｢ >< ｣マークを押すと､ 検索窓に以下のようなオプションが出てくるので､｢コンテナーでフォルダーを開く｣を選択し､先程`git clone`したローカルリポジトリを開きます｡
 
 ![VScode-3](https://storage.googleapis.com/zenn-user-upload/14917eb2b27b-20240527.png)
@@ -185,9 +190,9 @@ git clone https://github.com/your_account/cwl-for-remote-container-template
 ログを見ていると環境構築のために色々されていることがわかります｡
 ![VScode-4](https://storage.googleapis.com/zenn-user-upload/da6eb7c3671d-20240527.png)
 
-ターミナルを開いてみると､以下のように`/workspaces/togotv_shooting(repository_name)`となっています｡
+ターミナルを開いてみると､以下のように`/workspaces/togotv_cwl_for_remote_container(repository_name)`となっています｡
 
-![VScode-5](https://storage.googleapis.com/zenn-user-upload/4eccb0de1a0c-20240527.png)
+![VScode-5](https://storage.googleapis.com/zenn-user-upload/bddab18fa4b7-20240527.png)
 
 &nbsp;
 
@@ -356,7 +361,7 @@ cwltool --validate grep_zatsu.cwl
 すると以下のように出力されました｡
 ```bash:
 INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
+INFO Resolved './zatsu_generator/grep_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grep_zatsu.cwl'
 ./zatsu_generator/grep_zatsu.cwl is valid CWL.
 ```
 今回の場合はエラーは確認されず､記述としては正しいようです｡ 
@@ -375,7 +380,7 @@ cwltool grep_zatsu.cwl
 実行してみると､以下のように解析が行われます｡
 ```bash:
 INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
+INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grep_zatsu.cwl'
 INFO [job grep_zatsu.cwl] /tmp/zlsch9g1$ grep \
     one \
     /tmp/ppel7ebs/stgdd954ba7-9e15-45a6-8d5f-bfad5dff22b2/mock.txt > /tmp/zlsch9g1/grepout.txt
@@ -383,21 +388,21 @@ INFO [job grep_zatsu.cwl] completed success
 {
     "all-for-debugging": [
         {
-            "location": "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt",
+            "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grepout.txt",
             "basename": "grepout.txt",
             "class": "File",
             "checksum": "sha1$a972f6d93fec7529fd4af8344ca298eea43dfbc5",
             "size": 16,
-            "path": "/workspaces/togotv_shooting/zatsu_generator/grepout.txt"
+            "path": "/workspaces/togotv_cwl_for_remote_container/zatsu_generator/grepout.txt"
         }
     ],
     "out": {
-        "location": "file:///workspaces/togotv_shooting/zatsu_generator/grepout.txt",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grepout.txt",
         "basename": "grepout.txt",
         "class": "File",
         "checksum": "sha1$a972f6d93fec7529fd4af8344ca298eea43dfbc5",
         "size": 16,
-        "path": "/workspaces/togotv_shooting/zatsu_generator/grepout.txt"
+        "path": "/workspaces/togotv_cwl_for_remote_container/zatsu_generator/grepout.txt"
     }
 }INFO Final process status is success
 ```
@@ -428,7 +433,7 @@ cwltool --debug grep.cwl
 ```bash
 cwltool grep_zatsu.cwl --help
 INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
+INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grep_zatsu.cwl'
 usage: grep_zatsu.cwl [-h] [--mock_txt MOCK_TXT] [job_order]
 
 positional arguments:
@@ -479,7 +484,7 @@ stdout: grepout.txt
 ```bash:
 cwltool grep_zatsu.cwl --help
 INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
+INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grep_zatsu.cwl'
 usage: grep_zatsu.cwl [-h] [--mock_txt MOCK_TXT] [job_order]
 
 positional arguments:
@@ -515,7 +520,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 ```bash
 cwltool grep_zatsu.cwl --help
 INFO /usr/local/bin/cwltool 3.1.20231016170136
-INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_shooting/zatsu_generator/grep_zatsu.cwl'
+INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_generator/grep_zatsu.cwl'
 usage: grep_zatsu.cwl [-h] [--one ONE] [--mock_txt MOCK_TXT] [job_order]
 
 positional arguments:

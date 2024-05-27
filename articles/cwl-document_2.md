@@ -100,7 +100,7 @@ INFO [job grep_zatsu.cwl] completed success
 
 &nbsp;
 
-以前の記事で紹介した過程と同様に､wcコマンドを使用したCWLファイルをzatsu-cwl-generatorで出力してみます｡
+以前の記事で紹介した過程と同様に､wcコマンドを使用したCWLファイルを __zatsu-cwl-generator__ で出力してみます｡
 
 ```bash:
 zatsu-cwl-generator 'wc -l grepout.txt > wcout.txt' > wc_zatsu.cwl
