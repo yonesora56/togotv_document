@@ -1027,8 +1027,10 @@ zatsu-cwl-generatorを使うことで､簡単にCWLファイルを生成する�
 :::message
 ### Apptainer (Singularity)も使ってみよう
 
-https://sc.ddbj.nig.ac.jp/software/Apptainer/
+
 :::
+
+https://sc.ddbj.nig.ac.jp/software/Apptainer/
 
 ****
 
