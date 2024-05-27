@@ -54,10 +54,11 @@ curl -O https://rest.uniprot.org/uniprotkb/O18836.fasta
 
 ### 2\. インデックス(データベース)
 
-次に､BLASTのデータベースとして､UniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりcurlコマンドで取得します｡ 
+次に､BLASTのデータベースとして､UniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりcurlコマンドで取得し､展開します｡ 
 
 ```bash:
-curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz  
+curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
+unpigz -p 10 uniprot_sprot.fasta.gz
 ``` 
 
 ### 3\. インデックスの作成
@@ -92,11 +93,74 @@ clustalo -i blastdbcmd_result.fasta --outfmt=fasta -o clustalo_result.fasta
 FastTree -boot 100 -out MSTN_tree.newick clustalo_result.fasta
 ```
 
-これらのコマンドは､Biocondaやhomebrewなどからインストールして実行することが可能ですが､今回は､dockerを使ったコマンドのCWLファイル作成を行います｡
-
 :::message
 この記事でも後述していますが､__docker imageがある場合にはそのimageを使用して実行する__ ことができるCWLファイルを作成していくので､すでにツールをインストールしている場合でも試すことが可能です｡
 :::
+
+&nbsp;
+
+&nbsp;
+
+## zatsu-cwl-generatorを使ってcwlファイルを書く
+
+次に､上記の処理について､cwlファイルを記述していきましょう｡ zatsu-cwl-generatorを使ってコードを生成し､修正しながら作成していきます｡
+今回は､`zatsu_cwl_bioinformatics`ディレクトリで作業を行っています｡修正のプロセスはトグル内に示してあるので､ぜひご覧ください｡
+以下では､最初のプロセス､blastpのコマンドを例にして説明していきます｡
+
+### (1) zatsu-cwl-generatorを使ってblastpのCWLファイルを生成する
+
+これまでと同様に､zatsu-cwl-generatorを使ってCWLファイルを生成します｡
+
+```bash:
+zatsu-cwl-generator 'blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20' > 1_blastp.cwl
+```
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp.cwl
+
+`--validate`でチェックします｡
+  
+```bash:
+cwltool --validate 1_blastp.cwl
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved '1_blastp.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp.cwl'
+1_blastp.cwl:45:7: Warning: Field 'location' contains undefined reference to
+                   'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+WARNING 1_blastp.cwl:45:7: Warning: Field 'location' contains undefined reference to
+                   'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+1_blastp.cwl is valid CWL.
+```
+生成されたファイルは問題がなさそうです｡
+
+:::message
+ここで一旦実行してみようと思いますが､例えばツールをローカルでダウンロードしておらず､docker imageを使って実行したいという状況があるかもしれません｡
+例えば､この記事を作成している環境は､Mac M1 でDev containersの機能を使用しているため､環境としては __Linux ARM64__ という状況です｡
+現在､LinuxのARM64に対応したツールは少なく､この場合ではdockerで動かしたほうが簡単そうです｡
+しかしながら､ __dockerを使って実行する場合には､どのようにcwlファイルを記述すればよいのでしょうか?__
+これについて､次のセクションで説明していきます｡
+:::
+
+&nbsp;
+
+### コンテナオプション(`-c`)を使って出力する
+
+CWLでは､docker imageを使って実行する場合､これまでのcwlファイルでは書いていなかった`hints`フィールド(あるいは`arguments`フィールド)を使って記述します｡
+
+https://www.commonwl.org/user_guide/topics/using-containers.html#using-containers
+
+__zatsu-cwl-generatorでは､`-c`, `--container` オプションを使うことで､コンテナを使用するコマンドを出力することができます｡__
+以下のようにコマンドを実行します｡
+
+```bash
+zatsu-cwl-generator 'blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20' --container biocontainers/blast:v2.2.31_cv2 > 1_blastp_docker.cwl
+```
+これまでと同じようにコマンドを""でくくったあとに､`-c` もしくは`--container` オプションをつけて､image(tagの情報も含めて)を記載します｡ 
+すると､以下のようにCWLファイルが出力されます｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker.cwl
+
+これまでと同じように出力されますが､コンテナオプションをつけると､下に`hints`フィールドというものが出力されます｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker.cwl#L56-L58
 
 &nbsp;
 
@@ -130,51 +194,6 @@ biocontainers/blast      v2.2.31_cv2         5b25e08b9871   4 years ago   2.03GB
 
 &nbsp;
 
-&nbsp;
-
-## zatsu-cwl-generatorを使ってcwlファイルを書く
-
-次に､実際の処理について､CWLファイルを記述していきましょう｡ 今回もzatsu-cwl-generatorを使って書いていきます｡
-今回実行する5つのステップのコマンドは以下のようになっています｡ 
-
-```bash:
-# Step1
-blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20 
-
-# Step2
-awk '{ print $2 }' blastp_result.txt > blastp_result_id.txt
-
-#Step3
-blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastdbcmd_result.fasta
-
-#Step4
-clustalo -i blastdbcmd_result.fasta --outfmt=fasta -o clustalo_result.fasta
-
-#Step5
-FastTree -boot 100 -out MSTN_tree.newick clustalo_result.fasta
-```
-
-:::details Dockerコマンドで実行する場合(確認済み)
-```bash:
-# Step1
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20 
-
-# Step2
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` ubuntu:23.10 awk '{ print $2 }' `pwd`/data/blastp_result.txt > `pwd`/data/blastp_result_id.txt
-
-#Step3
-docker run --rm -it -v `pwd`:`pwd`  -w  `pwd` biocontainers/blast:v2.2.31_cv2 blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastdbcmd_result.fasta
-
-#Step4
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/clustalo:v1.2.4-2-deb_cv1 clustalo -i `pwd`/blastp_results_MSTN.fasta --outfmt=fasta -o clustalo_result.fasta
-
-#Step5
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/fasttree:v2.1.10-2-deb_cv1 FastTree -boot 100 -out MSTN_tree.newick `pwd`/clustalo_result.fasta
-```
-:::
-
-&nbsp;
-
 ## コンテナオプション(`-c`)を使って出力する
 
 それでは実際に作成していきます｡ 
@@ -182,75 +201,6 @@ docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/fasttree:v2.1.10-2-deb
 
 zatsu-cwl-generatorでは､`-c`, `--container` オプションを使うことで､コンテナを使用するコマンドを出力することができます｡
 以下のように実行します｡
-
-```bash
-zatsu-cwl-generator "blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20" -c biocontainers/blast:v2.2.31_cv2
-```
-
-これまでと同じようにコマンドを""でくくったあとに､`-c` もしくは`--container` オプションをつけて､imageを記載します｡ すると､以下のようにCWLファイルが出力されます｡
-
-:::details コンテナオプションを使って出力した場合のCWLファイル
-```yaml
-#!/usr/bin/env cwl-runner
-# Generated from: blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20
-class: CommandLineTool
-cwlVersion: v1.0
-baseCommand: blastp
-arguments:
-  - -query
-  - $(inputs.query)
-  - -db
-  - $(inputs.db)
-  - -evalue
-  - $(inputs.evalue)
-  - -num_threads
-  - $(inputs.num_threads)
-  - -outfmt
-  - $(inputs.outfmt)
-  - -out
-  - $(inputs.out)
-  - -max_target_seqs
-  - $(inputs.max_target_seqs)
-inputs:
-  - id: query
-    type: File
-    default:
-      class: File
-      location: MSTN.fasta
-  - id: db
-    type: File
-    default:
-      class: File
-      location: uniprot_sprot.fasta
-  - id: evalue
-    type: Any
-    default: 1e-5
-  - id: num_threads
-    type: int
-    default: 4
-  - id: outfmt
-    type: int
-    default: 6
-  - id: out
-    type: File
-    default:
-      class: File
-      location: blastp_result.txt
-  - id: max_target_seqs
-    type: int
-    default: 20
-outputs:
-  - id: all-for-debugging
-    type:
-      type: array
-      items: [File, Directory]
-    outputBinding:
-      glob: "*"
-hints:
-  - class: DockerRequirement
-    dockerPull: biocontainers/blast:v2.2.31_cv2
-```
-:::
 
 これまでと同じように出力されますが､コンテナオプションをつけると､下に`hints`フィールドというものが出力されます｡
 
@@ -858,6 +808,23 @@ __CWLで記述したファイルは様々な環境で実行することができ
 
 &nbsp;
 
-# 参考リンク集
+:::details 参考：Dockerコマンドで実行する場合(確認済み)
+```bash:
+# Step1
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result_MSTN.txt -max_target_seqs 20 
+
+# Step2
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` ubuntu:23.10 awk '{ print $2 }' `pwd`/data/blastp_result.txt > `pwd`/data/blastp_result_id.txt
+
+#Step3
+docker run --rm -it -v `pwd`:`pwd`  -w  `pwd` biocontainers/blast:v2.2.31_cv2 blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastdbcmd_result.fasta
+
+#Step4
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/clustalo:v1.2.4-2-deb_cv1 clustalo -i `pwd`/blastp_results_MSTN.fasta --outfmt=fasta -o clustalo_result.fasta
+
+#Step5
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/fasttree:v2.1.10-2-deb_cv1 FastTree -boot 100 -out MSTN_tree.newick `pwd`/clustalo_result.fasta
+```
+:::
 
 [^1]: [バイオインフォマティクスのツールを再現性よく実行するためのコンテナ仮想化ツール群 BioContainers](https://kazumaxneo.hatenablog.com/entry/2018/10/02/112232)
