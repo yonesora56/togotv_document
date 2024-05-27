@@ -69,7 +69,6 @@ curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgeb
 docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 makeblastdb -in uniprot_sprot.fasta -dbtype prot -hash_index -parse_seqids 
 ```
 :::
-:::
 
 &nbsp;
 
