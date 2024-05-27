@@ -96,13 +96,14 @@ https://code.visualstudio.com/download
 
 https://code.visualstudio.com/docs/devcontainers/containers
 
+&nbsp;
 
 インストール後､VScodeの画面をよくみると....
 
-![VScode-1](https://t907947.p.clickup-attachments.com/t907947/a0ec0686-3952-4149-b1a7-6c0245a2f93b/image.png)
+![VScode-1](https://storage.googleapis.com/zenn-user-upload/ec4060167e94-20240527.png)
 
-![VScode-2](https://hackmd.io/_uploads/BJZmvmfg6.png)
-*左下に現れる｢><｣マーク*
+![VScode-2](https://storage.googleapis.com/zenn-user-upload/680a6dfcc6ec-20240527.png)
+*左下に｢><｣マークが出現*
 
 左下に｢ >< ｣というマークが出てきます｡ このボタンを押すことで次の作業に移ることができます｡これでVScodeは一旦､準備完了です｡
 
