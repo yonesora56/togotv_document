@@ -105,7 +105,7 @@ FastTree -boot 100 -out MSTN_tree.newick clustalo_result.fasta
 
 次に､上記の処理について､cwlファイルを記述していきましょう｡ zatsu-cwl-generatorを使ってコードを生成し､修正しながら作成していきます｡
 今回は､`zatsu_cwl_bioinformatics`ディレクトリで作業を行っています｡修正のプロセスはトグル内に示してあるので､ぜひご覧ください｡
-以下では､最初のプロセス､blastpのコマンドを例にして説明していきます｡
+以下では､最初のプロセス､blastpのコマンドを例にして(修正のプロセスも含めながら)説明していきます｡
 
 ### (1) zatsu-cwl-generatorを使ってblastpのCWLファイルを生成する
 
@@ -141,26 +141,165 @@ WARNING 1_blastp.cwl:45:7: Warning: Field 'location' contains undefined referenc
 
 &nbsp;
 
-### コンテナオプション(`-c`)を使って出力する
+### (2) コンテナオプション(`-c`)を使って出力する
 
-CWLでは､docker imageを使って実行する場合､これまでのcwlファイルでは書いていなかった`hints`フィールド(あるいは`arguments`フィールド)を使って記述します｡
+CWLでは､docker imageを使って実行する場合､これまでのcwlファイルでは書いていなかった`hints`フィールド(あるいは`requirements`フィールド)を使って記述します｡
 
 https://www.commonwl.org/user_guide/topics/using-containers.html#using-containers
 
 __zatsu-cwl-generatorでは､`-c`, `--container` オプションを使うことで､コンテナを使用するコマンドを出力することができます｡__
+
+https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a
+
+&nbsp;
+
 以下のようにコマンドを実行します｡
 
 ```bash
 zatsu-cwl-generator 'blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20' --container biocontainers/blast:v2.2.31_cv2 > 1_blastp_docker.cwl
 ```
-これまでと同じようにコマンドを""でくくったあとに､`-c` もしくは`--container` オプションをつけて､image(tagの情報も含めて)を記載します｡ 
+これまでと同じようにコマンドを''でくくったあとに､`-c` もしくは`--container` オプションをつけて､image(tagの情報も含めて)を記載します｡ 
 すると､以下のようにCWLファイルが出力されます｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker.cwl
 
-これまでと同じように出力されますが､コンテナオプションをつけると､下に`hints`フィールドというものが出力されます｡
+これまでと同じように出力されますが､コンテナオプションをつけると､下に`hints`フィールドが出力されています｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker.cwl#L56-L58
+
+このように､`hints`フィールドを使ってdocker imageを指定することができます｡
+
+https://www.commonwl.org/v1.0/CommandLineTool.html#DockerRequirement
+
+`--validate`を使ってチェックします｡
+
+```bash:
+cwltool --validate 1_blastp_docker.cwl
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved '1_blastp_docker.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker.cwl'
+1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined reference to
+                          'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+WARNING 1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined reference to
+                          'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+1_blastp_docker.cwl is valid CWL.
+```
+今のところ問題はなさそうです｡
+それではこのファイルを使って実行してみましょう｡
+
+```bash:
+cwltool --debug 1_blastp_docker.cwl --query ./MSTN.fasta --db ./uniprot_sprot.fasta --num_threads 8 --outfmt 7 --out blastp_result.txt --max_target_seqs 20
+```
+
+これまでと異なり､エラーが発生しました｡
+
+:::details エラー内容
+```bash:
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved '1_blastp_docker.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker.cwl'
+1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined reference to
+                          'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+WARNING 1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined reference to
+                          'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+DEBUG Can't make command line argument from Any
+DEBUG Parsed job order from command line: {
+    "__id": "1_blastp_docker.cwl",
+    "query": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta"
+    },
+    "db": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta"
+    },
+    "num_threads": 8,
+    "outfmt": 7,
+    "out": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt"
+    },
+    "max_target_seqs": 20
+}
+DEBUG [job 1_blastp_docker.cwl] initializing from file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/1_blastp_docker.cwl
+DEBUG [job 1_blastp_docker.cwl] {
+    "query": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta",
+        "size": 476,
+        "basename": "MSTN.fasta",
+        "nameroot": "MSTN",
+        "nameext": ".fasta"
+    },
+    "db": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta",
+        "size": 284812502,
+        "basename": "uniprot_sprot.fasta",
+        "nameroot": "uniprot_sprot",
+        "nameext": ".fasta"
+    },
+    "num_threads": 8,
+    "outfmt": 7,
+    "out": {
+        "class": "File",
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt",
+        "basename": "blastp_result.txt",
+        "nameroot": "blastp_result",
+        "nameext": ".txt"
+    },
+    "max_target_seqs": 20,
+    "evalue": 1e-05
+}
+ERROR Input object failed validation:
+[Errno 2] No such file or directory: '/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 178, in visit
+    st = os.lstat(deref)
+FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/cwltool/main.py", line 1314, in main
+    (out, status) = real_executor(
+  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 63, in __call__
+    return self.execute(process, job_order_object, runtime_context, logger)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 146, in execute
+    self.run_jobs(process, job_order_object, logger, runtime_context)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/executors.py", line 221, in run_jobs
+    for job in jobiter:
+  File "/usr/local/lib/python3.10/site-packages/cwltool/command_line_tool.py", line 992, in job
+    builder.pathmapper = self.make_path_mapper(reffiles, builder.stagedir, runtimeContext, True)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/command_line_tool.py", line 485, in make_path_mapper
+    return PathMapper(reffiles, runtimeContext.basedir, stagedir, separateDirs)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 104, in __init__
+    self.setup(dedup(referenced_files), basedir)
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 207, in setup
+    self.visit(
+  File "/usr/local/lib/python3.10/site-packages/cwltool/pathmapper.py", line 167, in visit
+    with SourceLine(
+  File "schema_salad/sourceline.py", line 249, in __exit__
+schema_salad.exceptions.ValidationException: [Errno 2] No such file or directory: '/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinforma
+tics/blastp_result.txt'                                                                                                                            
+```
+:::
+
+出力ファイルが存在しないというエラー(`FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'`)が出ています｡
+それではこれについて修正してみましょう｡
+
+&nbsp;
+
+### (3) 修正プロセス 1
+
+`inputs`フィールドに書いてある部分が修正が必要のようです｡
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker.cwl#L41-L45
+
+ここは､ファイルそのものではなく､__ファイル名__ になるはずなので､以下のように修正します｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v2.cwl#L41-43
+
+&nbsp;
+
+&nbsp;
 
 &nbsp;
 
@@ -194,24 +333,6 @@ biocontainers/blast      v2.2.31_cv2         5b25e08b9871   4 years ago   2.03GB
 
 &nbsp;
 
-## コンテナオプション(`-c`)を使って出力する
-
-それでは実際に作成していきます｡ 
-今回はblastpのコマンドを例にするとともに､Dockerを使用するコマンドで出力する例を紹介したいと思います｡
-
-zatsu-cwl-generatorでは､`-c`, `--container` オプションを使うことで､コンテナを使用するコマンドを出力することができます｡
-以下のように実行します｡
-
-これまでと同じように出力されますが､コンテナオプションをつけると､下に`hints`フィールドというものが出力されます｡
-
-```yaml
-hints:
-  - class: DockerRequirement
-    dockerPull: biocontainers/blast:v2.2.31_cv2
-```
-
-----------------------------__23/11/17ここまで書いている__----------------------------------------------------
-
 &nbsp;
 
 ```yaml
@@ -228,19 +349,7 @@ requirements:
 ```
 &nbsp; 
 
-### 参考：5.5 DockerRequirement(Common Workflow Language (CWL) Command Line Tool Description, v1.0.2より)
-
-[![Dockerrequirement](https://hackmd.io/_uploads/r16IJoZxT.png)](https://www.commonwl.org/v1.0/CommandLineTool.html#DockerRequirement)
-
 &nbsp;
-
-:::danger
-__追記：shebangを書くかどうか__(結論：どちらでも大丈夫)
-
-__追記：zatsu-cwl-generatorをもっと使ってスクリプトを出力__
-
-
-:::
 
 &nbsp;
 
