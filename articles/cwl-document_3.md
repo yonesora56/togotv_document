@@ -22,9 +22,13 @@ __変更：出力された結果を__
 
 # バイオインフォマティクスの解析手順をワークフロー化する
 
-これまで､環境構築､`grep`と`wc`の処理に関するワークフローを作る作業を紹介しました｡
-ここでは､具体的にバイオインフォマティクス研究で使用されているツールを使った例を __ワークフロー__ として記述してみる例を紹介します｡
-今回は以下に示す5つのステップをワークフローとして記述してみます｡
+これまで､環境構築､`grep`と`wc`の処理に関するワークフローを作成する過程を紹介しました｡
+このドキュメントでは､具体的にバイオインフォマティクス研究で使用されているツールを使った例をcwlとして記述し､ __ワークフロー__ として実行する部分までをご紹介します｡
+このプロセスにおいては､zatsu-cwl-generatorを使ってCWLファイルを作成し､その後に細かい修正を加えていきながら作成していきます｡
+
+&nbsp;
+
+今回は以下に示す5つのステップをワークフローとして記述します｡
 
 **(1)blastpコマンドによる配列類似性検索**
 **(2)awkによるヒットしたIDの抽出**
@@ -33,10 +37,66 @@ __変更：出力された結果を__
 **(5)fasttreeによるnewick形式ファイルの出力**
 
 これにより､BLASTpでヒットした配列から､系統樹を作成する前段階の処理(newick形式のファイルを出力)をワークフローとして記述します｡
+
+:::message
+事前準備で必要なファイルのダウンロードなどは以下のプロセスで行っています｡
+
+:::details ファイルのダウンロードとインデックスの作成
+
+### 1\. クエリ配列
+
+blastpを実行する際にクエリとするタンパク質配列データとして､ウシのミオスタチンのタンパク質配列のfastaファイル (MSTN.fastaに名前を変更しています)を使用します｡ 
+curlコマンドでUniProtから取得しました｡
+
+```bash:
+curl -O https://rest.uniprot.org/uniprotkb/O18836.fasta
+```
+
+### 2\. インデックス(データベース)
+
+次に､BLASTのデータベースとして､UniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりcurlコマンドで取得します｡ 
+
+```bash:
+curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz  
+``` 
+
+### 3\. インデックスの作成
+
+このファイルをインデックスにするため､ `makeblastdb` コマンドをdockerを使って実行しました(既にインストールされている場合はdockerを使用しなくても大丈夫です)｡ 
+`makeblastdb` コマンド の実行は以下のように行いました｡ 
+
+```bash:
+docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 makeblastdb -in uniprot_sprot.fasta -dbtype prot -hash_index -parse_seqids 
+```
+:::
+:::
+
+&nbsp;
+
+CWLとして記述するコマンドは以下の通りです｡ 
+このように､5つのステップをワークフローとして記述します｡
+
+```bash:
+# Step1
+blastp -query MSTN.fasta -db uniprot_sprot.fasta -evalue 1e-5 -num_threads 4 -outfmt 6 -out blastp_result.txt -max_target_seqs 20 
+
+# Step2
+awk '{ print $2 }' blastp_result.txt > blastp_result_id.txt
+
+#Step3
+blastdbcmd -db uniprot_sprot.fasta -entry_batch blastp_result_id.txt  -out blastdbcmd_result.fasta
+
+#Step4
+clustalo -i blastdbcmd_result.fasta --outfmt=fasta -o clustalo_result.fasta
+
+#Step5
+FastTree -boot 100 -out MSTN_tree.newick clustalo_result.fasta
+```
+
 これらのコマンドは､Biocondaやhomebrewなどからインストールして実行することが可能ですが､今回は､dockerを使ったコマンドのCWLファイル作成を行います｡
 
 :::message
-この記事でも後述していますが､__docker imageがある場合にはそのimageを使用して実行する__ CWLファイルを書くので､すでにツールをインストールしている場合でも試すことが可能です｡
+この記事でも後述していますが､__docker imageがある場合にはそのimageを使用して実行する__ ことができるCWLファイルを作成していくので､すでにツールをインストールしている場合でも試すことが可能です｡
 :::
 
 &nbsp;
@@ -70,34 +130,6 @@ biocontainers/blast      v2.2.31_cv2         5b25e08b9871   4 years ago   2.03GB
 &nbsp;
 
 &nbsp;
-
-## ワークフローの準備を行う
-
-次に､インプットするファイルを準備していきます｡
-
-### 1\. クエリ配列
-
-blastpを実行するので､今回クエリとするのは､ウシのミオスタチンのタンパク質配列のfastaファイル (MSTN.fastaに名前を変更しています)です｡ 
-curlコマンドでUniProtから取得しました｡
-```bash:
-curl -O https://rest.uniprot.org/uniprotkb/O18836.fasta
-```
-
-### 2\. インデックス(データベース)
-
-次に､BLASTのデータベースとして使用するUniProtのタンパク質配列のfastaファイル(uniprot\_sprot.fasta.gz)をftpサイトよりcurlコマンドで取得しました｡ 
-
-```bash:
-curl -O https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/ uniprot_sprot.fasta.gz  
-``` 
-
-このファイルをインデックスにするため､ `makeblastdb` コマンドを実行しました｡ 
-`makeblastdb` コマンド の実行は以下のように行いました｡ なお､解析するデータは全てdataディレクトリにおいていますが､UniProtのタンパク質配列のfastaファイルはサイズが大きいのでgitiignoreに記述しています｡
-```bash:
-docker run --rm -it -v `pwd`:`pwd` -w `pwd` biocontainers/blast:v2.2.31_cv2 makeblastdb -in uniprot_sprot.fasta -dbtype prot -hash_index -parse_seqids 
-```
-
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/tree/master/data
 
 &nbsp;
 
