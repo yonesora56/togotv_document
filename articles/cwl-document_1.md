@@ -92,7 +92,7 @@ https://code.visualstudio.com/download
 ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ 
 こちらが必要なのでインストールします[^8](以前は｢Remote Container extension｣という名前だったようですが､どうやら変わったようです)｡
 
-![Dev-containers](https://t907947.p.clickup-attachments.com/t907947/8dede111-052d-4ea4-ba7c-007ed30335ed/image.png)
+![Dev-containers](./screenshots/Devcontainer.png)
 
 https://code.visualstudio.com/docs/devcontainers/containers
 
