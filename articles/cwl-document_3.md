@@ -1019,17 +1019,29 @@ cwltool --debug 5_fasttree_docker.cwl
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/fasttree_result.nwk
 :::
 
-&nbsp;
+これで全てのプロセスをCWLファイルとして書くことができました｡
+zatsu-cwl-generatorを使うことで､簡単にCWLファイルを生成することができました｡
 
 &nbsp;
 
-&nbsp;
+:::message
+### Apptainer (Singularity)も使ってみよう
 
-&nbsp;
+https://sc.ddbj.nig.ac.jp/software/Apptainer/
+:::
 
-&nbsp;
+****
 
-&nbsp;
+## ワークフローを記述する
+
+:::danger
+__修正：best practicesに載っているような書き方で最後書く__
+:::
+
+これまで､Commanlinetoolのcwlファイルを書いてみました｡
+次にこれらの5つのステップを実行するワークフローをいよいよ記述していきます｡
+この例では､ワークフロー全体に関するパラメータを｢1\_protein\_query｣のように数字をつけています｡ 
+前の処理のアウトプットを受け取る部分は｢blastp\_result: step1\_blastp/blastp\_output\_file｣のように記述し､それ以外の全ての処理に関するパラメータをinputsで記述しています｡
 
 &nbsp;
   
@@ -1074,12 +1086,6 @@ cwltool --outdir ./data ./Tools/1_blastp.cwl ./Tools/1_blastp.yml
 &nbsp;
 
 &nbsp;
-
-## ワークフローを記述する
-
-:::danger
-__修正：best practicesに載っているような書き方で最後書く__
-:::
 
 これまで､CommanlinetoolのCWLファイルを書いてみました｡次にこれらの5つのステップを実行するワークフローを記述していきます｡この例では､ワークフロー全体に関するパラメータを｢1\_protein\_query｣のように数字をつけています｡ 前の処理のアウトプットを受け取る部分は｢blastp\_result: step1\_blastp/blastp\_output\_file｣のように記述し､それ以外の全ての処理に関するパラメータをinputsで記述しています｡
 ```yaml:
