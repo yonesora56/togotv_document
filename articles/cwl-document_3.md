@@ -3,18 +3,10 @@ title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って�
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
-published: false
+published: true
 ---
 __※今回の記事で使用したCWLファイルをおいているリポジトリは以下からアクセスすることができます__
 https://github.com/yonezawa-sora/togotv_cwl_for_remote_container
-
-:::message alert
-この赤いフィールドは後ほど修正する点をメモしています
-:::
-
-:::message alert
-__修正3：dockerの説明のあとにsingularityの説明を加える__
-:::
 
 # バイオインフォマティクスの解析手順をワークフロー化する
 
