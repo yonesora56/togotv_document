@@ -1307,7 +1307,9 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 &nbsp;
 
-:::message `doc`フィールドを積極的に書こう
+:::message
+
+### `doc`フィールドを積極的に書こう
 
 複雑なプロセスを書いたあと､見返した際に｢あれ､このプロセスはなんだっけ...｣となってしまうことは容易に想像できます｡
 そこで､cwlファイルを書く際には､`doc`フィールドを積極的に書くことをおすすめします｡
@@ -1347,7 +1349,6 @@ options:
   --10_clustalo_output_name 10_CLUSTALO_OUTPUT_NAME
                         clustalo process output name
 ```
-
 このように､`doc`フィールドを書いておくことで､プロセスの説明を見ることができます｡
 :::
 
