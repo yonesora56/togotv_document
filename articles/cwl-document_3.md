@@ -554,7 +554,7 @@ https://www.commonwl.org/v1.0/CommandLineTool.html#CommandInputParameter
 
 それでは再度実行してみましょう｡
 
-:::details 修正後のCWLファイル
+:::details 修正後のcwlファイルでの実行結果
 ```bash:1_blastp_docker_v3.cwl
 cwltool --debug 1_blastp_docker_v3.cwl
 INFO /usr/local/bin/cwltool 3.1.20240508115724
@@ -902,27 +902,27 @@ DEBUG Removing intermediate output directory /tmp/8hge4mo3
 
 今回は成功しています! 結果を見てみましょう｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastp_result.txt
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/out/blastp_result.txt
 
 しっかり出力結果も得られています! ウシのミオスタチンと配列類似性があるタンパク質配列が得られています｡
-これでCWLの修正は完了ですが､更に改善することもできます｡
+これでCWLの修正は完了ですが､以下のように､更に改善することもできます｡
 
 上記のcwlファイルの例では､E-valueの指定を`Any`にしていましたが､具体的な型を指定することで､より正確な入力を受け付けることができます｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v3.cwl#L41-L43
 
-`1e-05`のように指数表記で入力するため､`float?`のように記載してみました｡
+E-valueは`1e-05`のように入力するため､`float`として記載しました｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v4.cwl#L41-L43
 
 これにより､`Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']` とハイライトされていた部分が解消されました｡
-(この部分を修正したファイルは`v4`として保存し､ワークフローを書く際にはこのファイルを使います)
+(この部分を修正したファイルは`v4`として保存し､最後のセクションでワークフローを書く際にはこのファイルを使います｡)
 
 ****
 
 ## 他のファイルもcwlファイルとして書いてみる
 
-blastpのプロセスのように､他のプロセスもCWLファイルとして書いてみます｡
+blastpのプロセスのように､他のプロセスもcwlファイルとして書いてみます｡
 __zatsu-cwl-generatorを使って生成し__､修正したバージョンは`v2`などのようにファイル名を変更しています｡
 また､`awk`以外のプロセスはdocker imageとしてBioContainersにあるものを使用し､`hints`フィールドを追加しています｡
 
@@ -946,7 +946,8 @@ biocontainers/blast      v2.2.31_cv2         5b25e08b9871   5 years ago   2.03GB
 zatsu-cwl-generator "awk '{ print $2 }' blastp_result.txt > blastp_result_id.txt" > 2_awk.cwl
 ```
 
-色々試行錯誤した結果､このファイルで実行できました｡
+awkのプロセスでは､`arguments`フィールドを追加し､以下のように修正しました｡
+
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/2_awk_v2.cwl
 
 ```bash:実行
@@ -954,7 +955,7 @@ cwltool --debug 2_awk_v2.cwl
 ```
 実行したファイルは以下の通りです｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastp_result_id.txt
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/out/blastp_result_id.txt
 :::
 
 :::details 3_blastdbcmd_v2.cwl
@@ -975,7 +976,7 @@ cwltool --debug 3_blastdbcmd_docker_v2.cwl
 
 実行した結果は以下の通りです｡ 無事､ファイルが出力されています｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blastdbcmd_result.fasta
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/out/blastdbcmd_result.fasta
 :::
 
 :::details 4_clustalo.cwl
@@ -996,7 +997,7 @@ cwltool --debug 4_clustalo_docker.cwl
 
 実行した結果は以下の通りです｡ 無事､ファイルが出力されています｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/clustalo_result.fasta
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/out/clustalo_result.fasta
 :::
 
 :::details 5_fasttree.cwl
@@ -1016,7 +1017,7 @@ cwltool --debug 5_fasttree_docker.cwl
 
 実行した結果は以下の通りです｡ 無事､ファイルが出力されています｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/fasttree_result.nwk
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/out/fasttree_result.nwk
 :::
 
 これで全てのプロセスをCWLファイルとして書くことができました｡
@@ -1033,55 +1034,280 @@ https://sc.ddbj.nig.ac.jp/software/Apptainer/
 
 ## ワークフローを記述する
 
-:::danger
-__修正：best practicesに載っているような書き方で最後書く__
-:::
-
-これまで､Commanlinetoolのcwlファイルを書いてみました｡
-次にこれらの5つのステップを実行するワークフローをいよいよ記述していきます｡
-この例では､ワークフロー全体に関するパラメータを｢1\_protein\_query｣のように数字をつけています｡ 
+これまで､Commandlinetoolのcwlファイル(一つ一つの処理を記述)を書きました｡
+次にこれらの5つのステップを実行するワークフロー､`blast2tree.cwl`を記述していきます｡
+この例では､ワークフロー全体に関するパラメータを｢1\_protein\_query｣のように数字(`1_`､`2_`)をつけています｡ 
 前の処理のアウトプットを受け取る部分は｢blastp\_result: step1\_blastp/blastp\_output\_file｣のように記述し､それ以外の全ての処理に関するパラメータをinputsで記述しています｡
 
 &nbsp;
-  
+
+作成したcwlファイルは以下のようになっています｡
+`inputs`フィールド､`steps`フィールド､`outputs`フィールドをそれぞれ書いてみました｡ また､後々に実行する際のために､`doc`フィールドも追加しています｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blast2tree.cwl
+
+一旦 `--validate`で書き方を確認してみましょう｡
+
+```bash
+cwltool --validate blast2tree.cwl
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved 'blast2tree.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blast2tree.cwl'
+2_awk_v2.cwl:14:7: Warning: Field 'location' contains undefined reference to
+                   'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+WARNING 2_awk_v2.cwl:14:7: Warning: Field 'location' contains undefined reference to
+                   'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
+3_blastdbcmd_docker_v2.cwl:32:7: Warning: Field 'location' contains undefined reference to
+                                 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result_id.txt'
+WARNING 3_blastdbcmd_docker_v2.cwl:32:7: Warning: Field 'location' contains undefined reference to
+                                 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result_id.txt'
+4_clustalo_docker.cwl:17:7: Warning: Field 'location' contains undefined reference to
+                            'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastdbcmd_result.fasta'
+WARNING 4_clustalo_docker.cwl:17:7: Warning: Field 'location' contains undefined reference to
+                            'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastdbcmd_result.fasta'
+5_fasttree_docker.cwl:14:7: Warning: Field 'location' contains undefined reference to
+                            'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/clustalo_result.fasta'
+WARNING 5_fasttree_docker.cwl:14:7: Warning: Field 'location' contains undefined reference to
+                            'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/clustalo_result.fasta'
+ERROR Tool definition failed validation:
+
+blast2tree.cwl:79:11: Source 'all-for-debugging' of type {"type": "array", "items": ["File",
+                      "Directory"]} is incompatible
+blast2tree.cwl:84:7:     with sink 'blastp_result' of type "File"
+blast2tree.cwl:99:11: Source 'all-for-debugging' of type {"type": "array", "items": ["File",
+                      "Directory"]} is incompatible
+blast2tree.cwl:104:7:   with sink 'nt' of type "File"
+blast2tree.cwl:92:11: Source 'all-for-debugging' of type {"type": "array", "items": ["File",
+                      "Directory"]} is incompatible
+blast2tree.cwl:97:7:     with sink 'i' of type "File"
+```
+
+エラーが出ています｡ `blast2tree.cwl:79:11: Source 'all-for-debugging' of type {"type": "array", "items": ["File","Directory"]} is incompatible` というように､型の不一致があるようです｡
+このエラーを解消するために､`CommandLineTool`定義のそれぞれ5つのファイルを少し修正してみます｡
+例えば､`1_blastp_docker_v4.cwl`の`outputs`フィールドを以下のように修正してみます｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v5.cwl#L56-L58
+
+他のファイルも同様に少し修正します｡(バージョンをあげました)
+
+:::details 修正したファイル
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/3_blastdbcmd_docker_v3.cwl
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/4_clustalo_docker_v2.cwl
+:::
+
+これで再度`--validate`を実行してみます｡
+
+```bash
+cwltool --validate blast2tree_v2.cwl
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved 'blast2tree_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blast2tree_v2.cwl'
+blast2tree_v2.cwl is valid CWL.
+```
+
+これでエラーが解消されました! それでは実際に実行してみましょう｡
+ワークフローの結果を分けるために､`--outdir`オプションを使って実行します｡
+
+```bash
+cwl-runner --outdir ./workflow_result/ blast2tree_v2.cwl
+```
+:::details ワークフロー実行プロセス
+
+```bash
+INFO /usr/local/bin/cwl-runner 3.1.20240508115724
+INFO Resolved 'blast2tree_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blast2tree_v2.cwl'
+INFO [workflow ] start
+INFO [workflow ] starting step step1_blastp
+INFO [step step1_blastp] start
+INFO [job step1_blastp] /tmp/whqd9v49$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/whqd9v49,target=/SXZFEh \
+    --mount=type=bind,source=/tmp/_1phxxww,target=/tmp \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta,target=/var/lib/cwl/stg3a2a6105-7709-4108-b72c-7736725ede96/MSTN.fasta,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.phd,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.phi,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.phr,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.pin,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.pog,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.psd,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.psi,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta.psq,readonly \
+    --workdir=/SXZFEh \
+    --read-only=true \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/nzr4c1jz/20240528024151-894077.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/SXZFEh \
+    biocontainers/blast:v2.2.31_cv2 \
+    blastp \
+    -query \
+    /var/lib/cwl/stg3a2a6105-7709-4108-b72c-7736725ede96/MSTN.fasta \
+    -db \
+    /var/lib/cwl/stg9d3f538c-a076-4b8c-89bb-3596859ae6bb/uniprot_sprot.fasta \
+    -evalue \
+    0.01 \
+    -num_threads \
+    8 \
+    -outfmt \
+    6 \
+    -out \
+    blastp_output.txt \
+    -max_target_seqs \
+    20
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+INFO [job step1_blastp] completed success
+INFO [step step1_blastp] completed success
+INFO [workflow ] starting step step2_awk
+INFO [step step2_awk] start
+INFO [job step2_awk] /tmp/6z_470bu$ awk \
+    '{ print $2 }' \
+    /tmp/9dh7jo1d/stgf46698f9-3621-4a3c-8129-91340308984f/blastp_output.txt > /tmp/6z_470bu/blastp_result_id.txt
+INFO [job step2_awk] completed success
+INFO [step step2_awk] completed success
+INFO [workflow ] starting step step3_blastdbcmd
+INFO [step step3_blastdbcmd] start
+INFO [job step3_blastdbcmd] /tmp/cvkfd42s$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/cvkfd42s,target=/SXZFEh \
+    --mount=type=bind,source=/tmp/t2ucva7i,target=/tmp \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.phd,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.phi,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.phr,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.pin,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.pog,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.psd,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.psi,readonly \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta.psq,readonly \
+    --mount=type=bind,source=/tmp/6z_470bu/blastp_result_id.txt,target=/var/lib/cwl/stg9eb1c473-3851-4d12-ae06-17d0ab07f41d/blastp_result_id.txt,readonly \
+    --workdir=/SXZFEh \
+    --read-only=true \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/y6vi93xy/20240528024152-921898.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/SXZFEh \
+    biocontainers/blast:v2.2.31_cv2 \
+    blastdbcmd \
+    -db \
+    /var/lib/cwl/stg7e12378f-4095-4e60-b1a8-fb647ee48f3c/uniprot_sprot.fasta \
+    -entry_batch \
+    /var/lib/cwl/stg9eb1c473-3851-4d12-ae06-17d0ab07f41d/blastp_result_id.txt \
+    -out \
+    blastdbcmd_result.fasta
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+INFO [job step3_blastdbcmd] completed success
+INFO [step step3_blastdbcmd] completed success
+INFO [workflow ] starting step step4_clustalo
+INFO [step step4_clustalo] start
+INFO [job step4_clustalo] /tmp/vo2athjh$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/vo2athjh,target=/SXZFEh \
+    --mount=type=bind,source=/tmp/qdbc882d,target=/tmp \
+    --mount=type=bind,source=/tmp/cvkfd42s/blastdbcmd_result.fasta,target=/var/lib/cwl/stg6c1198d1-d950-4179-aaf2-f060b99cb1d6/blastdbcmd_result.fasta,readonly \
+    --workdir=/SXZFEh \
+    --read-only=true \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/k17yd02h/20240528024153-956824.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/SXZFEh \
+    biocontainers/clustalo:v1.2.4-2-deb_cv1 \
+    clustalo \
+    -i \
+    /var/lib/cwl/stg6c1198d1-d950-4179-aaf2-f060b99cb1d6/blastdbcmd_result.fasta \
+    --outfmt=fasta \
+    -o \
+    clustalo_output.fasta
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+INFO [job step4_clustalo] completed success
+INFO [step step4_clustalo] completed success
+INFO [workflow ] starting step step5_fasttree
+INFO [step step5_fasttree] start
+INFO [job step5_fasttree] /tmp/o9azchvf$ docker \
+    run \
+    -i \
+    --mount=type=bind,source=/tmp/o9azchvf,target=/SXZFEh \
+    --mount=type=bind,source=/tmp/c40hkkod,target=/tmp \
+    --mount=type=bind,source=/tmp/vo2athjh/clustalo_output.fasta,target=/var/lib/cwl/stgb5fba895-0d32-4648-bea2-fb41b2489c80/clustalo_output.fasta,readonly \
+    --workdir=/SXZFEh \
+    --read-only=true \
+    --log-driver=none \
+    --user=1000:1000 \
+    --rm \
+    --cidfile=/tmp/yj95fyeq/20240528024155-004697.cid \
+    --env=TMPDIR=/tmp \
+    --env=HOME=/SXZFEh \
+    biocontainers/fasttree:v2.1.10-2-deb_cv1 \
+    fasttree \
+    -nt \
+    /var/lib/cwl/stgb5fba895-0d32-4648-bea2-fb41b2489c80/clustalo_output.fasta > /tmp/o9azchvf/fasttree_result.nwk
+WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
+FastTree Version 2.1.10 Double precision (No SSE3)
+Alignment: /var/lib/cwl/stgb5fba895-0d32-4648-bea2-fb41b2489c80/clustalo_output.fasta
+Nucleotide distances: Jukes-Cantor Joins: balanced Support: SH-like 1000
+Search: Normal +NNI +SPR (2 rounds range 10) +ML-NNI opt-each=1
+TopHits: 1.00*sqrtN close=default refresh=0.80
+ML Model: Jukes-Cantor, CAT approximation with 20 rate categories
+Ignored unknown character D (seen 311 times)
+Ignored unknown character E (seen 310 times)
+Ignored unknown character F (seen 176 times)
+Ignored unknown character H (seen 77 times)
+Ignored unknown character I (seen 332 times)
+Ignored unknown character K (seen 364 times)
+Ignored unknown character L (seen 451 times)
+Ignored unknown character M (seen 110 times)
+Ignored unknown character P (seen 312 times)
+Ignored unknown character Q (seen 232 times)
+Ignored unknown character R (seen 237 times)
+Ignored unknown character S (seen 278 times)
+Ignored unknown character V (seen 279 times)
+Ignored unknown character W (seen 78 times)
+Ignored unknown character X (seen 205 times)
+Ignored unknown character Y (seen 169 times)
+WARNING! ONLY 19.6% NUCLEOTIDE CHARACTERS -- IS THIS REALLY A NUCLEOTIDE ALIGNMENT?
+Initial topology in 0.01 seconds
+Refining topology: 15 rounds ME-NNIs, 2 rounds ME-SPRs, 7 rounds ML-NNIs
+Total branch-length 0.107 after 0.01 sec
+ML-NNI round 1: LogLk = -167.434 NNIs 5 max delta 0.00 Time 0.02
+Switched to using 20 rate categories (CAT approximation)
+Rate categories were divided by 0.628 so that average rate = 1.0
+CAT-based log-likelihoods may not be comparable across runs
+Use -gamma for approximate but comparable Gamma(20) log-likelihoods
+ML-NNI round 2: LogLk = -165.205 NNIs 3 max delta 0.00 Time 0.02
+Turning off heuristics for final round of ML NNIs (converged)
+ML-NNI round 3: LogLk = -165.204 NNIs 2 max delta 0.00 Time 0.03 (final)
+Optimize all lengths: LogLk = -165.204 Time 0.03
+Total time: 0.06 seconds Unique: 13/20 Bad splits: 0/10
+INFO [job step5_fasttree] completed success
+INFO [step step5_fasttree] completed success
+INFO [workflow ] completed success
+{
+    "final_output_bootstrap": {
+        "location": "file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/workflow_result/fasttree_result.nwk",
+        "basename": "fasttree_result.nwk",
+        "class": "File",
+        "checksum": "sha1$90a12b35e23309a1e73fac58d05794beeab49a38",
+        "size": 807,
+        "path": "/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/workflow_result/fasttree_result.nwk"
+    }
+}INFO Final process status is success
+```
+:::
+
+無事､全ての処理が終了しているようです! それでは､実際に出力されたファイルを見てみましょう｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/workflow_result/fasttree_result.nwk
+
+無事､出力されています｡このように､ワークフローを記述することで､複数の処理を一度に実行することができます｡
+
 &nbsp;
 
-## パラメータをYAMLファイルでまとめて与える
-
-zatsu-cwl-generatorで出力されるcwlファイルは､デフォルトでパラメータが記載されています｡
-しかしながら､この
-パラメータを一つのYAMLファイルにまとめて実行することができます｡
-ファイルは以下のように書くことが可能です｡
-
-```yaml:
-protein_query: 
-  class: File
-  path: ../data/MSTN.fasta
-protein_database: 
-  class: File
-  path: ../data/uniprot_sprot.fasta
-e-value: 1e-5
-number_of_threads: 4
-outformat_type: 6
-output_file_name: "blastp_result.txt"
-max_target_sequence: 20
-
-```
-このファイルを使って実行してみましょう｡
-
-&nbsp;
-
-
-
-最後に`cwltool –-validate`を実行します｡
-```yaml:
-cwltool --validate ./workflow/6_phylogenetic-workflow.cwl ./workflow/input.yaml
-INFO /usr/local/bin/cwltool 3.1.20230906142556
-INFO Resolved './workflow/6_phylogenetic-workflow.cwl' to 'file:///workspaces/togotv_shooting/workflow/6_phylogenetic-workflow.cwl'
-./workflow/6_phylogenetic-workflow.cwl is valid CWL.
-```
-
-書き方としては問題が無いようです｡
 続いて､CWLファイルに対して`--help`オプションを行ってみます｡
 
 ```bash:
@@ -1092,16 +1318,10 @@ cwltool ./workflow/6_phylogenetic-workflow.cwl --help
 __追記：ここでも先頭何行か見せて､docフィールドを書くことのご利益が得られることを書く__
 :::
 
+# さいごに
 
-それでは､実際に実行してみます｡
+今回は､バイオインフォマティクス分野で使用されるツールをCWLファイルとして記述し､ワークフローまで実行するプロセスを記述しました｡
 
-```yaml:
-cwl-runner ./workflow/6_phylogenetic-workflow.cwl ./workflow/input.yml
-```
-
-解析が成功しているようです｡ 
-実際に､newick形式のファイルも出力されています｡ 
-このように､何回もコマンドを実行せず､1つのコマンドで実行することができます｡
 
 3つの記事では詳しい部分についてはあまり解説していません､
 
