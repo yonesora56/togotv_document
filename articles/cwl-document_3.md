@@ -1308,22 +1308,73 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 &nbsp;
 
-続いて､CWLファイルに対して`--help`オプションを行ってみます｡
+:::message `doc`フィールドを積極的に書こう
+
+複雑なプロセスを書いたあと､見返した際に｢あれ､このプロセスはなんだっけ...｣となってしまうことは容易に想像できます｡
+そこで､cwlファイルを書く際には､`doc`フィールドを積極的に書くことをおすすめします｡
+
+例えば､先程作成した`Workflow`定義のcwlファイルに対して`--help`オプションをつけて実行してみます｡
 
 ```bash:
-cwltool ./workflow/6_phylogenetic-workflow.cwl --help
+cwltool blast2tree_v2.cwl --help
+INFO /usr/local/bin/cwltool 3.1.20240508115724
+INFO Resolved 'blast2tree_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blast2tree_v2.cwl'
+usage: blast2tree_v2.cwl [-h] [--1_protein_query 1_PROTEIN_QUERY] [--2_protein_database 2_PROTEIN_DATABASE] [--3_evalue 3_EVALUE] [--4_number_of_threads 4_NUMBER_OF_THREADS] [--5_outformat_type 5_OUTFORMAT_TYPE]
+                         [--6_output_file_name 6_OUTPUT_FILE_NAME] [--7_max_target_sequence 7_MAX_TARGET_SEQUENCE] [--8_blastdbcmd_protein_database 8_BLASTDBCMD_PROTEIN_DATABASE] [--10_clustalo_output_name 10_CLUSTALO_OUTPUT_NAME]
+                         [job_order]
+
+blastp, awk, blastdbcmd, clustalo, and fasttreeの5つのステップを実行
+
+positional arguments:
+  job_order             Job input json file
+
+options:
+  -h, --help            show this help message and exit
+  --1_protein_query 1_PROTEIN_QUERY
+                        blastp process input protein query file(fasta format)
+  --2_protein_database 2_PROTEIN_DATABASE
+                        blastp process input all index file
+  --3_evalue 3_EVALUE   blastp process evalue cutoff
+  --4_number_of_threads 4_NUMBER_OF_THREADS
+                        number of threads
+  --5_outformat_type 5_OUTFORMAT_TYPE
+                        blastp process output format type
+  --6_output_file_name 6_OUTPUT_FILE_NAME
+                        blastp process output file name
+  --7_max_target_sequence 7_MAX_TARGET_SEQUENCE
+                        blastp process max target sequence
+  --8_blastdbcmd_protein_database 8_BLASTDBCMD_PROTEIN_DATABASE
+                        blastdbcmd process protein database
+  --10_clustalo_output_name 10_CLUSTALO_OUTPUT_NAME
+                        clustalo process output name
 ```
 
-:::danger
-__追記：ここでも先頭何行か見せて､docフィールドを書くことのご利益が得られることを書く__
+このように､`doc`フィールドを書いておくことで､プロセスの説明を見ることができます｡
 :::
 
-# さいごに
+# 終わりに
 
 今回は､バイオインフォマティクス分野で使用されるツールをCWLファイルとして記述し､ワークフローまで実行するプロセスを記述しました｡
+zatsu-cwl-generatorを使うことで､簡単にcwlファイルを生成することで､CWLを記述するハードルを下げることができます｡
+この記事で説明しているプロセスとしては､まとめると以下のようになっています｡
 
+1. zatsu-cwl-generatorを使って､コマンドラインツールの処理をcwlファイルとして生成する
+2. cwltoolの `--validate`オプションを使って､cwlファイルをチェックする
+3. 問題がある場合､修正を行う
+4. cwltoolを使って､CWLファイルを実行する
+5. エラーが出た場合､修正を行う
 
-3つの記事では詳しい部分についてはあまり解説していません､
+このように､ __zatsu-cwl-generator__ をcwlファイルを書くプロセスの起点として利用することが可能です｡
+ぜひ､皆さんも活用してください!
+
+&nbsp;
+
+## 参考
+
+これまでの3つの記事では詳しい部分についてはあまり解説していません｡
+CWLの詳細な記述方法については､以下のようなドキュメントが充実しているので､ぜひそちらを参考にしてください｡
+
+https://www.commonwl.org/user_guide/#common-workflow-language-user-guide
 
 https://www.commonwl.org/user_guide/topics/best-practices.html#best-practices
 
