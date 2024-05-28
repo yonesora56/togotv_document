@@ -1025,9 +1025,16 @@ __このように､zatsu-cwl-generatorを使うことで､簡単にCWLファ�
 
 :::message
 ### Apptainer (Singularity)も使ってみよう
-dockerを
+
+dockerのコンテナは､`root`権限を持つユーザーが実行します｡
+しかしながら､国立遺伝学研究所が所有しているスーパーコンピューターのような環境では､`root`権限を持つユーザーが実行することができません｡
+そこで､`Singularity`を使ってコンテナを実行することができます｡
+例えば､docker hubで検索したコンテナを変換することができます｡
 
 :::
+
+https://sc.ddbj.nig.ac.jp/#%E9%81%BA%E4%BC%9D%E7%A0%94%E3%82%B9%E3%83%BC%E3%83%91%E3%83%BC%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0
+
 https://sc.ddbj.nig.ac.jp/software/Apptainer/
 
 ****
