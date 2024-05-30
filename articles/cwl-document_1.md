@@ -44,18 +44,20 @@ __本記事の対象となる方__
 
 https://www.commonwl.org/
 
-&nbsp;
+-----
 
 # なぜCWLを使うのか?
-では次に､数多くあるワークフロー言語の中でも､なぜCWLなのか?ということについてここで説明します｡
+では次に､数多くあるワークフロー言語の中でも､なぜCWLを使うのか?ということについてここで説明します｡
 
-## 1\. bentenなどの開発ツールが充実している
-CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています[^3]｡
+## 1\. 開発ツールが充実している
+CWLでは､[Rabix benten](https://github.com/rabix/benten)や､作成したワークフローを可視化することが可能な[CWLviewer](https://github.com/common-workflow-language/cwlviewer?tab=readme-ov-file)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
 
+使用できるツール一覧は以下のリンクから確認できます｡
 https://www.commonwl.org/tools/
 
 ## 2\.自分の実行したい環境に合わせて最適なものが選択できる
-CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です[^4]｡
+CWLでは､複数のツールで実行することができます｡
+例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です[^4]｡
 
 https://www.commonwl.org/implementations/#what-can-execute-cwl-descriptions
 
@@ -527,7 +529,6 @@ options:
 
 &nbsp;
 
-[^3]: [CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 [^4]: [CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 [^5]: [CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
 [^6]: [Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
