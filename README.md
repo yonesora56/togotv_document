@@ -1,18 +1,18 @@
 # togotv_document
 
-zennとの連携用
+Zennとの連携用リポジトリ
 
 ## 参考
 
 - <https://zenn.dev/zenn/articles/install-zenn-cli>
 - <https://zenn.dev/zenn/articles/markdown-guide>
 
-## 1. CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する
+## ドキュメント：CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する
 
 ## [CWL document 1](./articles/cwl-document_1.md)
 
 - Codespacesから直にリポジトリを開く例を追加して完成
-- 脚注を追加した
+- 脚注を追加
 
 &nbsp;
 
@@ -20,7 +20,6 @@ zennとの連携用
 
 - workflowの実行例の説明をもう少し追加して完成
 - <https://view.commonwl.org/workflows/github.com/manabuishii/cwl-samples/blob/bff3770d52404b12d2d0f12b45c4c0edd3213dba/grep-and-count-for-figure-1.cwl>
-- 脚注を追加予定
 
 &nbsp;
 
@@ -29,14 +28,18 @@ zennとの連携用
 - hintsフィールドとrequirementsフィールドの説明を追加する
 - 脚注を追加予定
 
+&nbsp;
+
 ## 丹生さんへのリサーチ(20230928)
 
 1. 全部ドキュメントにするのではなく､気になったらリンクがあることが重要!
+
 2. 書いたファイルのリポジトリのリンクを最後と最初においておく
     - リンク集を最後に作成
 
-3. なんでCWLを扱うのか?
-    - 記載を追加済み
+3. __なぜCWLを扱うのかについて記述__
+    - (記載を追加済み)
+
 4. hintsフィールドとrequirementsフィールド(https://www.commonwl.org/v1.0/CommandLineTool.html#Requirements_and_hints)
 5. CWLをなんのエンジンで実行するかで`requirements`フィールドの実行の可否が決まる
     - エンジンによってはサポートしていない事例も
@@ -54,7 +57,7 @@ zennとの連携用
     - C-コンパイラ
     - なんでも実行したいならcwl-runner
     - チュートリアルなので､触れなくても良いかも
-9. zatsu-cwl-generator --help を書く
+9.  zatsu-cwl-generator --help を書く
     - Javaコマンド(OpenJDK,AzureJDK)を提供している
     - C-コンパイラ
     - なんでも実行したいならcwl-runner
