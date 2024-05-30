@@ -36,9 +36,7 @@ __本記事の対象となる方__
 
 @[card](https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B)
 
-&nbsp;
-
-https://doi.org/10.1038/d41586-019-02619-z
+@[card](https://doi.org/10.1038/d41586-019-02619-z)
 
 &nbsp;
 
