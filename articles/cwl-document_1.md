@@ -50,7 +50,11 @@ https://www.commonwl.org/
 では次に､数多くあるワークフロー言語の中でも､なぜCWLを使うのか?ということについてここで説明します｡
 
 ## 1\. 開発ツールが充実している
-CWLでは､[Rabix benten](https://github.com/rabix/benten)や､作成したワークフローを可視化することが可能な[CWLviewer](https://github.com/common-workflow-language/cwlviewer?tab=readme-ov-file)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
+CWLでは､[Rabix benten](https://github.com/rabix/benten)や､作成したワークフローをウェブブラウザで可視化することが可能な[CWLviewer](https://github.com/common-workflow-language/cwlviewer?tab=readme-ov-file)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
+
+https://github.com/rabix/benten
+
+https://view.commonwl.org/
 
 使用できるツール一覧は以下のリンクから確認できます｡
 https://www.commonwl.org/tools/
