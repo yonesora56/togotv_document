@@ -11,9 +11,15 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container
 
 &nbsp;
 
+:::message
+公開している記事のバージョンは2024年5月時点のものです｡
+今後修正を重ねていく予定なので､コメントをいただけると幸いです｡
+:::
+
 # はじめに
 
-皆さんは｢ワークフロー言語｣をご存知でしょうか? これらの言語は、一連の手順や操作を明示的に定義し、それらを連携させることで、より複雑な作業を効率的に行うことができます。バイオインフォマティクスにおいて､ワークフロー言語は重要な役割を担っています｡ 
+皆さんは｢ワークフロー言語｣をご存知でしょうか? これらの言語は、一連の手順や操作を明示的に定義し、それらを連携させることで、より複雑な作業を効率的に行うことができます。
+バイオインフォマティクス分野において､ワークフロー言語は重要な役割を担っています｡ 
 
 :::message
 __本記事の対象となる方__
@@ -23,10 +29,12 @@ __本記事の対象となる方__
 
 # なぜワークフロー言語を使用するのか
 
-バイオインフォマティクスにおけるデータ解析では、一つのツールのみで解析が終了することは極めて稀です｡ 通常､複数のツールを組み合わせて、大量のデータに対して一連のプロセスを繰り返し実行する必要があります。これらの作業手順は、__ワークフロー(またはパイプライン)__ と呼ばれます。
-しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、__ワークフロー言語__ を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます(参考：[^1] [^2])｡
+バイオインフォマティクスにおけるデータ解析では、一つのツールのみで解析が終了することは極めて稀です｡ 
+通常､複数のツールを組み合わせて、大量のデータに対して一連のプロセスを繰り返し実行する必要があります。
+これらの作業手順は、__ワークフロー(またはパイプライン)__ と呼ばれます。
+しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、__ワークフロー言語__ を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
-https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B
+@[参考:ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B)
 
 &nbsp;
 
@@ -34,17 +42,19 @@ https://doi.org/10.1038/d41586-019-02619-z
 
 現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントでは **Common Workflow Language (CWL)** について環境構築とその実例をご紹介します。
 
+
+
 &nbsp;
 
-## なぜCWLを使うのか?
+# なぜCWLを使うのか?
 では次に､数多くあるワークフロー言語の中でも､なぜCWLなのか?ということについてここで説明します｡
 
-### 1\. bentenなどの開発ツールが充実している
+## 1\. bentenなどの開発ツールが充実している
 CWLでは､[Rabix benten](https://github.com/rabix/benten)や､VScodeの拡張機能 [vscode-cwl](https://marketplace.visualstudio.com/items?itemName=manabuishii.vscode-cwl)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています[^3]｡
 
 https://www.commonwl.org/tools/
 
-### 2\.自分の実行したい環境に合わせて最適なものが選択できる
+## 2\.自分の実行したい環境に合わせて最適なものが選択できる
 CWLでは､複数のツールで実行することができます｡例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です[^4]｡
 
 https://www.commonwl.org/implementations/#what-can-execute-cwl-descriptions
@@ -517,8 +527,6 @@ options:
 
 &nbsp;
 
-[^1]: [43. ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://doi.org/10.7875/togotv.2023.057)
-[^2]: [Workflow systems turn raw data into scientific knowledge](https://doi.org/10.1038/d41586-019-02619-z)
 [^3]: [CWL公式サイト Development Tools](https://www.commonwl.org/tools/)
 [^4]: [CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
 [^5]: [CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
