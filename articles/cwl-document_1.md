@@ -34,7 +34,7 @@ __本記事の対象となる方__
 これらの作業手順は、__ワークフロー(またはパイプライン)__ と呼ばれます。
 しかし、手動でこれらの手順を繰り返すと、ヒューマンエラーに加え､異なる実行環境による再現性の問題が発生することがあります。このような場合に、__ワークフロー言語__ を用いることで、各ステップを自動化し、かつ実行環境に依存せず解析の再現性を向上させる事ができます｡
 
-@[参考:ワークフローツールの開発 @ Bio”Pack”athon2023#8](https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B)
+@[card](https://www.youtube.com/watch?v=yInRH3YK3Ik&list=PL0uaKHgcG00aJSa233gkhBA2HHe0-Ha-B)
 
 &nbsp;
 
