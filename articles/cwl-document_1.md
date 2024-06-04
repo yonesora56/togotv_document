@@ -3,7 +3,7 @@ title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って�
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
-published: true
+published: false
 ---
 
 __※今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
@@ -47,7 +47,7 @@ https://www.commonwl.org/
 -----
 
 # なぜCWLを使うのか?
-では次に､数多くあるワークフロー言語の中でも､なぜCWLを使うのか?ということについてここで説明します｡
+では次に､数多くあるワークフロー言語の中でも､なぜCWLを使うのか?ということについてここで簡単に説明します｡
 
 ## 1\. 開発ツールが充実している
 CWLでは､[Rabix benten](https://github.com/rabix/benten)や､作成したワークフローをウェブブラウザで可視化することが可能な[CWLviewer](https://github.com/common-workflow-language/cwlviewer?tab=readme-ov-file)など､CWLのユーザーをサポートしてくれるツールが豊富に開発されています｡
@@ -59,34 +59,56 @@ https://view.commonwl.org/
 使用できるツール一覧は以下のリンクから確認できます｡
 https://www.commonwl.org/tools/
 
-## 2\.自分の実行したい環境に合わせて最適なものが選択できる
-CWLでは､複数のツールで実行することができます｡
+&nbsp;
+
+## 2\.自分の実行したい環境に合わせて最適な実行エンジンが選択できる
+
+CWLでは､複数の実行エンジンで実行することができます｡
 例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です[^4]｡
 
 https://www.commonwl.org/implementations/#what-can-execute-cwl-descriptions
 
 &nbsp;
 
-実際にCWLを使って記述されたバイオインフォマティクスにおける解析ワークフローは数多くあります｡ 例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
+## 3\.様々なワークフローがCWLで記述されている
+
+実際にCWLを使って記述された解析ワークフローは数多くあります｡ 
+例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
 https://github.com/ddbj/human-reseq
 
+※ これをCWLviewerで見てみよう
+
 このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
-CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメント[^5] [^6]や書籍も多くあるので、ぜひ参考にしてください。
+
+&nbsp;
+
+## 4\.ドキュメントが充実している
+
+CWLは様々なドキュメントが充実しています｡特に､日本で活躍されている方々による日本語のドキュメントも多く存在しています｡
+CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
 
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
 https://oumpy.github.io/blog/2018/12/cwl.html
 
-CWLの実行を行うエンジンであるcwltoolなどは、pipコマンドやcondaを使ってインストールすることが可能です。
-しかしながら､環境構築は大変な場合があるかと思います。そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
+&nbsp;
+
+## 環境構築が大変なときには...
+
+以上を踏まえて､CWLを使うことのメリットがわかったと思います｡
+しかしながら､｢よし､CWLを書くぞ!｣と意気込んでも､環境構築という壁が立ちふさがります。
+もちろん､
+そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
 
 :::message
-※なお､このドキュメントと統合TVの動画は､第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 主な内容はQiitaの記事[^7]がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
-
+※なお､この記事は第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 
+主な内容はQiitaの記事[^7]がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
 __(※ 制作が大変遅くなってしまい申し訳ありません!!!)__
 :::
 
 &nbsp;
+
+-----
 
 # 環境構築編
 
@@ -246,7 +268,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 
 ![VScode-8](https://storage.googleapis.com/zenn-user-upload/58e04cac7aa6-20240527.png)
 
-ここから`Use this template`で取得したリポジトリを選択して... ()
+ここから`Use this template`で取得したリポジトリを選択して...
 ![VScode-9](https://storage.googleapis.com/zenn-user-upload/968a26a0596e-20240527.png)
 
 そうすると､自動的に環境が構築されていきます｡
@@ -533,9 +555,6 @@ options:
 
 &nbsp;
 
-[^4]: [CWL公式サイト Implementations](https://www.commonwl.org/implementations/)
-[^5]: [CWL日本語公式ドキュメント](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP)
-[^6]: [Common Workflow Language入門](https://oumpy.github.io/blog/2018/12/cwl.html)
 [^7]: [指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
 [^8]: [Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
 [^9]: [Devcontainer(Remote Container) いいぞという話 開発環境を整える](https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56)
