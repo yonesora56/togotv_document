@@ -43,11 +43,11 @@ __(2)：以前作成した`grep`コマンドおよび`wc`コマンドのワー�
 grep one mock.txt > grepout.txt
 wc -l grepout.txt > wcout.txt # grepout.txtの行数をカウントする(この記事ではこの処理を記述)
 ```
-grepout.txtの処理で得られた結果に対し､wcコマンドを使って行数をカウントする処理を行います｡
+grepout.txtの処理で得られた結果に対し､`wc`コマンドを使って行数をカウントする処理を行います｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grepout.txt
 
-以前の記事で紹介したプロセスと同様に､wcコマンドを使用したCWLファイルをzatsu-cwl-generatorで出力してみましょう｡
+以前の記事で紹介したプロセスと同様に､`wc`コマンドを使用したCWLファイルをzatsu-cwl-generatorで出力してみましょう｡
 簡単にまとめると以下の通りです｡
 
 ```text
@@ -59,20 +59,20 @@ STEP3: 生成したCWLファイルを実行する
 ## zatsu-cwl-generatorを使って`wc`コマンドのCWLファイルを生成する
 
 それでは実際に書いていきましょう｡ 
-まず､前回 zatsu-cwl-generatorを使って出力したgrepの処理に関するCWLファイルを以下に示します｡
+まず､前回 zatsu-cwl-generatorを使って出力した`grep`の処理に関するCWLファイルを以下に示します｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v2.cwl
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v3.cwl
 
-:::details grep_zatsu_v2.cwl実行結果
+:::details grep_zatsu_v3.cwl実行結果
 再度実行すると以下のようになります｡
 ```bash:
-cwltool grep_zatsu_v2.cwl
+cwltool grep_zatsu_v3.cwl
 INFO /usr/local/bin/cwltool 3.1.20240508115724
-INFO Resolved 'grep_zatsu_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl/grep_zatsu_v2.cwl'
-INFO [job grep_zatsu_v2.cwl] /tmp/wzazmv_s$ grep \
+INFO Resolved 'grep_zatsu_v3.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl/grep_zatsu_v3.cwl'
+INFO [job grep_zatsu_v3.cwl] /tmp/h2nf3dky$ grep \
     one \
-    /tmp/vxumkwic/stg534bb23d-7818-4164-9b41-f58566988412/mock.txt > /tmp/wzazmv_s/grepout.txt
-INFO [job grep_zatsu_v2.cwl] completed success
+    /tmp/z3nkr4n3/stg91d358b7-364c-4f94-8c4b-b6943556b788/mock.txt > /tmp/h2nf3dky/grepout.txt
+INFO [job grep_zatsu_v3.cwl] completed success
 {
     "all-for-debugging": [
         {
@@ -108,7 +108,6 @@ zatsu-cwl-generator 'wc -l grepout.txt > wcout.txt' > wc_zatsu.cwl
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/wc_zatsu.cwl
 
-
 ## 記述が正しいかチェックする
 
 こちらも前回と同様に､実行の前に`--validate` オプションを使って評価してみます｡
@@ -120,6 +119,17 @@ INFO Resolved 'wc_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_contai
 wc_zatsu.cwl is valid CWL.
 ```
 生成されたファイルは問題ないようです｡
+
+## CWLviewerで可視化してみる
+
+次に､このワークフローの全体像を確認するため､[CWLviewer](https://view.commonwl.org/)を使って可視化してみましょう｡
+
+https://view.commonwl.org/workflows/github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl
+
+![CWLviewer result](https://storage.googleapis.com/zenn-user-upload/5fe94034b62e-20240612.png)
+
+`grep`コマンドの結果とそこから`wc`コマンドに渡されている様子が確認できます!
+(__この自分が書いたCWLファイルが可視化されるのは本当にかっこいいのでぜひ試してみてください!__) 
 
 ## 実際に実行する
 
