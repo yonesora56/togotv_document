@@ -566,7 +566,14 @@ options:
 大文字の`MOCK_TXT`のあとの部分に具体的に説明を付け加える際には､__`doc`フィールドを追加することで可能になります｡__
 例として､grep_zatsu.cwlに`doc`フィールドを以下のように書き加えました｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v2.cwl
+```bash
+- id: mock_txt
+    type: File
+    doc: please input text file #記載をここに追加
+    default:
+      class: File
+      location: mock.txt
+```
 
 再度実行してみると以下のようになります｡
 
@@ -583,7 +590,7 @@ options:
   -h, --help           show this help message and exit
   --mock_txt MOCK_TXT  please input text file
 ```
-このように記述を反映させることができます!
+このように記述を反映させることができます! 
 :::
 
 &nbsp;
