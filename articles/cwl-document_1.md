@@ -134,8 +134,6 @@ https://oumpy.github.io/blog/2018/12/cwl.html
 
 &nbsp;
 
----
-
 # さあ､CWLを始めよう! でも環境構築が難しい...
 
 以上を踏まえて、CWLを記述することのメリットがわかったと思います。
@@ -151,8 +149,6 @@ CWLを始めるにあたって、開発環境をセットアップすること�
 CWLを始めたいと思っているそこのあなた! ぜひ一緒に環境を整えて素晴らしいCWL lifeを過ごしましょう。
 
 &nbsp;
-
------
 
 # 環境構築編
 
@@ -197,7 +193,7 @@ https://code.visualstudio.com/docs/devcontainers/containers
 ![remote development](https://t907947.p.clickup-attachments.com/t907947/c73afc83-d397-4826-b62c-de24f1d30ea1/image.png)
 :::
 
-Dev containersに関する情報は以下の記事が参考になります[^9] [^10]｡ こちらも合わせてご覧ください｡
+Dev containersに関する情報は以下の記事が参考になります｡ こちらも合わせてご覧ください｡
 
 https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56
 
@@ -300,7 +296,7 @@ __この記事ではリポジトリの名前を`togotv_cwl_for_remote_container`
 
 ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ 
 しかしながら､__｢もっと楽に環境構築して動かしてみたい!!｣__ という方もいらっしゃるかと思います｡ 
-そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください[^11]｡
+そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください｡
 
 https://docs.github.com/ja/codespaces/overview#what-is-a-codespace
 
@@ -329,7 +325,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 自分の場合では､Codespacesの使用時間が(1ヶ月で割り当てられている)全体の90%を超えると､警告のメールが届きました｡
 :::
 
-:::message alert
+:::message
 このCodespacesを使った環境構築では､実は`Use this template`をしなくても立ち上げることができます｡
 まず､[cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスします｡
 
@@ -348,10 +344,8 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 
 # zatsu-cwl-generatorを使ってCWLファイルを作成する
 
-ここまではCWLに関する説明､および環境導入を行いました｡ 
-この項目では､CWLファイルの記述､実行を行っていきます｡
-CWLファイルは記述する内容をYAMLかJSONの形式で記述し、｢.cwl｣という拡張子でファイルに保存します。
-そして実行時にこのCWLファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
+ここまではCWLに関する説明､および環境導入を行いました｡この項目では実際にCWLファイルの記述､実行を行っていきます｡
+CWLファイルは記述する内容をYAMLかJSONの形式で記述し、｢.cwl｣という拡張子でファイルに保存します。そして実行時にこのCWLファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
 
 ```bash
 cwltool hoge.cwl # 例
@@ -453,7 +447,7 @@ zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > grep_zatsu.cwl
 
 &nbsp;
 
-## 記述が正しいか確認する
+## 記述が正しいかチェックする
 
 zatsu-cwl-genratorで出力されたファイルに対し､実際の実行前に記述が本当に正しいか確認することができます｡
 `cwltool –-validate` コマンドを実行すると､記述したCWLファイルを評価することができます｡ 
@@ -474,7 +468,7 @@ grep_zatsu.cwl is valid CWL.
 
 &nbsp;
 
-## 実際に実行してみる
+## 実際に実行する
 
 ファイルの記載が正しいことを確認できたので､次に実際に`cwltool`というコマンドで試してみます(以降の操作はzatsu_generatorディレクトリでの作業です)｡ 
 
@@ -586,7 +580,7 @@ options:
 
 &nbsp;
 
-### (発展編) 自分で修正してみる
+## 【発展】 自分で修正してみよう
 上記のように実際に実行することができることを確認しました｡
 しかし､このファイルを修正することでより良い解析を実行することができます｡
 実は､先程作成したgrep処理のファイル(`grep_zatsu.cwl`)の編集時には､以下の部分に赤線が示されていました｡
