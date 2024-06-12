@@ -355,7 +355,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 
 ---
 
-# zatsu-cwl-generatorを使ってcwlファイルを作る
+# zatsu-cwl-generatorを使ってCWLファイルを作成する
 
 ここまではCWLに関する説明､および環境導入を行いました｡ 
 この項目では､CWLファイルの記述､実行を行っていきます｡
@@ -629,10 +629,10 @@ options:
 自分で修正しながら実際に __ワークフローを作っていく__ 例については次の [記事](https://zenn.dev/sorayone/articles/cwl-document_2)で紹介しています｡
 また､3番目の [記事](https://zenn.dev/sorayone/articles/cwl-document_3)では､`zatsu-cwl-generator`をフルに使ってバイオインフォマティクスの解析のワークフローを記述していきます｡
 
-### CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)
+CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)
 https://zenn.dev/sorayone/articles/cwl-document_2
 
-### CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (3)
+CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (3)
 https://zenn.dev/sorayone/articles/cwl-document_3
 
 __今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
