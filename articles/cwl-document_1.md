@@ -93,6 +93,9 @@ https://www.commonwl.org/gallery/
 ### 例1: ヒトゲノムバリアント検出ワークフロー ddbj/human-reseq
 
 このワークフローは､DDBJ(DNA Data Bank of Japan)で開発されたヒトゲノムバリアント検出ワークフローです｡
+
+https://github.com/ddbj/human-reseq
+
 fastqファイルを入力として､BAMファイルに変換する `fastqPE2bam.multisamples.cwl`などが含まれています｡
 
 :::details CWL viewerで見てみよう
@@ -101,24 +104,45 @@ CWLviewerにアクセスし､githubのリンクを入力することで可視�
 
 https://view.commonwl.org/workflows/github.com/ddbj/human-reseq/blob/master/Workflows/fastqPE2bam.multisamples.cwl
 
+このように簡単に可視化ができます!
+![CWLviewer 1](https://storage.googleapis.com/zenn-user-upload/0a287d465d8e-20240612.png)
 :::
 
-https://github.com/ddbj/human-reseq
-
 ### 例2: DRY解析教本に掲載されているワークフローをCWLで記述 
+
+次世代シーケンサー(NGS)によって生成されるデータの解析手法を解説している ｢次世代シーケンサーDRY解析教本｣という本があります｡
+ここには､トランスクリプトームアセンブリなど､初学者に向けて様々な解析手法が丁寧に解説されています｡
+
+https://gakken-mesh.jp/book/detail/9784780909838.html
+
+この本に掲載されている一連の解析手法についてもCWLで記述されています｡
+
+https://github.com/pitagora-network/DAT2-cwl/tree/main
+
+ここでは紹介しきれないほどのワークフローがCWLで記述されています! 
+皆さんもぜひ興味があるワークフローを [Repositories](https://www.commonwl.org/repos/#repositories-of-cwl-tools-and-workflows)から探してみてください!
 
 &nbsp;
 
 ## 4. ドキュメントが非常に充実している
 
-CWLは様々なドキュメントが充実しています。特に日本で活躍されている方々による日本語のドキュメントも多く存在しています。
-CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
+CWLは様々なドキュメントが充実しています。例えば､公式ドキュメントからユーザーガイドを閲覧することができます｡
+また､このユーザーガイドは日本語に翻訳されており､非常に参考にしやすくなっています｡
+
+### Common Workflow Language User Guide
+
+https://www.commonwl.org/user_guide/#common-workflow-language-user-guide
+
+### Common Workflow Language User Guide (日本語版)
+
+https://www.commonwl.org/user_guide/ja/
+
+また､他にも日本の研究者による解説も多くあります｡
 
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
 https://oumpy.github.io/blog/2018/12/cwl.html
 
-https://www.commonwl.org/user_guide/ja/
 
 &nbsp;
 
