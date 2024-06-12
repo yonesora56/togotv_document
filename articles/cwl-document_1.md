@@ -6,14 +6,15 @@ topics: ["CWL", "bioinformatics"]
 published: false
 ---
 
+:::message
+この記事は第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 
+CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
+:::
+
 __今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
 https://github.com/yonesora56/togotv_cwl_for_remote_container
 
 &nbsp;
-
-:::message
-公開している記事のバージョンは2024年6月時点のものです
-:::
 
 :::message
 __本記事の対象となる方__
@@ -47,6 +48,8 @@ https://www.youtube.com/watch?v=86eY8xs-Vo8
 
 -----
 
+&nbsp;
+
 # なぜCWLを使うのか?
 では次に､数多くあるワークフロー言語の中でも､なぜCWLを使うのか?ということについてここで簡単に説明します｡
 
@@ -57,7 +60,7 @@ https://github.com/rabix/benten
 
 https://view.commonwl.org/
 
-使用できるツール一覧は以下のリンクから確認できます｡
+使用できるツール一覧は以下のページから確認できます｡
 https://www.commonwl.org/tools/
 
 &nbsp;
@@ -65,8 +68,10 @@ https://www.commonwl.org/tools/
 ## 2\.自分の実行したい環境に合わせて最適な実行エンジンが選択できる
 
 CWLでは､複数の実行エンジンで実行することができます｡
-例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡自分の実行したい環境に合わせて選択肢が多いことが特徴です[^4]｡
+例えば､[cwltool](https://github.com/common-workflow-language/cwltool)に加え､ジョブスケジューラに対応している[Toil](https://github.com/DataBiosphere/toil)などが存在します｡
+自分の実行したい環境に合わせて選択肢が多いことが特徴です｡
 
+一覧は以下のページから確認できます｡
 https://www.commonwl.org/implementations/#what-can-execute-cwl-descriptions
 
 &nbsp;
@@ -74,7 +79,21 @@ https://www.commonwl.org/implementations/#what-can-execute-cwl-descriptions
 ## 3\.様々なワークフローがCWLで記述されている
 
 実際にCWLを使って記述された解析ワークフローは数多くあります｡ 
-例えば､ヒトゲノムバリアント検出ワークフローである｢ [ddbj/human-reseq](https://github.com/ddbj/human-reseq) ｣が挙げられます｡
+CWLの公式サイトにはワークフローリポジトリが紹介されていたり、User Galleryでは大規模な活用事例も見ることができます。
+
+### リポジトリ一覧
+https://www.commonwl.org/repos/#repositories-of-cwl-tools-and-workflows
+
+### User Gallery
+https://www.commonwl.org/gallery/
+
+以下に具体的なワークフローの例をいくつかご紹介します｡
+この記事でご紹介するのは __日本の研究者の方々によって__ 作成されたワークフローです｡
+
+### 例1: ヒトゲノムバリアント検出ワークフロー ddbj/human-reseq
+
+このワークフローは､DDBJ(DNA Data Bank of Japan)で開発されたヒトゲノムバリアント検出ワークフローです｡
+
 https://github.com/ddbj/human-reseq
 
 ※ これをCWLviewerで見てみよう
@@ -83,29 +102,40 @@ https://github.com/ddbj/human-reseq
 
 &nbsp;
 
-## 4\.ドキュメントが充実している
+## 4. ドキュメントが非常に充実している
 
-CWLは様々なドキュメントが充実しています｡特に､日本で活躍されている方々による日本語のドキュメントも多く存在しています｡
+CWLは様々なドキュメントが充実しています。特に日本で活躍されている方々による日本語のドキュメントも多く存在しています。
 CWLについてより詳しく知りたい方は、下記に示している日本語のドキュメントや書籍も多くあるので、ぜひ参考にしてください。
 
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
 https://oumpy.github.io/blog/2018/12/cwl.html
 
+https://www.commonwl.org/user_guide/ja/
+
 &nbsp;
 
-## 環境構築が大変なときには...
+-----
 
-以上を踏まえて､CWLを使うことのメリットがわかったと思います｡
-しかしながら､｢よし､CWLを書くぞ!｣と意気込んでも､環境構築という壁が立ちふさがります。
-もちろん､
-そこでこのドキュメントでは､作業するコンピュータの環境に依存せず、CWLの開発環境を作成して実行する方法を紹介します。
+# さあ､CWLを始めよう! でも環境構築が難しい...
 
-:::message
-※なお､この記事は第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 
-主な内容はQiitaの記事[^7]がベースになっています｡ CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
-__(※ 制作が大変遅くなってしまい申し訳ありません!!!)__
-:::
+以上を踏まえて、CWLを記述することのメリットがわかったと思います。
+また、上記で述べたようにCWLには充実したドキュメントが用意されています。
+特に日本語のドキュメントも豊富にあるため、日本語で学ぶことができるのは大きな利点です。
+CWLについてより深く理解したい方は、ぜひこれらのドキュメントを参考にしてみてください。
+
+しかしながら、「よし、CWLを書くぞ！」と意気込んでも、環境構築という壁が立ちふさがることがあります。
+CWLを始めるにあたって、開発環境をセットアップすることは重要なステップですが、時に困難を伴うこともあるでしょう(自分も環境構築で挫折しそうになることがよくあります)。
+
+そこでこのドキュメントでは、作業するマシンの環境に依存せず、CWLの開発環境を作成し、実際にCWLファイルを実行する方法を紹介します。
+次の「環境構築編」では、Visual Studio CodeとDockerを使った開発環境の構築方法を説明します。
+CWLを始めたいと思っているそこのあなた! ぜひ一緒に環境を整えて素晴らしいCWLライフを過ごしましょう。
+
+&nbsp;
+
+-----
+
+# 環境構築編
 
 &nbsp;
 
@@ -116,20 +146,22 @@ __(※ 制作が大変遅くなってしまい申し訳ありません!!!)__
 ## 【STEP1-1】VScodeのインストール
 
 はじめに、コードエディターであるVisual Studio Code (VScode)のインストール方法を説明します。
-特徴としては拡張機能が豊富に存在している部分であり､この記事でもこの部分を活用します｡
+特徴としては拡張機能が豊富に存在している点が挙げられ､この記事でも拡張機能を活用しながら環境構築を進めていきます｡
 
 ダウンロードは以下のページにアクセスしておこないます｡ 皆さんも自分のコンピュータの環境に合わせて選んでください｡
 
 https://code.visualstudio.com/download
 
+:::message
 この記事では､macOSの｢Apple silicon｣をクリックしてインストールして執筆しています｡
+:::
 
 ## 【STEP1-2】拡張機能を導入する
 
 先程述べたように､VSCodeには豊富な拡張機能が存在します｡ 
-サイドバー(ここでは左)の拡張機能のボタン(四角が4つあつまっている部分)を押すと､様々な拡張機能がMarketplaceで検索できます｡
+サイドバー(ここでは左)の拡張機能のボタン(四角が4つあつまっている部分)を押すと､様々な拡張機能がMarketplaceから検索できます｡
 ここで､｢[Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)｣ と検索してください｡ 
-こちらが必要なのでインストールします[^8](以前は｢Remote Container extension｣という名前だったようですが､どうやら変わったようです)｡
+この拡張機能が必要なのでインストールします(以前は｢Remote Container extension｣という名前だったようですが､どうやら変わったようです)｡
 
 ![Dev-container](https://storage.googleapis.com/zenn-user-upload/e5d7dc91c2e3-20240527.png)
 
@@ -144,7 +176,7 @@ https://code.visualstudio.com/docs/devcontainers/containers
 ![VScode-2](https://storage.googleapis.com/zenn-user-upload/680a6dfcc6ec-20240527.png)
 *左下に｢><｣マークが出現*
 
-左下に｢ >< ｣というマークが出てきます｡ このボタンを押すことで次の作業に移ることができます｡これでVScodeは一旦､準備完了です｡
+左下に｢ >< ｣というマークが出てきます｡ このボタンを押すことで次の作業に移ることができます｡これでVScodeは一旦準備完了です｡
 
 :::message
 この｢Dev Containers｣だけでなく､他の拡張機能を含んだ拡張機能パック[Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)をインストールする方法もあるようです｡
