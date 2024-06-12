@@ -5,16 +5,13 @@ type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
 published: true
 ---
+__今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
+https://github.com/yonesora56/togotv_cwl_for_remote_container
 
 :::message
 この記事は第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 
 CWLに関してアドバイスをしてくださった石井さん､丹生さん､山本さんにこの場をお借りして御礼申し上げます｡
 :::
-
-__今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
-https://github.com/yonesora56/togotv_cwl_for_remote_container
-
-&nbsp;
 
 :::message
 __本記事の対象となる方__
@@ -48,8 +45,6 @@ https://www.youtube.com/watch?v=86eY8xs-Vo8
 
 -----
 
-&nbsp;
-
 # なぜCWLを使うのか?
 では次に､数多くあるワークフロー言語の中でも､なぜCWLを使うのか?ということについてここで簡単に説明します｡
 
@@ -63,8 +58,6 @@ https://view.commonwl.org/
 使用できるツール一覧は以下のページから確認できます｡
 https://www.commonwl.org/tools/
 
-&nbsp;
-
 ## 2\.自分の実行したい環境に合わせて最適な実行エンジンが選択できる
 
 CWLでは､複数の実行エンジンで実行することができます｡
@@ -73,8 +66,6 @@ CWLでは､複数の実行エンジンで実行することができます｡
 
 一覧は以下のページから確認できます｡
 https://www.commonwl.org/implementations/#what-can-execute-cwl-descriptions
-
-&nbsp;
 
 ## 3\.様々なワークフローがCWLで記述されている
 
@@ -122,8 +113,6 @@ https://github.com/pitagora-network/DAT2-cwl/tree/main
 ここでは紹介しきれないほどのワークフローがCWLで記述されています! 
 皆さんもぜひ興味があるワークフローを [Repositories](https://www.commonwl.org/repos/#repositories-of-cwl-tools-and-workflows)から探してみてください!
 
-&nbsp;
-
 ## 4. ドキュメントが非常に充実している
 
 CWLは様々なドキュメントが充実しています。例えば､公式ドキュメントからユーザーガイドを閲覧することができます｡
@@ -144,6 +133,8 @@ https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 https://oumpy.github.io/blog/2018/12/cwl.html
 
 &nbsp;
+
+---
 
 # さあ､CWLを始めよう! でも環境構築が難しい...
 
@@ -636,11 +627,11 @@ options:
 自分で修正しながら実際に __ワークフローを作っていく__ 例については次の [記事](https://zenn.dev/sorayone/articles/cwl-document_2)で紹介しています｡
 また､3番目の [記事](https://zenn.dev/sorayone/articles/cwl-document_3)では､`zatsu-cwl-generator`をフルに使ってバイオインフォマティクスの解析のワークフローを記述していきます｡
 
-CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)
 https://zenn.dev/sorayone/articles/cwl-document_2
 
-CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (3)
 https://zenn.dev/sorayone/articles/cwl-document_3
+
+&nbsp;
 
 __今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
 https://github.com/yonesora56/togotv_cwl_for_remote_container
