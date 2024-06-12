@@ -524,7 +524,7 @@ cwltool --debug grep_zatsu.cwl
 
 &nbsp;
 
-### `--help`オプションを活用しよう
+## `--help`オプションを活用しよう
 
 `cwltool grep_zatsu.cwl --help`のように､CWLファイルの次に`--help`オプションをつけると､その __CWLファイル自体のヘルプを見ることができます__｡
 どういうことか実際にやってみましょう｡
