@@ -120,21 +120,6 @@ wc_zatsu.cwl is valid CWL.
 ```
 生成されたファイルは問題ないようです｡
 
-&nbsp;
-
-## CWLviewerで可視化してみる
-
-次に､このワークフローの全体像を確認するため､[CWLviewer](https://view.commonwl.org/)を使って可視化してみましょう｡
-
-https://view.commonwl.org/workflows/github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl
-
-![CWLviewer result](https://storage.googleapis.com/zenn-user-upload/5fe94034b62e-20240612.png)
-
-`grep`コマンドの結果とそこから`wc`コマンドに渡されている様子が確認できます!
-(__この自分が書いたCWLファイルが可視化されるのは本当にかっこいいのでぜひ試してみてください!__) 
-
-&nbsp;
-
 ## 実際に実行する
 
 それではこのファイルを用いて､実際に実行してみましょう｡ (`--debug`オプションをつけて行いました)
@@ -341,6 +326,19 @@ INFO Resolved 'grep-and-count.cwl' to 'file:///workspaces/togotv_cwl_for_remote_
 grep-and-count.cwl is valid CWL.
 ```
 大丈夫のようです!
+
+## CWLviewerで可視化してみる
+
+次に､このワークフローの全体像を確認するため､[CWLviewer](https://view.commonwl.org/)を使って可視化してみましょう｡
+
+https://view.commonwl.org/workflows/github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl
+
+![CWLviewer result](https://storage.googleapis.com/zenn-user-upload/5fe94034b62e-20240612.png)
+
+`grep`コマンドの結果とそこから`wc`コマンドに渡されている様子が確認できます!
+(__この自分が書いたCWLファイルが可視化されるのは本当にかっこいいのでぜひ試してみてください!__) 
+
+&nbsp;
 
 ## ワークフローを実行してみる
 
