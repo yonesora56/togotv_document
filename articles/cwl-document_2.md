@@ -6,27 +6,28 @@ topics: ["CWL", "bioinformatics"]
 published: true
 ---
 
-__※今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
+__今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
 https://github.com/yonesora56/togotv_cwl_for_remote_container
 
-&nbsp;
+前回の記事はこちらです
+https://zenn.dev/sorayone/articles/cwl-document_1
 
 # はじめに
 
 :::message
 __本記事の対象となる方__
-
 ■ 環境構築ができたので､次のステップに進みたい方
 ■ CWLの文法を実際に書いてみて学びたい方
 
 (1)の記事を見ていただいたあと､更にCWLを勉強したいという方向けの記事になります｡
 :::
 
-以前の記事では､環境構築や[zatsu-cwl-generator](https://github.com/tom-tan/zatsu-cwl-generator)の使い方をご紹介しました｡
+前回の記事では､環境構築および[zatsu-cwl-generator](https://github.com/tom-tan/zatsu-cwl-generator)によるCWLファイルの生成し実行してみました｡
+この記事では､zatsu-cwl-generatorで生成されたCWLファイルをもう一つ書き､更にこの2つのCWLファイルを実行するワークフローを記述する方法についてご紹介します｡ 
+今回記述する流れとしては以下の2ステップです｡
 
-https://github.com/tom-tan/cwl-for-remote-container-template
-
-この記事では､zatsu-cwl-generatorで生成されたcwlファイルを用いて､ワークフローを実際に記述する方法についてご紹介します｡ 
+__Step1：コマンドの処理に関するCWLファイルを書く(`grep`と`wc`)__
+__Step2：ワークフロー全体を記述するCWLファイルを書く__
 
 :::message
 実際に修正していく過程もこの記事では載せているので(トグルになっている部分です)､ぜひ参考にしてください｡
@@ -34,29 +35,16 @@ https://github.com/tom-tan/cwl-for-remote-container-template
 
 &nbsp;
 
-# grepコマンドとwcコマンドをCWL化する
+# wcコマンドによる処理をCWLで記述する
 
-初めに(1)の記事で作ったgrepコマンドのcwlファイルに加え､wcコマンドの処理をCWLによって記述し､この2つを __連続して解析できるようにする__ 例を紹介します｡
-実行するのは､`grep one mock.txt > grepout.txt` と `wc -l grepout.txt > wcout.txt` の2つです｡ 
-この2つは､日本語ドキュメント(CWL Start Guide JP)[^1]でも説明されている例になります｡
+初めに前回の [記事](https://zenn.dev/sorayone/articles/cwl-document_1#zatsu-cwl-generator%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6cwl%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)で作成したgrepコマンドのCWLファイルに加え､wcコマンドの処理をCWLによって記述します｡
 
 ```bash:example
 grep one mock.txt > grepout.txt
-wc -l grepout.txt > wcout.txt
+wc -l grepout.txt > wcout.txt # grepout.txtの行数をカウントする(この記事ではこの処理を記述)
 ```
 
-&nbsp;
-
-前回は環境構築と､zatsu-cwl-genratorを使ってCWLファイルの生成と実行を行いました｡
-この記事では､更に手を動かす作業を行っていきます｡主役となるコマンドは`grep`と`wc`の2つです｡ 
-今回記述する流れとしては以下の2ステップです｡
-
-__Step1：コマンドの処理に関するcwlファイルを書く(今回は2つ)__
-__Step2：ワークフロー全体を記述するcwlファイルを書く__
-
-&nbsp;
-
-## zatsu-cwl-generatorを使ってcwlファイルを書く
+## zatsu-cwl-generatorを使って`wc`コマンドのCWLファイルを生成する
 
 それでは実際に書いていきましょう｡ 
 まず､前回 __zatsu-cwl-generator__ を使って出力したgrepの処理に関するCWLファイルを以下に示します｡

@@ -224,8 +224,7 @@ Docker desktopを使用する以外にも以下のような代替手段があり
 2. Rancher desktop ([https://rancherdesktop.io/](https://rancherdesktop.io/)) (macOS, moby) ※ただし今回使用しているようなRemote containerだと安定しないとのことです
 3. orbstack ([https://orbstack.dev/](https://orbstack.dev/)) (macOS)
 4. Docker on WSL (Windows)
-
-※ こちらは国内版バイオハッカソン23.9にて丹生さんより情報提供いただきました｡
+5. Podman Desktop (https://podman-desktop.io/) 
 :::
 
 &nbsp;
@@ -430,7 +429,7 @@ shebang(`#!/usr/bin/env cwl-runner`)以下には､今回CWLを実行するた�
 `class` ､ `cwlversion`､`baseCommand`､ `arguments`､ `inputs` ､ `outputs`､ `stdout` が出力されています｡
 
 この出力をリダイレクトしてファイルとして保存します｡
-今回は､zatsu-generatorディレクトリに保存します｡
+今回は､`zatsu-cwl`ディレクトリに保存します｡
 
 ```bash:
 zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > grep_zatsu.cwl
@@ -525,7 +524,6 @@ cwltool --debug grep_zatsu.cwl
 
 &nbsp;
 
-:::message
 ### `--help`オプションを活用しよう
 
 `cwltool grep_zatsu.cwl --help`のように､CWLファイルの次に`--help`オプションをつけると､その __CWLファイル自体のヘルプを見ることができます__｡
@@ -551,14 +549,7 @@ options:
 大文字の`MOCK_TXT`のあとの部分に具体的に説明を付け加える際には､__`doc`フィールドを追加することで可能になります｡__
 例として､grep_zatsu.cwlに`doc`フィールドを以下のように書き加えました｡
 
-```bash
-- id: mock_txt
-    type: File
-    doc: please input text file #記載をここに追加
-    default:
-      class: File
-      location: mock.txt
-```
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v2.cwl#L15
 
 再度実行してみると以下のようになります｡
 
@@ -576,7 +567,6 @@ options:
   --mock_txt MOCK_TXT  please input text file
 ```
 このように記述を反映させることができます! 
-:::
 
 &nbsp;
 
