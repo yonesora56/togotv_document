@@ -1164,6 +1164,8 @@ https://view.commonwl.org/workflows/github.com/yonesora56/togotv_cwl_for_remote_
 全体としてはこのようになっています｡5つものステップがワークフローとして記載されていることが改めてわかります｡
 (毎回自分はこれに感動しています)
 
+※ `9_clustalo_output_name`のところが`10_clustalo_output_name`となっていますが､修正する前にCWLviewerにアップロードしたのでこのようになっています(プロセスには問題ありません)｡
+
 ## 実際に実行する
 
 それでは実際に実行してみましょう｡
@@ -1181,34 +1183,34 @@ INFO Resolved 'blast2tree_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_c
 INFO [workflow ] start
 INFO [workflow ] starting step step1_blastp
 INFO [step step1_blastp] start
-INFO [job step1_blastp] /tmp/uj4w3esx$ docker \
+INFO [job step1_blastp] /tmp/2votsws8$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/uj4w3esx,target=/WlXEKf \
-    --mount=type=bind,source=/tmp/pozju8zg,target=/tmp \
-    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta,target=/var/lib/cwl/stgced530ce-9349-463a-99b6-aa9c4fc9f28c/
-MSTN.fasta,readonly \                                                                                                                                                        --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-2d3c
-6f883a16/uniprot_sprot.fasta,readonly \                                                                                                                                      --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.phd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.phi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.phr,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.pin,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.pog,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.psd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.psi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stg0f1360dc-539d-4d47-99f0-
-2d3c6f883a16/uniprot_sprot.fasta.psq,readonly \                                                                                                                              --workdir=/WlXEKf \
+    --mount=type=bind,source=/tmp/2votsws8,target=/flvvYX \
+    --mount=type=bind,source=/tmp/ghp_ggow,target=/tmp \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/MSTN.fasta,target=/var/lib/cwl/stga9b49df8-ee19-46f9-9177-2642075c15fa/
+MSTN.fasta,readonly \                                                                                                                                                        --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-7c39
+5721a806/uniprot_sprot.fasta,readonly \                                                                                                                                      --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.phd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.phi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.phr,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.pin,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.pog,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.psd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.psi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stg14f53454-48a1-45aa-9761-
+7c395721a806/uniprot_sprot.fasta.psq,readonly \                                                                                                                              --workdir=/flvvYX \
     --read-only=true \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/n2b6wz52/20240612103142-461008.cid \
+    --cidfile=/tmp/inoumsot/20240612110119-923716.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/WlXEKf \
+    --env=HOME=/flvvYX \
     biocontainers/blast:v2.2.31_cv2 \
     blastp \
     -query \
-    /var/lib/cwl/stgced530ce-9349-463a-99b6-aa9c4fc9f28c/MSTN.fasta \
+    /var/lib/cwl/stga9b49df8-ee19-46f9-9177-2642075c15fa/MSTN.fasta \
     -db \
-    /var/lib/cwl/stg0f1360dc-539d-4d47-99f0-2d3c6f883a16/uniprot_sprot.fasta \
+    /var/lib/cwl/stg14f53454-48a1-45aa-9761-7c395721a806/uniprot_sprot.fasta \
     -evalue \
     0.01 \
     -num_threads \
@@ -1220,46 +1222,45 @@ MSTN.fasta,readonly \                                                           
     -max_target_seqs \
     20
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
-INFO [job step1_blastp] Max memory used: 0MiB
 INFO [job step1_blastp] completed success
 INFO [step step1_blastp] completed success
 INFO [workflow ] starting step step2_awk
 INFO [step step2_awk] start
-INFO [job step2_awk] /tmp/6lqwjots$ awk \
+INFO [job step2_awk] /tmp/vmxrp488$ awk \
     '{ print $2 }' \
-    /tmp/4qdjlcga/stge55ffb48-5bb9-454a-a7ff-c429efc74aaf/blastp_output.txt > /tmp/6lqwjots/blastp_result_id.txt
+    /tmp/7gv05wyk/stga7a18797-23db-4926-a36d-f046b5c40d13/blastp_output.txt > /tmp/vmxrp488/blastp_result_id.txt
 INFO [job step2_awk] completed success
 INFO [step step2_awk] completed success
 INFO [workflow ] starting step step3_blastdbcmd
 INFO [step step3_blastdbcmd] start
-INFO [job step3_blastdbcmd] /tmp/rdv3hv2x$ docker \
+INFO [job step3_blastdbcmd] /tmp/z0yvl8hc$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/rdv3hv2x,target=/WlXEKf \
-    --mount=type=bind,source=/tmp/r1olsbb3,target=/tmp \
-    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-a5fa
-4f0738bb/uniprot_sprot.fasta,readonly \                                                                                                                                      --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.phd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.phi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.phr,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.pin,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.pog,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.psd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.psi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stgc0263af5-6318-4781-8db1-
-a5fa4f0738bb/uniprot_sprot.fasta.psq,readonly \                                                                                                                              --mount=type=bind,source=/tmp/6lqwjots/blastp_result_id.txt,target=/var/lib/cwl/stg3930e103-780f-4d8c-bdca-c36a8e0359e3/blastp_result_id.txt,readonly \
-    --workdir=/WlXEKf \
+    --mount=type=bind,source=/tmp/z0yvl8hc,target=/flvvYX \
+    --mount=type=bind,source=/tmp/glzm29j7,target=/tmp \
+    --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-475d
+84a39cf3/uniprot_sprot.fasta,readonly \                                                                                                                                      --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phd,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.phd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phi,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.phi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.phr,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.phr,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pin,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.pin,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.pog,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.pog,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psd,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.psd,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psi,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.psi,readonly \                                                                                                                              --mount=type=bind,source=/workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/uniprot_sprot.fasta.psq,target=/var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-
+475d84a39cf3/uniprot_sprot.fasta.psq,readonly \                                                                                                                              --mount=type=bind,source=/tmp/vmxrp488/blastp_result_id.txt,target=/var/lib/cwl/stg60f08503-8659-437f-a7cf-02b807cbd09e/blastp_result_id.txt,readonly \
+    --workdir=/flvvYX \
     --read-only=true \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/4hh0ljvr/20240612103143-671398.cid \
+    --cidfile=/tmp/6oya1qwb/20240612110120-940805.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/WlXEKf \
+    --env=HOME=/flvvYX \
     biocontainers/blast:v2.2.31_cv2 \
     blastdbcmd \
     -db \
-    /var/lib/cwl/stgc0263af5-6318-4781-8db1-a5fa4f0738bb/uniprot_sprot.fasta \
+    /var/lib/cwl/stg7b0b3776-1de2-4a32-bb1e-475d84a39cf3/uniprot_sprot.fasta \
     -entry_batch \
-    /var/lib/cwl/stg3930e103-780f-4d8c-bdca-c36a8e0359e3/blastp_result_id.txt \
+    /var/lib/cwl/stg60f08503-8659-437f-a7cf-02b807cbd09e/blastp_result_id.txt \
     -out \
     blastdbcmd_result.fasta
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
@@ -1267,23 +1268,23 @@ INFO [job step3_blastdbcmd] completed success
 INFO [step step3_blastdbcmd] completed success
 INFO [workflow ] starting step step4_clustalo
 INFO [step step4_clustalo] start
-INFO [job step4_clustalo] /tmp/xz4llstr$ docker \
+INFO [job step4_clustalo] /tmp/wdeje8er$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/xz4llstr,target=/WlXEKf \
-    --mount=type=bind,source=/tmp/c8axor6c,target=/tmp \
-    --mount=type=bind,source=/tmp/rdv3hv2x/blastdbcmd_result.fasta,target=/var/lib/cwl/stg8426b713-ef9d-46bc-8e36-daaa52a1f2f8/blastdbcmd_result.fasta,readonly \
-    --workdir=/WlXEKf \
+    --mount=type=bind,source=/tmp/wdeje8er,target=/flvvYX \
+    --mount=type=bind,source=/tmp/5g3q4oh4,target=/tmp \
+    --mount=type=bind,source=/tmp/z0yvl8hc/blastdbcmd_result.fasta,target=/var/lib/cwl/stgc42faa48-b345-4c6c-9c0c-6d0f6dd22db9/blastdbcmd_result.fasta,readonly \
+    --workdir=/flvvYX \
     --read-only=true \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/6ykuaryi/20240612103144-728058.cid \
+    --cidfile=/tmp/2_9lnoqd/20240612110121-963427.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/WlXEKf \
+    --env=HOME=/flvvYX \
     biocontainers/clustalo:v1.2.4-2-deb_cv1 \
     clustalo \
     -i \
-    /var/lib/cwl/stg8426b713-ef9d-46bc-8e36-daaa52a1f2f8/blastdbcmd_result.fasta \
+    /var/lib/cwl/stgc42faa48-b345-4c6c-9c0c-6d0f6dd22db9/blastdbcmd_result.fasta \
     --outfmt=fasta \
     -o \
     clustalo_output.fasta
@@ -1292,27 +1293,27 @@ INFO [job step4_clustalo] completed success
 INFO [step step4_clustalo] completed success
 INFO [workflow ] starting step step5_fasttree
 INFO [step step5_fasttree] start
-INFO [job step5_fasttree] /tmp/9_v2dbe8$ docker \
+INFO [job step5_fasttree] /tmp/0s8ydzu6$ docker \
     run \
     -i \
-    --mount=type=bind,source=/tmp/9_v2dbe8,target=/WlXEKf \
-    --mount=type=bind,source=/tmp/k186douq,target=/tmp \
-    --mount=type=bind,source=/tmp/xz4llstr/clustalo_output.fasta,target=/var/lib/cwl/stgb1ab0516-de4a-4a6c-b9ad-47f48f617aa4/clustalo_output.fasta,readonly \
-    --workdir=/WlXEKf \
+    --mount=type=bind,source=/tmp/0s8ydzu6,target=/flvvYX \
+    --mount=type=bind,source=/tmp/mlmjr61d,target=/tmp \
+    --mount=type=bind,source=/tmp/wdeje8er/clustalo_output.fasta,target=/var/lib/cwl/stgbe7e0678-8e28-4bfd-a1dc-758e986f9742/clustalo_output.fasta,readonly \
+    --workdir=/flvvYX \
     --read-only=true \
     --log-driver=none \
     --user=1000:1000 \
     --rm \
-    --cidfile=/tmp/9an6c2tv/20240612103145-770529.cid \
+    --cidfile=/tmp/aj65vozh/20240612110123-014278.cid \
     --env=TMPDIR=/tmp \
-    --env=HOME=/WlXEKf \
+    --env=HOME=/flvvYX \
     biocontainers/fasttree:v2.1.10-2-deb_cv1 \
     fasttree \
     -nt \
-    /var/lib/cwl/stgb1ab0516-de4a-4a6c-b9ad-47f48f617aa4/clustalo_output.fasta > /tmp/9_v2dbe8/fasttree_result.nwk
+    /var/lib/cwl/stgbe7e0678-8e28-4bfd-a1dc-758e986f9742/clustalo_output.fasta > /tmp/0s8ydzu6/fasttree_result.nwk
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (linux/arm64/v8) and no specific platform was requested
 FastTree Version 2.1.10 Double precision (No SSE3)
-Alignment: /var/lib/cwl/stgb1ab0516-de4a-4a6c-b9ad-47f48f617aa4/clustalo_output.fasta
+Alignment: /var/lib/cwl/stgbe7e0678-8e28-4bfd-a1dc-758e986f9742/clustalo_output.fasta
 Nucleotide distances: Jukes-Cantor Joins: balanced Support: SH-like 1000
 Search: Normal +NNI +SPR (2 rounds range 10) +ML-NNI opt-each=1
 TopHits: 1.00*sqrtN close=default refresh=0.80
@@ -1344,7 +1345,7 @@ CAT-based log-likelihoods may not be comparable across runs
 Use -gamma for approximate but comparable Gamma(20) log-likelihoods
 ML-NNI round 2: LogLk = -165.205 NNIs 3 max delta 0.00 Time 0.02
 Turning off heuristics for final round of ML NNIs (converged)
-ML-NNI round 3: LogLk = -165.204 NNIs 2 max delta 0.00 Time 0.03 (final)
+ML-NNI round 3: LogLk = -165.204 NNIs 2 max delta 0.00 Time 0.02 (final)
 Optimize all lengths: LogLk = -165.204 Time 0.03
 Total time: 0.06 seconds Unique: 13/20 Bad splits: 0/10
 INFO [job step5_fasttree] completed success
