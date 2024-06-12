@@ -3,7 +3,7 @@ title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って�
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
-published: false
+published: true
 ---
 
 __※今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__

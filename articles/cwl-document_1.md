@@ -3,7 +3,7 @@ title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って�
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
-published: false
+published: true
 ---
 
 :::message
@@ -137,7 +137,7 @@ https://www.commonwl.org/user_guide/#common-workflow-language-user-guide
 
 https://www.commonwl.org/user_guide/ja/
 
-また､他にも日本の研究者による解説も多くあります｡
+また､下記に示すような他にも日本の研究者による解説も多くあります｡ぜひ参考にしてみてください｡
 
 https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP
 
@@ -155,8 +155,8 @@ https://oumpy.github.io/blog/2018/12/cwl.html
 特に日本語のドキュメントも豊富にあるため、日本語で学ぶことができるのは大きな利点です。
 CWLについてより深く理解したい方は、ぜひこれらのドキュメントを参考にしてみてください。
 
-しかしながら、「よし、CWLを書くぞ！」と意気込んでも、環境構築という壁が立ちふさがることがあります。
-CWLを始めるにあたって、開発環境をセットアップすることは重要なステップですが、時に困難を伴うこともあるでしょう(自分も環境構築で挫折しそうになることがよくあります)。
+しかしながら、「よし、CWLを書くぞ！」と意気込んでも、環境構築という壁が立ちふさがると思います。
+CWLを始めるにあたって、開発環境をセットアップすることは重要なステップですが、時に困難を伴うこともあるはずです(自分も環境構築で挫折しそうになることがよくあります)。
 
 そこでこのドキュメントでは、作業するマシンの環境に依存せず、CWLの開発環境を作成し、実際にCWLファイルを実行する方法を紹介します。
 次の「環境構築編」では、Visual Studio CodeとDockerを使った開発環境の構築方法を説明します。
@@ -256,21 +256,21 @@ Docker desktopを使用する以外にも以下のような代替手段があり
 
 ここまででVScodeとdockerのインストールが完了しました｡ 次にCWLを実行する環境のテンプレートをGitHubから取得します｡
 
-まず､以下に示しているリポジトリにアクセスしてください｡
-今回はこのリポジトリ([tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template))をテンプレートにして環境を作っていきます｡ 
-このテンプレートでは既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されています｡
+まず､以下に示しているリポジトリ([tom-tan/cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template))にアクセスしてください｡
+今回はこのリポジトリをテンプレートにして環境を作っていきます｡ 
+このテンプレートでは､既にシンタックスハイライトの機能があるCWL(Rabix/benten)などの拡張機能が使用できるように準備されており､更には実行エンジンであるcwltoolなども含まれているので自ら`pip install`する必要はありません｡
 
 https://github.com/tom-tan/cwl-for-remote-container-template
 
 ページ内の ｢Use this template｣(緑のボタン)をクリックし､｢Create a new repository｣を選択すると､自分のアカウントで新規リポジトリを作成することができます｡ 
 
 :::message
-__GitHubのアカウントを持っていない場合はこのステップを飛ばしてください｡__
+__なお､GitHubのアカウントを持っていない場合はこのステップを飛ばしてください｡__
 :::
 
 ![template](https://storage.googleapis.com/zenn-user-upload/7a7a0a256bad-20240527.png)
 
-次に `git clone` を行います(GitHubのアカウントがない場合は､tom-tan/cwl-for-remote-container-templateを､アカウントがある場合は､your_account/cwl-for-remote-container-template ということになります)｡
+次に `git clone` を行います(GitHubのアカウントがない場合は､`tom-tan/cwl-for-remote-container-template`を､アカウントがある場合は､`your_account/cwl-for-remote-container-template` ということになります)｡
 
 ```bash
 #アカウントが無い場合
@@ -281,7 +281,7 @@ git clone https://github.com/your_account/cwl-for-remote-container-template
 ```
 
 :::message
-この記事ではリポジトリの名前を`togotv_cwl_for_remote_container`に変更しています｡
+__この記事ではリポジトリの名前を`togotv_cwl_for_remote_container`に変更しています｡__
 :::
 
 この作業が終了したら､つづいてVSCodeを開きます｡ VSCode画面左下の緑の｢ >< ｣マークを押すと､ 検索窓に以下のようなオプションが出てくるので､｢コンテナーでフォルダーを開く｣を選択し､先程`git clone`したローカルリポジトリを開きます｡
@@ -292,14 +292,15 @@ git clone https://github.com/your_account/cwl-for-remote-container-template
 ログを見ていると環境構築のために色々されていることがわかります｡
 ![VScode-4](https://storage.googleapis.com/zenn-user-upload/da6eb7c3671d-20240527.png)
 
-ターミナルを開いてみると､以下のように`/workspaces/togotv_cwl_for_remote_container(repository_name)`となっています｡
+ターミナルを開いてみると､以下のように
+`/workspaces/togotv_cwl_for_remote_container(repository_name)`となっています｡
 
 ![VScode-5](https://storage.googleapis.com/zenn-user-upload/bddab18fa4b7-20240527.png)
 
 &nbsp;
 
 実際にCWL関連のツールは使えるようになっているのか見てみましょう｡
-`cwl` と入力してtabを2回押すと...
+`cwl` と入力してtabを2回ほど押してみると...
 
 ![VScode-6](https://storage.googleapis.com/zenn-user-upload/899cc2808da0-20240527.png)
 
@@ -309,17 +310,20 @@ git clone https://github.com/your_account/cwl-for-remote-container-template
 ![docker_dashboard2](https://storage.googleapis.com/zenn-user-upload/5c5d14a8f9df-20240527.png)
 
 上記のように､立ち上がっているのがわかります｡
-これで一旦環境構築が完了です｡
+これで一旦環境構築が完了しました!
 
 &nbsp;
 
 ## 【番外編】GitHub Codespacesで実行環境を作って作業する
 
-ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ しかしながら､__｢もっと楽に環境構築して動かしてみたい!!｣__ という方もいらっしゃるかと思います｡ そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください[^11]｡
+ここまでは､ローカルの自分のマシンで行うことを前提に色々準備してきました｡ 
+しかしながら､__｢もっと楽に環境構築して動かしてみたい!!｣__ という方もいらっしゃるかと思います｡ 
+そこで活用できるのが｢GitHub Codespaces｣というクラウドでホストされている開発環境です｡ その概要は以下の日本語ドキュメントをご覧ください[^11]｡
 
-https://docs.github.com/ja/codespaces/overview
+https://docs.github.com/ja/codespaces/overview#what-is-a-codespace
 
-先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ このとき｢Open in a codespace｣を選べばブラウザでこの開発環境が立ち上げることができます｡
+先程テンプレートを取得する段階で､｢Use this template｣を押す時に気になった方がいらっしゃるかもしれませんが､この時､｢Create a new repository｣ と｢Open in a codespace｣と2つの選択肢があったかと思います｡ 
+このとき｢Open in a codespace｣を選べばブラウザでこの開発環境が立ち上げることができます｡
 
 また､VScode経由でも開くことが可能です｡ 
 そのためには [｢GitHub codespaces｣](https://marketplace.visualstudio.com/items?itemName=GitHub.codespaces) という拡張機能をインストールしてください｡
@@ -358,12 +362,32 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 
 &nbsp;
 
+---
+
 # zatsu-cwl-generatorを使ってcwlファイルを作る
 
 ここまではCWLに関する説明､および環境導入を行いました｡ 
-ここからは､CWLファイルの記述､実行を行っていきます... ということですが､このCWLファイルを簡単に生成できるツールを使って
+この項目では､CWLファイルの記述､実行を行っていきます｡
+CWLファイルは記述する内容をYAMLかJSONの形式で記述し、｢.cwl｣という拡張子でファイルに保存します。
+そして実行時にこのCWLファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
 
-初めにgrepコマンドとwcコマンドを使ったワークフローをCWLによって記述する例を紹介します｡
+```bash
+cwltool hoge.cwl # 例
+```
+しかしながら､いきなり書きはじめるというのはとても難しいと思います｡
+そこでCWLファイルを簡単に生成できるツール､[zatsu-cwl-generator](https://github.com/tom-tan/zatsu-cwl-generator)を使ってCWLファイルを出力してみましょう!
+先程作成した環境にはすでにインストールされているため､インストールする必要はありません｡
+
+https://github.com/tom-tan/zatsu-cwl-generator
+
+https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a
+
+&nbsp;
+
+## `grep`コマンドのCWLファイルを作成する
+
+それでは､実際に生成してみましょう｡
+この記事では､grepコマンドによる処理をCWLによって記述する例を紹介します｡
 
 実行するのは､`grep one mock.txt > grep_out.txt`というプロセスです｡ 
 以下のようなmock.txtを作成し､このファイルに対して､`one`という文字列をgrepで検索し､その結果をgrep_out.txtに出力します｡
@@ -374,21 +398,10 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 grep one mock.txt > grep_out.txt
 ```
 
-
-CWLファイルは記述する内容を YAMLかJSON の形式で記述し、｢.cwl ｣という拡張子でファイルに保存します。
-実行時にこのCWLファイルを実行エンジンに入力すると、ワークフローが実行される､という流れになっています｡
-まずはじめにスクリプトの最初の処理である `grep one mock.txt > grepout.txt` の処理をCWLファイルとして記述していきます｡
-
-今回は､上記の処理をCWLファイルとして生成することが可能なコマンドラインツールである[zatsu-cwl-genrator](https://github.com/tom-tan/zatsu-cwl-generator)[^12]を使ってファイルを出力してみます｡
-
-https://github.com/tom-tan/zatsu-cwl-generator
-
-https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a
-
 &nbsp;
 
 まず､ターミナルを開きます｡
-今回は､`zatsu_cwl`というディレクトリを作成し､その中で作業を行います｡
+今回は`zatsu_cwl`というディレクトリを作成し､その中で作業を行います｡
 
 ```bash
 mkdir zatsu_cwl
@@ -458,7 +471,7 @@ zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > grep_zatsu.cwl
 
 &nbsp;
 
-### 記述が正しいか確認する
+## 記述が正しいか確認する
 
 zatsu-cwl-genratorで出力されたファイルに対し､実際の実行前に記述が本当に正しいか確認することができます｡
 `cwltool –-validate` コマンドを実行すると､記述したCWLファイルを評価することができます｡ 
@@ -479,7 +492,7 @@ grep_zatsu.cwl is valid CWL.
 
 &nbsp;
 
-### 実際に実行してみる
+## 実際に実行してみる
 
 ファイルの記載が正しいことを確認できたので､次に実際に`cwltool`というコマンドで試してみます(以降の操作はzatsu_generatorディレクトリでの作業です)｡ 
 
@@ -520,7 +533,7 @@ INFO [job grep_zatsu.cwl] completed success
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grepout.txt
 
-このようにzatsu-cwl-generatorを使うことで､簡単にcwlファイルを作成することができます｡
+このようにzatsu-cwl-generatorを使うことで､簡単にCWLファイルを作成することができます｡
 
 &nbsp;
 
@@ -539,7 +552,7 @@ cwltool --debug grep_zatsu.cwl
 :::message
 ### `--help`オプションを活用しよう
 
-`cwltool grep_zatsu.cwl --help`のように､cwlファイルの次に`--help`オプションをつけると､その __cwlファイル自体のヘルプを見ることができます [^13]__｡
+`cwltool grep_zatsu.cwl --help`のように､CWLファイルの次に`--help`オプションをつけると､その __CWLファイル自体のヘルプを見ることができます__｡
 どういうことか実際にやってみましょう｡
 
 ```bash
@@ -555,13 +568,14 @@ options:
   -h, --help           show this help message and exit
   --mock_txt MOCK_TXT
 ```
+先程生成したファイルで実行してみました｡
 このように､指定したパラメータ(今回は`--mock_txt`)に関する情報が取得できます｡
-ちなみに`cwltool --help grep_zatsu.cwl`とやるとcwltoolに関するhelpが出力されます｡
+ちなみに`cwltool --help grep_zatsu.cwl`とやるとcwltoolに関するhelpが出力されるので､順序には注意が必要です｡
 
 大文字の`MOCK_TXT`のあとの部分に具体的に説明を付け加える際には､__`doc`フィールドを追加することで可能になります｡__
 例として､grep_zatsu.cwlに`doc`フィールドを以下のように書き加えました｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_2.cwl
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v2.cwl
 
 再度実行してみると以下のようになります｡
 
@@ -578,14 +592,15 @@ options:
   -h, --help           show this help message and exit
   --mock_txt MOCK_TXT  please input text file
 ```
+このように記述を反映させることができます!
 :::
 
 &nbsp;
 
-### (発展編) 自分で修正してみる
+## (発展編) 自分で修正してみる
 上記のように実際に実行することができることを確認しました｡
 しかし､このファイルを修正することでより良い解析を実行することができます｡
-実は､作成したgrep処理のファイル(`grep_zatsu.cwl`)には､以下の部分に赤線が示されていました｡
+実は､先程作成したgrep処理のファイル(`grep_zatsu.cwl`)の編集時には､以下の部分に赤線が示されていました｡
 
 ```yaml
 inputs:
@@ -596,7 +611,7 @@ inputs:
 エラーメッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ています｡
 ここでは`one`という文字列(string)を入力するので､以下のように修正できます｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_3.cwl#L9-L12
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v3.cwl#L9-L12
 
 そうするとエラーメッセージが消え､`--help`オプションを使うとargumentsとして表示されるようになります｡
 
@@ -615,14 +630,11 @@ options:
   --mock_txt MOCK_TXT  please input text file
 ```
 このように､zatsu-cwl-generatorで生成されたファイルを修正しながら､CWLの文法を勉強していくということが可能です｡
+
+# 終わりに
+
+この記事では､環境構築と､簡単なCWLファイルを作成するところまでご紹介しました｡
+しかしながら､CWLを更に楽しむために､引き続きこの環境で､どんどんCWLファイルを作っていきます!
+
+
 自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
-
-&nbsp;
-
-[^7]: [指先一つで立ち上げる CWL ツール・ワークフロー作成環境](https://qiita.com/tm_tn/items/3fafe22e2c4a92a7f597)
-[^8]: [Developing inside a Container](https://code.visualstudio.com/docs/devcontainers/containers)
-[^9]: [Devcontainer(Remote Container) いいぞという話 開発環境を整える](https://qiita.com/yoshii0110/items/c480e98cfe981e36dd56)
-[^10]: [開発コンテナ(Development Containers)を使おう](https://gist.github.com/heronshoes/4e707bbc92ceee60d71fc09007e01d02#%E9%96%8B%E7%99%BA%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B)
-[^11]: [GitHub Codespaces の概要](https://docs.github.com/ja/codespaces/overview)
-[^12]: [雑に始めるCWL！をもっと雑に始めたい](https://qiita.com/tm_tn/items/2c789c5b3c28e3eb3c9a)
-[^13]: [user_guide 2.16 best-practices](https://www.commonwl.org/user_guide/topics/best-practices.html)

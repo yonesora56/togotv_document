@@ -11,8 +11,13 @@ Zennとの連携用リポジトリ
 
 ## [CWL document 1](./articles/cwl-document_1.md)
 
+### 20231117
 - Codespacesから直にリポジトリを開く例を追加して完成
 - 脚注を追加
+
+### 20240612
+
+- 脚注を削除
 
 &nbsp;
 
