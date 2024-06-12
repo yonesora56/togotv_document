@@ -26,8 +26,8 @@ __本記事の対象となる方__
 この記事では､zatsu-cwl-generatorで生成されたCWLファイルをもう一つ書き､更にこの2つのCWLファイルを実行するワークフローを記述する方法についてご紹介します｡ 
 今回記述する流れとしては以下の2ステップです｡
 
-__Step1：コマンドの処理に関するCWLファイルを書く(`grep`と`wc`)__
-__Step2：ワークフロー全体を記述するCWLファイルを書く__
+__(1)：`wc`コマンドの処理に関するCWLファイルで記述する__
+__(2)：以前作成した`grep`コマンドおよび`wc`コマンドのワークフローを実行するCWLファイルを書く__
 
 :::message
 実際に修正していく過程もこの記事では載せているので(トグルになっている部分です)､ぜひ参考にしてください｡
@@ -35,7 +35,7 @@ __Step2：ワークフロー全体を記述するCWLファイルを書く__
 
 &nbsp;
 
-# wcコマンドによる処理をCWLで記述する
+# `wc`コマンドによる処理をCWLで記述する
 
 初めに前回の [記事](https://zenn.dev/sorayone/articles/cwl-document_1#zatsu-cwl-generator%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6cwl%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E4%BD%9C%E6%88%90%E3%81%99%E3%82%8B)で作成したgrepコマンドのCWLファイルに加え､wcコマンドの処理をCWLによって記述します｡
 
@@ -43,23 +43,27 @@ __Step2：ワークフロー全体を記述するCWLファイルを書く__
 grep one mock.txt > grepout.txt
 wc -l grepout.txt > wcout.txt # grepout.txtの行数をカウントする(この記事ではこの処理を記述)
 ```
+grepout.txtの処理で得られた結果に対し､wcコマンドを使って行数をカウントする処理を行います｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grepout.txt
 
 ## zatsu-cwl-generatorを使って`wc`コマンドのCWLファイルを生成する
 
 それでは実際に書いていきましょう｡ 
-まず､前回 __zatsu-cwl-generator__ を使って出力したgrepの処理に関するCWLファイルを以下に示します｡
+まず､前回 zatsu-cwl-generatorを使って出力したgrepの処理に関するCWLファイルを以下に示します｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu.cwl
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v2.cwl
 
-:::details grep_zatsu.cwl実行結果
+:::details grep_zatsu_v2.cwl実行結果
 再度実行すると以下のようになります｡
 ```bash:
+cwltool grep_zatsu_v2.cwl
 INFO /usr/local/bin/cwltool 3.1.20240508115724
-INFO Resolved 'grep_zatsu.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl/grep_zatsu.cwl'
-INFO [job grep_zatsu.cwl] /tmp/t4x88bgk$ grep \
+INFO Resolved 'grep_zatsu_v2.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl/grep_zatsu_v2.cwl'
+INFO [job grep_zatsu_v2.cwl] /tmp/wzazmv_s$ grep \
     one \
-    /tmp/pjgmdfjq/stg481a2087-64f8-46b2-aa7b-7c235489fbf0/mock.txt > /tmp/t4x88bgk/grepout.txt
-INFO [job grep_zatsu.cwl] completed success
+    /tmp/vxumkwic/stg534bb23d-7818-4164-9b41-f58566988412/mock.txt > /tmp/wzazmv_s/grepout.txt
+INFO [job grep_zatsu_v2.cwl] completed success
 {
     "all-for-debugging": [
         {
@@ -85,13 +89,20 @@ INFO [job grep_zatsu.cwl] completed success
 
 &nbsp;
 
-以前の記事で紹介した過程と同様に､wcコマンドを使用したCWLファイルを __zatsu-cwl-generator__ で出力してみます｡
+以前の記事で紹介したプロセスと同様に､wcコマンドを使用したCWLファイルをzatsu-cwl-generatorで出力してみましょう｡
+簡単にまとめると以下の通りです｡
+
+```text
+STEP1: zatsu-cwl-generatorを使ってwcコマンドの処理のCWLファイルを生成する
+STEP2: 生成したCWLファイルの評価を行う
+STEP3: 生成したCWLファイルを実行する
+```
+
+まずはじめに､以下のようにzatsu-cwl-generatorを使って`wc`コマンドのプロセスを生成します｡
 
 ```bash:
 zatsu-cwl-generator 'wc -l grepout.txt > wcout.txt' > wc_zatsu.cwl
 ```
-grepout.txtの処理で得られた結果に対し､wcコマンドを使って行数をカウントする処理を行います｡
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grepout.txt
 
 出力された結果が以下になります｡
 
@@ -222,14 +233,29 @@ DEBUG Removing intermediate output directory /tmp/zwoidn60
 ```
 :::
 
-実行が成功したようです｡
-wc_zatsu.cwlの実行結果として､wcout.txtが出力されました｡
+実行が成功したようです!
+`wc_zatsu.cwl`の実行結果として､`wcout.txt`が出力されました｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/wcout.txt
 
-これで2つのCWLファイルが揃いました｡次に､この2つを __一つのコマンドで実行できる__ ようにするファイル､すなわちワークフローを実行するファイルを作成します｡
+:::details 少し修正しよう (`wc_zatsu_v2.cwl`へ!)
 
-&nbsp;
+このままでも実行できることが確認できましたが､後のワークフローでのプロセスのために､いくつか修正しておきましょう｡
+
+#### `arguments`フィールドの修正
+
+現時点のバージョンでは､`arguments`フィールドの`grep`コマンドで出力されたファイルの部分が`l`になっています｡
+これは少しわかりにくい(再現性が低くなってしまう)ので､バージョン2のファイルでは`- $(inputs.grep_out)`に変えて､`inputs`フィールドの名前も`grep_out`に変更しています｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/wc_zatsu.cwl#L6-L8
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/wc_zatsu_v2.cwl#L6-L8
+
+次のワークフローのファイルではバージョン2を使用します｡
+:::
+
+これで2つのCWLファイルが揃いました｡一から書かずにCWLファイルが生成できるなんて､本当にすごいです!
+次に､この2つを __一つのコマンドで実行できる__ ようにするファイル､すなわち __ワークフローを実行するファイル__ を作成します｡
 
 &nbsp;
 
@@ -238,7 +264,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 これまで作ってきたファイルは一つの処理を記述したものです｡
 その場合は､`class`フィールドに`CommandLineTool`と記述しています｡
 
-https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_generator/grep_zatsu.cwl#L1-L3
+https://github.com/yonezawa-sora/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu.cwl#L3
 
 一方､これから作るファイルは､この`class`フィールドに`Workflow`と記述します｡
 以下から`grep-and-count.cwl`というファイルを作成していきます｡
@@ -258,17 +284,17 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 続いて`inputs`, `outputs`, そしてワークフローの手順を記述する`steps` について注目します｡ 
 
-`inputs`フィールド：ここでは､ __｢ワークフロー｣__ として必要な入力のパラメータについて記述します｡
+`inputs`フィールド：ここでは､ __"ワークフロー"__ として必要な入力のパラメータについて記述します｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl#L1-L8
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl#L4-L8
 
-今回は､最初のステップである｢grep｣コマンドの抜き出すパターンと､対象のファイルの2つのパラメータと､それぞれのパラメータのタイプを記述しています｡
+今回は､最初のステップである｢grep｣コマンドの抜き出すパターンと､対象のファイルの2つのパラメータというふうに､それぞれのパラメータのタイプを記述しています｡
 
 &nbsp;
 
 `outputs`フィールド：ここでは､｢wc｣コマンド出力のパラメータを記述します｡
 
-https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl#L1-L15
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl#L9-L15
 
 `outputSource` は､ワークフロー全体の出力を明示的に指定するために使用されるフィールドであり､特定のステップの出力をワークフロー全体の出力としてマッピングします｡
 
@@ -278,6 +304,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 `run`フィールドには先程作成したCommandLinetoolの処理を記述したファイルを記述しておきます｡ 
 なお､`out`フィールドでは､リスト形式(\[ \] で囲む)で書くことで､複数の出力を書くことができます｡ 
 
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl#L16-L27
 ::::
 
 以下のコードが実際に記述した`grep-and-count.cwl`のファイルです｡
@@ -338,6 +365,3 @@ INFO [workflow ] completed success
 最終的にwcout.txtが出力されます｡
 複数の処理を一つのコマンドで実行することができました｡
 このように､CWLを使うことで､複数の処理を一つのコマンドで実行することができます｡
-
-
-[^1]: [CWL Start Guide JP: CWL で書いてみる: コマンドラインツール](https://github.com/pitagora-network/pitagora-cwl/wiki/CWL-Start-Guide-JP#cwl-%E3%81%A7%E6%9B%B8%E3%81%84%E3%81%A6%E3%81%BF%E3%82%8B-%E3%82%B3%E3%83%9E%E3%83%B3%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3%E3%83%84%E3%83%BC%E3%83%AB)
