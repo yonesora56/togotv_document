@@ -90,15 +90,22 @@ https://www.commonwl.org/gallery/
 以下に具体的なワークフローの例をいくつかご紹介します｡
 この記事でご紹介するのは __日本の研究者の方々によって__ 作成されたワークフローです｡
 
-### 例1: <u>ヒトゲノムバリアント検出ワークフロー ddbj/human-reseq</u>
+### 例1: ヒトゲノムバリアント検出ワークフロー ddbj/human-reseq
 
 このワークフローは､DDBJ(DNA Data Bank of Japan)で開発されたヒトゲノムバリアント検出ワークフローです｡
+fastqファイルを入力として､BAMファイルに変換する `fastqPE2bam.multisamples.cwl`などが含まれています｡
+
+:::details CWL viewerで見てみよう
+先程紹介したCWLviewerを使って､このワークフローを可視化してみましょう｡
+CWLviewerにアクセスし､githubのリンクを入力することで可視化ができます｡
+
+https://view.commonwl.org/workflows/github.com/ddbj/human-reseq/blob/master/Workflows/fastqPE2bam.multisamples.cwl
+
+:::
 
 https://github.com/ddbj/human-reseq
 
-※ これをCWLviewerで見てみよう
-
-このように､バイオインフォマティクスに関するワークフローは多くのツールで導入されています｡
+### 例2: DRY解析教本に掲載されているワークフローをCWLで記述 
 
 &nbsp;
 
