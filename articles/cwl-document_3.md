@@ -918,7 +918,7 @@ E-valueは`1e-05`のように入力するため､`float`として記載しま�
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v4.cwl#L41-L43
 
 これにより､`Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']` とハイライトされていた部分が解消されました｡
-(この部分を修正したファイルは`v4`として保存し､最後のセクションでワークフローを書く際にはこのファイルを使います｡)
+(この部分を修正したファイルは`v4`として保存しています)
 
 ****
 
@@ -930,7 +930,7 @@ __zatsu-cwl-generatorを使って生成し__､修正したバージョンは`v2
 
 :::message
 今回取り上げているツールのdocker imageを[docker hub](https://hub.docker.com/)から取得しました｡
-[blast](https://hub.docker.com/r/biocontainers/blast)､[clustalo](https://hub.docker.com/r/biocontainers/clustalo)､[fasttree](https://hub.docker.com/r/biocontainers/fasttree)はすべて[BioContainers](https://biocontainers.pro/)によって構築されています[^1]｡
+[blast](https://hub.docker.com/r/biocontainers/blast)､[clustalo](https://hub.docker.com/r/biocontainers/clustalo)､[fasttree](https://hub.docker.com/r/biocontainers/fasttree)はすべて[BioContainers](https://biocontainers.pro/)によって構築されています｡
 ```bash:
 docker image ls
 REPOSITORY               TAG                 IMAGE ID       CREATED       SIZE
@@ -1137,6 +1137,10 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/4_clustalo_docker_v2.cwl
 :::
+
+再度作成したCWLファイルは以下のようになっています｡
+
+https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/blast2tree_v2.cwl
 
 これで再度`cwltool --validate`を実行してみます｡
 
