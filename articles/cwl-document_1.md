@@ -168,12 +168,6 @@ CWLを始めたいと思っているそこのあなた! ぜひ一緒に環境を
 
 # 環境構築編
 
-&nbsp;
-
------
-
-# 環境構築編
-
 ## 【STEP1-1】VScodeのインストール
 
 はじめに、コードエディターであるVisual Studio Code (VScode)のインストール方法を説明します。
@@ -633,8 +627,16 @@ options:
 
 # 終わりに
 
-この記事では､環境構築と､簡単なCWLファイルを作成するところまでご紹介しました｡
-しかしながら､CWLを更に楽しむために､引き続きこの環境で､どんどんCWLファイルを作っていきます!
+この記事では､環境構築と簡単なCWLファイルを作成するところまでご紹介しました｡
+しかしながら､CWLを更に楽しむために､引き続きこの環境でどんどんCWLファイルを作っていきます!
+自分で修正しながら実際に __ワークフローを作っていく__ 例については次の [記事](https://zenn.dev/sorayone/articles/cwl-document_2)で紹介しています｡
+また､3番目の [記事](https://zenn.dev/sorayone/articles/cwl-document_3)では､`zatsu-cwl-generator`をフルに使ってバイオインフォマティクスの解析のワークフローを記述していきます｡
 
+### CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)
+https://zenn.dev/sorayone/articles/cwl-document_2
 
-自分で修正しながら実際に __ワークフローを作っていく__ 例については次の記事で紹介しています｡
+### CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (3)
+https://zenn.dev/sorayone/articles/cwl-document_3
+
+__今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
+https://github.com/yonesora56/togotv_cwl_for_remote_container
