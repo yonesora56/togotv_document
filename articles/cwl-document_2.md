@@ -296,11 +296,11 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl#L4-L8
 
-今回は､最初のステップである｢grep｣コマンドの抜き出すパターンと､対象のファイルの2つのパラメータというふうに､それぞれのパラメータのタイプを記述しています｡
+今回は､最初のステップである`grep`コマンドの抜き出すパターンと､対象のファイルの2つのパラメータというふうに､それぞれのパラメータのタイプを記述しています｡
 
 ### `outputs`フィールドの記述
 
-`outputs`フィールド：ここでは､｢wc｣コマンド出力のパラメータを記述します｡
+`outputs`フィールド：ここでは､`wc`コマンド出力のパラメータを記述します｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep-and-count.cwl#L9-L15
 
@@ -308,7 +308,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 ### `steps`フィールドの記述
 
-`steps`フィールド：ここでは､具体的なワークフローの手順を記述します｡ それぞれのステップでのインプット､アウトプットを"in"､"out"として記述します｡ 
+`steps`フィールド：ここでは､具体的なワークフローの手順を記述します｡ それぞれのステップでのインプット､アウトプットを`in`､`out`として記述します｡ 
 `run`フィールドには先程作成したCommandLinetoolの処理を記述したファイルを記述しておきます｡ 
 なお､`out`フィールドでは､リスト形式(\[ \] で囲む)で書くことで､複数の出力を書くことができます｡ 
 
