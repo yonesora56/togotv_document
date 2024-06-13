@@ -9,6 +9,11 @@ published: true
 __今回の記事で使用したCWLのファイルをおいているリポジトリは以下からアクセスすることができます｡__
 https://github.com/yonesora56/togotv_cwl_for_remote_container
 
+:::message
+この記事は第13回国内版バイオハッカソン22.9､および第14回国内版バイオハッカソン23.9にてアイデアをいただいて作成しています｡ 
+CWLに関してアドバイスをしてくださった[石井さん](https://zenn.dev/manabuishii)､[丹生さん](https://zenn.dev/tom_tan)､山本さんにこの場をお借りして御礼申し上げます｡
+:::
+
 前回の記事はこちらです
 https://zenn.dev/sorayone/articles/cwl-document_1
 
