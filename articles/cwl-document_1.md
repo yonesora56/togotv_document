@@ -526,12 +526,13 @@ cwltool --debug grep_zatsu.cwl
 ## 【発展】 自分で修正してみよう
 上記のように実際に実行することができることを確認しました｡
 しかし､このファイルを修正することでより良い解析を実行することができます｡
-実は､先程作成したgrep処理のファイル(`grep_zatsu.cwl`)の編集時には､以下の部分に赤線が示されていました｡
+実は､先程作成したgrep処理のファイル(`grep_zatsu.cwl`)の編集時には､`inputs`フィールドの`type: Any`の部分に赤線が示されていました｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu.cwl#L9-L12
 
-エラーメッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ていました｡
-ここでは`one`という文字列(string)を入力するので､以下のように修正できます｡
+メッセージを見ると､ `Expecting one of: ['Directory', 'File', 'boolean', 'double', 'float', 'int', 'long', 'null', 'stderr', 'stdout', 'string']`という表示が出ていました｡
+ここでは`one`という文字列(string)を入力するので､そのように指定します｡
+以下のように修正が可能です｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/grep_zatsu_v2.cwl#L9-L12
 
