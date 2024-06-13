@@ -74,9 +74,9 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 cwltool grep_zatsu_v3.cwl
 INFO /usr/local/bin/cwltool 3.1.20240508115724
 INFO Resolved 'grep_zatsu_v3.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl/grep_zatsu_v3.cwl'
-INFO [job grep_zatsu_v3.cwl] /tmp/h2nf3dky$ grep \
+INFO [job grep_zatsu_v3.cwl] /tmp/arfu8dvc$ grep \
     one \
-    /tmp/z3nkr4n3/stg91d358b7-364c-4f94-8c4b-b6943556b788/mock.txt > /tmp/h2nf3dky/grepout.txt
+    /tmp/gc3kb5xk/stg8b7a268e-1c35-4d52-9ebf-e4edc53819d5/mock.txt > /tmp/arfu8dvc/grepout.txt
 INFO [job grep_zatsu_v3.cwl] completed success
 {
     "all-for-debugging": [
@@ -103,6 +103,7 @@ INFO [job grep_zatsu_v3.cwl] completed success
 
 &nbsp;
 
+同じように`wc`コマンドの処理を記述してみましょう｡
 まずはじめに､以下のようにzatsu-cwl-generatorを使って`wc`コマンドのプロセスを生成します｡
 
 ```bash:
@@ -115,7 +116,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 ## 記述が正しいかチェックする
 
-こちらも前回と同様に､実行の前に`--validate` オプションを使って評価してみます｡
+こちらも前回と同様に､実行の前に`cwltool --validate` を使って評価してみます｡
 
 ```bash:
 cwltool --validate wc_zatsu.cwl
@@ -322,7 +323,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 ## ワークフローを評価する
 
-このファイルもこれまでと同じようにチェックしてみましょう｡
+このファイルもこれまでと同じように`cwltool --validate`を使ってチェックしてみましょう｡
 
 ```bash:
 cwltool --validate grep-and-count.cwl
@@ -330,7 +331,7 @@ INFO /usr/local/bin/cwltool 3.1.20240508115724
 INFO Resolved 'grep-and-count.cwl' to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl/grep-and-count.cwl'
 grep-and-count.cwl is valid CWL.
 ```
-大丈夫のようです!
+大丈夫のようです! それでは次に進みます｡
 
 ## CWLviewerで可視化してみる
 
@@ -656,8 +657,7 @@ DEBUG Removing intermediate output directory /tmp/nibotqbd
 ```
 :::
 
-
-新しく作成した`workflow_result`ディレクトリに`wcout.txt`が出力されています!
+無事新しく作成した`workflow_result`ディレクトリに`wcout.txt`と`grepout.txt`が出力されています!
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl/workflow_result/wcout.txt
 
