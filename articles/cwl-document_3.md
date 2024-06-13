@@ -914,7 +914,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_
 
 ## (5) 型の指定
 
-上記のcwlファイルの例では､E-valueの指定を`Any`にしていましたが､具体的な型を指定することで､より正確な入力を受け付けることができます｡
+上記のCWLファイルの例では､E-valueの指定を`Any`にしていましたが､具体的な型を指定することで､より正確な入力を受け付けることができます｡
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/1_blastp_docker_v3.cwl#L41-L43
 
@@ -1021,7 +1021,7 @@ INFO Resolved '4_clustalo_docker.cwl' to 'file:///workspaces/togotv_cwl_for_remo
 4_clustalo_docker.cwl is valid CWL.
 ```
 
-clustaloのプロセスでは､__修正が必要なく､生成することができているようです｡__ (と思いましたが､ワークフローの記述の際に修正が必要になりました)
+clustaloのプロセスでは修正が必要なく､生成することができているようです... と思いましたが､ワークフローの記述の際に修正が必要になりましたので後ほど修正しています
 
 https://github.com/yonesora56/togotv_cwl_for_remote_container/blob/master/zatsu_cwl_bioinformatics/4_clustalo_docker.cwl
 
