@@ -1,5 +1,5 @@
 ---
-title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (3)"
+title: "(3) ｢Dev Containers｣で構築したCWLの作成環境で､実践的なワークフローを作成､実行する"
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
@@ -131,7 +131,7 @@ WARNING 1_blastp.cwl:45:7: Warning: Field 'location' contains undefined referenc
                    'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
 1_blastp.cwl is valid CWL.
 ```
-`1_blastp.cwl is valid CWL.`という出力がされているものの､`1_blastp.cwl is valid CWL.`として実行例として使った入力ファイルが存在しないことを表す警告が出ていますが、修正方法は後ほど説明します｡
+`1_blastp.cwl is valid CWL.`という出力がされているものの､`WARNING 1_blastp.cwl:45:7: Warning: Field 'location' contains undefined reference to`として実行例として使った入力ファイルが存在しないことを表す警告が出ていますが、修正方法は後ほど説明します｡
 
 :::message
 ここで一旦実行してみようと思いますが､例えばツールをローカルでダウンロードしておらず､docker imageを使って実行したいという状況があるかもしれません｡ 
