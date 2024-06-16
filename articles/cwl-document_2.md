@@ -1,5 +1,5 @@
 ---
-title: "CWLの作成環境をVScodeの｢Dev Containers｣の機能を使って構築する (2)"
+title: "(2) ｢Dev Containers｣で構築したCWLの作成環境で､簡単なワークフローを作成､実行する"
 emoji: "📑"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["CWL", "bioinformatics"]
