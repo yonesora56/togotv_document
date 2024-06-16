@@ -1452,7 +1452,7 @@ options:
   --10_clustalo_output_name 10_CLUSTALO_OUTPUT_NAME
                         clustalo process output name
 ```
-このように､`doc`フィールドを書いておくことで､プロセスの説明を見ることができます｡
+このように､`doc`フィールドを書いておくことで､プロセスの説明を見ることができ､他の研究者もワークフローを活用しやすくなります! (そしておそらく未来の自分も...)｡
 :::
 
 # 終わりに
