@@ -183,7 +183,7 @@ WARNING 1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined r
                           'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'
 1_blastp_docker.cwl is valid CWL.
 ```
-こちらについても､`1_blastp_docker.cwl is valid CWL.`という出力がされているものの､`1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined reference to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'`として実行例として使った入力ファイルが存在しないことを表す警告が出ていますが､修正方法は後ほど説明します｡
+こちらのバージョンについても､`1_blastp_docker.cwl:45:7: Warning: Field 'location' contains undefined reference to 'file:///workspaces/togotv_cwl_for_remote_container/zatsu_cwl_bioinformatics/blastp_result.txt'`として実行例として使った入力ファイルが存在しないことを表す警告が出ています｡ (修正方法は後ほど説明します｡)
 一旦このファイルを使って実行してみましょう｡
 
 ```bash:
