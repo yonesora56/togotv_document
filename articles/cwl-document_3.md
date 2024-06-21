@@ -13,7 +13,7 @@ https://github.com/yonesora56/togotv_cwl_for_remote_container
 CWLに関してアドバイスをしてくださった[石井さん](https://zenn.dev/manabuishii)､[丹生さん](https://zenn.dev/tom_tan)､山本さんにこの場をお借りして御礼申し上げます｡
 :::
 
-前回の記事はこちらです
+前回の記事はこちらです↓
 https://zenn.dev/sorayone/articles/cwl-document_1
 
 https://zenn.dev/sorayone/articles/cwl-document_2
