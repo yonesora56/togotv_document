@@ -40,8 +40,10 @@ __本記事の対象となる方__
 
 ![CWL-logo](https://storage.googleapis.com/zenn-user-upload/a51159111727-20240621.png =500x)
 
+CWL公式ドキュメント
 https://www.commonwl.org/
 
+CWL概要説明
 https://www.youtube.com/watch?v=86eY8xs-Vo8
 
 -----
