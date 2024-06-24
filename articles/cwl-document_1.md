@@ -332,7 +332,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 ![VScode-10](https://storage.googleapis.com/zenn-user-upload/3a5650a912bb-20240527.png)
 
 こちらを選択すると､自動的にCodespacesが立ち上がります｡
-![VScode-11](https://storage.googleapis.com/zenn-user-upload/9ae5837c0737-20240527.png =350x)
+![VScode-11](https://storage.googleapis.com/zenn-user-upload/9ae5837c0737-20240527.png =450x)
 
 より簡単に環境構築を行うことができますが､Codespacesの使用時間には注意が必要です｡
 :::
