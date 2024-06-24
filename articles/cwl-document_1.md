@@ -429,7 +429,7 @@ shebang(`#!/usr/bin/env cwl-runner`)以下には､今回CWLを実行するた�
 `class` ､ `cwlversion`､`baseCommand`､ `arguments`､ `inputs` ､ `outputs`､ `stdout` が出力されています｡
 
 この出力をリダイレクトしてファイルとして保存します｡
-今回は､[`zatsu_cwl`](https://github.com/yonesora56/togotv_cwl_for_remote_container/tree/master/zatsu_cwl)ディレクトリに保存します｡
+今回は[`zatsu_cwl`](https://github.com/yonesora56/togotv_cwl_for_remote_container/tree/master/zatsu_cwl)ディレクトリに保存します｡
 
 ```bash:
 zatsu-cwl-generator 'grep one mock.txt > grepout.txt' > grep_zatsu.cwl
