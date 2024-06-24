@@ -329,7 +329,7 @@ Create New Codespaceをクリックすると以下のような表示が出てき
 まず､[cwl-for-remote-container-template](https://github.com/tom-tan/cwl-for-remote-container-template)にアクセスします｡
 
 `Use this template`ボタンの横に`V`があると思いますが､これを押すと､Open in a codespaceという選択肢が出てきます｡
-![VScode-10](https://storage.googleapis.com/zenn-user-upload/3a5650a912bb-20240527.png =450x)
+![VScode-10](https://storage.googleapis.com/zenn-user-upload/3a5650a912bb-20240527.png =400x)
 
 こちらを選択すると､自動的にCodespacesが立ち上がります｡
 ![VScode-11](https://storage.googleapis.com/zenn-user-upload/9ae5837c0737-20240527.png =450x)
