@@ -38,7 +38,7 @@ __本記事の対象となる方__
 
 現在､さまざまな種類のワークフロー言語(Snakemake, Nextflow, Workflow Description language(WDL)...)が存在していますが、このドキュメントでは **Common Workflow Language (CWL)** について環境構築とその実例をご紹介します。
 
-![CWL-logo](https://storage.googleapis.com/zenn-user-upload/a51159111727-20240621.png =250x)
+![CWL-logo](https://storage.googleapis.com/zenn-user-upload/a51159111727-20240621.png =500x)
 
 https://www.commonwl.org/
 
